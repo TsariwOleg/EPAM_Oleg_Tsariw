@@ -1,0 +1,10 @@
+#lol{
+position:relative;
+background-color:red;
+right:50px;
+top:100px;
+width:80%;
+left:10%;
+z-index:1;
+height:300px;
+}
