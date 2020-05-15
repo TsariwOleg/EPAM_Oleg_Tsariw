@@ -1,7 +1,6 @@
 package services.servlets;
 import services.CRUD_DB.Staff_CRUD;
-import  services.ConnectionBD.*;
-import services.Entity.StaffEntity;
+import services.Entity.Staff_Entity;
 
 
 import javax.servlet.ServletException;
@@ -12,13 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.jar.JarOutputStream;
 
 
 @WebServlet("/staff")
 public class Staff extends HttpServlet {
     Staff_CRUD staff_crud = new Staff_CRUD();
-    List<StaffEntity> staffEntityList = new ArrayList<>();
+    List<Staff_Entity> staffEntityList = new ArrayList<>();
 
 //            staff_crud.getStaff();
 
@@ -28,6 +26,9 @@ public class Staff extends HttpServlet {
         staffEntityList=staff_crud.getStaff();
 
 
+        for (Staff_Entity q: staffEntityList) {
+            System.out.println(q);
+        }
 
         req.setAttribute("staff",staffEntityList);
         req.setAttribute("q","stntityList");
@@ -36,7 +37,7 @@ public class Staff extends HttpServlet {
 
         req.getRequestDispatcher("/Staff.jsp").forward(req,resp);
 
-        ArrayList ar = (ArrayList)req.getAttribute("staff");
+
 
     }
 

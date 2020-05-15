@@ -1,31 +1,24 @@
 body{
-background-image:url(/21.jpg);
+background-image:url(/background.jpg);
 background-size:cover;
 background-attachment:fixed;
-height:21000px;
+height:1000px;
+
 }
 
 .Bar{
 position:relative;
 right:1px;
-top:20px;
+top:10px;
 width:100%;
 z-index:100;
 }
 
-.Bar1{
-position:relative;
-width:40%;
-left:30%;
-z-index:100;
-}
 
 
-.men{
+
+.Bar ul li{
 text-align: center;
-}
-
-.Bar1 ul li{
 z-index:100;
 padding: .75rem 0;
   font-weight: bold;
@@ -38,35 +31,43 @@ padding: .75rem 0;
     transition: all 0.45s;
 }
 
-ul li:hover {
+ul li:hover{
   background-size: 100% 2px; /*width:100% height:2px*/
   cursor:pointer;
 }
 
 
 
-.Bar1  ul li, .menu ul{
+.Bar  ul li, .Bar ul{
   display: inline-block;
 }
-.Bar1  ul{
-  position: relative;
-  margin: 0;
 
+#main-ul{
+position:relative;
+width:50%;
+left:25%;
+z-index:100;
+text-align: center;
   padding: 0;
 }
 
-.Bar1  ul ul{
-  display: none;
-  position: absolute;
-  margin-top: 10px;
-margin-left:-20px;
+.Bar  ul ul{
+   display: none;
+    position: absolute;
+    margin-top: 10px;
+    margin-left: -60px;
+text-align: center;
 }
 
 
-.Bar1 li:hover ul{
+.Bar li:hover ul{
   display: block;
 }
 
-.Bar1 li:hover li{
+.Bar li:hover li{
   display: block;
 }
+
+
+
+

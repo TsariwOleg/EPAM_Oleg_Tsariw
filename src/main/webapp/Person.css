@@ -1,0 +1,95 @@
+#information_about_person_div{
+position:relative;
+top:140px;
+width:100%;
+z-index:1;
+
+}
+
+#information_about_person{
+  background: rgba(40,42,52, 0.5);
+  border-radius:3px;
+  border-collapse: collapse;
+  margin: auto;
+  padding:5px;
+  width: 80%;
+color:white;
+    font-weight: bold;
+      font-size:x-large;
+}
+
+.image{
+margin:5%;
+ float: left; /* Обтекание по правому краю */
+}
+
+.img{
+width:240px;
+height:300px;
+
+}
+
+.input-file li{
+  list-style-type: none;
+}
+
+
+
+.table{
+margin-top:5%;
+margin-left:5%;
+float: left; /* Обтекание по правому краю */
+color:white;
+font-weight: bold;
+font-size:x-large;
+}
+
+#table tr td{
+padding:5px;
+margin:10px;
+}
+
+
+
+
+
+.spoiler-title2{
+position:relative;
+left:5%;
+
+
+}
+
+
+
+.spoiler-title3{
+position:relative;
+left:5%;
+
+
+}
+
+.spoiler-title4{
+position:relative;
+left:5%;
+
+
+}
+
+.table2{
+ clear: left; /* Обтекание по правому краю */
+}
+
+.table3{
+ clear: left; /* Обтекание по правому краю */
+}
+
+.table4{
+ clear: left; /* Обтекание по правому краю */
+}
+
+
+#ew{
+opacity:0;
+ clear: left; /* Обтекание по правому краю */
+}

@@ -8,14 +8,12 @@
 
 </head>
     <body>
+
         <div class="Bar">
-        <div class="Bar1">
 
-
-     <ul>
+     <ul id="main-ul">
 
      <li class="men" id="one">Персонал</li>
-
       <li class="men" id="two">Автопарк</li>
        <li class="men" id="three">Відділення</a>
 
@@ -33,27 +31,38 @@
         <hr id="hr_css">
      </ul>
    </div>
-        </div>
 
 
 
-<%String ds ="df"; %>
-<% ArrayList ar =(ArrayList)request.getAttribute("staff");%>
 
- <c:if test="${ds eq 'df'}">
-sdfsdfsdfsdf
- </c:if>
 
-<h1>${s}</h1>
 
-<div id="lol">
+<div id="div_table_staff">
+<table class="qw" id="table_staff">
+<tr>
+<thead>
+   <th>Ім`я</th>
+   <th>Прізвище</th>
+   <th>По-батькові</th>
+   <th>Вік</th>
+   <th>Відділення</th>
+</thead>
 
+
+</tr>
     <c:forEach items="${staff}" var="staffjsp">
-    <%= ar %>
-    <%= ds %>
-    <>
+<tr onclick="location.href='/person?name=${staffjsp.id}'">
+   <td>${staffjsp.name}</td>
+   <td>${staffjsp.surname}</td>
+   <td>${staffjsp.patronymic}</td>
+   <td>${staffjsp.age}</td>
+   <td>${staffjsp.department}</td>
+
+</tr>
 
     </c:forEach>
+
+</table>
 </div>
 
 
