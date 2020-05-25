@@ -1,8 +1,9 @@
 package services.servlets;
 
+import services.CRUD_DB.ConstantTablesCRUD;
 import services.CRUD_DB.PersonCRUD;
 import services.ConnectionBD.ConnectionBD;
-import services.Entity.Passport_Entity;
+import services.Entity.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -13,9 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 
 //todo close connection
@@ -24,22 +27,43 @@ import java.util.Map;
 @MultipartConfig(maxFileSize = 16177215)
 // indicates this servlet will handle multipart request. We restrict maximum size of the upload file up to 16 MB.
 public class Person extends HttpServlet {
-    PersonCRUD person_crud = new PersonCRUD();
-
-    private Map map;
-
+    PersonCRUD personCRUD = new PersonCRUD();
+    ConstantTablesCRUD constantTablesCRUD = new ConstantTablesCRUD();
+    private Map mapPerson;
+    private Map mapConstantTable;
 
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
-        map = person_crud.readPerson(Integer.parseInt(req.getParameter("name")));
+        mapPerson = personCRUD.readPerson(Integer.parseInt(req.getParameter("id")));
 
-        req.setAttribute("staff", map.get("staff"));
 
-        req.setAttribute("passport", map.get("passport"));
-        req.setAttribute("department", map.get("department"));
-        req.setAttribute("taxpayerCard", map.get("taxpayerCard"));
-        req.setAttribute("medicalBook", map.get("medicalBook"));
+        req.setAttribute("staff", mapPerson.get("staff"));
+        req.setAttribute("department", mapPerson.get("department"));
+        req.setAttribute("passport", mapPerson.get("passport"));
+        req.setAttribute("positionOfPerson", mapPerson.get("position"));
+        req.setAttribute("taxpayerCard", mapPerson.get("taxpayerCard"));
+        req.setAttribute("medicalBook", mapPerson.get("medicalBook"));
+        req.setAttribute("busDriver", mapPerson.get("busDriver"));
+
+
+        if (req.getParameter("regime") != null) {
+            mapConstantTable = constantTablesCRUD.readConstantTable(req.getParameter("regime"));
+            if (req.getParameter("regime").equals("UpdateInfoAboutPers")) {
+                req.setAttribute("departments", mapConstantTable.get("departments"));
+                req.setAttribute("positions", mapConstantTable.get("positions"));
+            }
+
+            if (req.getParameter("regime").equals("UpdateInfoOther")){
+                req.setAttribute("workHours",mapConstantTable.get("workHours"));
+                req.setAttribute("workBuses",mapConstantTable.get("workBuses"));
+            }
+
+
+
+
+            req.setAttribute("regime", req.getParameter("regime"));
+        }
 
 
         try {
@@ -55,36 +79,136 @@ public class Person extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
-        int id = Integer.parseInt(req.getParameter("name"));
-        InputStream inputStream = null;
+        mapPerson = personCRUD.readPerson(Integer.parseInt(req.getParameter("id")));
+        int id = Integer.parseInt(req.getParameter("id"));
         Part part;
+        BlobToString blobToString = new BlobToString();
 
-       try {
+
+
+        try {
+
+            if (req.getParameter("confirmPerson") != null) {
+                Map newmap = new HashMap();
+                Staff_Entity staffEntity = new Staff_Entity(blobToString.getUTFString(req.getParameter("newName")),
+                        blobToString.getUTFString(req.getParameter("newSurname")),
+                        blobToString.getUTFString(req.getParameter("newPatronymic")),
+                        Integer.parseInt(req.getParameter("newAge"))
+                        );
+                Position_Entity positionEntity = new Position_Entity();
+                positionEntity.setPosition(blobToString.getUTFString(req.getParameter("newPosition")));
+                Department_Entity departmentEntity = new Department_Entity();
+                departmentEntity.setDepartment(blobToString.getUTFString(req.getParameter("newDepartment")));
+
+                newmap.put("staff",staffEntity);
+                newmap.put("department",departmentEntity);
+                newmap.put("position",positionEntity);
+
+                PersonCRUD personCRUD = new PersonCRUD();
+                personCRUD.updatePerson(id,newmap,"staff",mapPerson);
+            }
+
+            if(req.getParameter("confirmPassport")!=null){
+                Passport_Entity passportEntity = new Passport_Entity(req.getParameter("newDateOfBirth"),
+                        req.getParameter("newCountryOfBirth"),
+                        req.getParameter("newRegionOfBirth"),
+                        req.getParameter("newCityOfBirth"),
+                        Integer.parseInt(req.getParameter("newDocumentNo"))
+                        );
+
+                PersonCRUD personCRUD = new PersonCRUD();
+                personCRUD.updatePerson(id,passportEntity,"passport");
+
+            }
+
+
+            if(req.getParameter("confirmTaxpayerCard")!=null){
+                TaxpayerCard_Entity taxpayerCardEntity = new TaxpayerCard_Entity(Integer.parseInt(req.getParameter("newTaxpayerNumber")));
+                PersonCRUD personCRUD = new PersonCRUD();
+                personCRUD.updatePerson(id,taxpayerCardEntity,"taxpayerCard");
+            }
+
+
+            if (req.getParameter("confirmMedicalBook")!=null){
+                MedicalBook_Entity medicalBookEntity = new MedicalBook_Entity(
+                        req.getParameter("newDateOfMedicalExam"),
+                        req.getParameter("newDateOfNextMedicalExam")
+                );
+                PersonCRUD personCRUD = new PersonCRUD();
+                personCRUD.updatePerson(id,medicalBookEntity,"medicalBook");
+            }
+
+            if(req.getParameter("confirmBusDriver")!=null){
+                String [] hours =req.getParameter("newStartWorkHour").split("-");
+                  BusDrivers_Entity busDriversEntity = new BusDrivers_Entity(
+                    hours[0],hours[1],
+                    req.getParameter("newBus"));
+
+                PersonCRUD personCRUD = new PersonCRUD();
+                personCRUD.updatePerson(id,busDriversEntity,"busDriver",mapConstantTable);
+
+            }
+
+
             if (req.getParameter("staff-button") != null) {
-                 part=req.getPart("staff-img");
-
-                System.out.println(part);
+                part = req.getPart("staff-img");
                 if (part.getSize() != 0) {
-                    person_crud.updatePersonImg(id, part, "staff");
-                    inputStream=part.getInputStream();
+                    personCRUD.updatePersonImg(id, part, "staff");
                 }
             }
 
             if (req.getParameter("passport-button") != null) {
-
                 part = req.getPart("passport-img");
                 if (part.getSize() != 0) {
-                    person_crud.updatePersonImg(id, part, "passport");
+                    personCRUD.updatePersonImg(id, part, "passport");
                 }
             }
+
 
             if (req.getParameter("taxpayerCard-button") != null) {
-
                 part = req.getPart("taxpayerCard-img");
                 if (part.getSize() != 0) {
-                    person_crud.updatePersonImg(id, part, "taxpayerCard");
+                    personCRUD.updatePersonImg(id, part, "taxpayerCard");
                 }
             }
+
+
+            if (req.getParameter("driverLicense-button") != null) {
+                part = req.getPart("driverLicense-img");
+                if (part.getSize() != 0) {
+                    personCRUD.updatePersonImg(id, part, "driverLicense");
+                }
+            }
+
+
+            if (req.getParameter("deletePerson")!=null){
+                PersonCRUD personCRUD =new PersonCRUD();
+                personCRUD.deletePerson(id,"staff");
+            }
+
+            if (req.getParameter("deletePassport")!=null){
+                PersonCRUD personCRUD =new PersonCRUD();
+                personCRUD.deletePerson(id,"passport");
+            }
+
+            if (req.getParameter("deleteTaxpayerCard")!=null){
+                PersonCRUD personCRUD =new PersonCRUD();
+                personCRUD.deletePerson(id,"taxpayerCard");
+            }
+
+            if (req.getParameter("deleteMedicalBook")!=null){
+                PersonCRUD personCRUD = new PersonCRUD();
+                personCRUD.deletePerson(id,"medicalBook");
+            }
+
+            if (req.getParameter("deleteBusDriver")!=null){
+                PersonCRUD personCRUD = new PersonCRUD();
+                personCRUD.deletePerson(id,"busDriver");
+            }
+
+
+
+
 
         } catch (IOException e) {
             System.out.println(e);
@@ -95,7 +219,7 @@ public class Person extends HttpServlet {
         }
 
 
-        req.setAttribute("image",inputStream);
+
 
 /*
         InputStream inputStream = null;

@@ -6,6 +6,8 @@ import services.Entity.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Read_Person {
     ConnectionBD connectionBD = new ConnectionBD();
@@ -14,23 +16,25 @@ public class Read_Person {
     //TODO close result set
 
     public Staff_Entity getStaff(Statement statement, int id) {
-        String sql = "SELECT * FROM STAFF s INNER JOIN DEPARTMENT d ON s.DEPARTMENT_ID = d.ID";
+        String sql = "SELECT * FROM STAFF where id=" + id;
+
         Staff_Entity staff_entity = null;
         try {
             resultSet = statement.executeQuery(sql);
 
 
             if (resultSet.next()) {
-                staff_entity = new Staff_Entity(resultSet.getInt("id"),
+                staff_entity = new Staff_Entity(
                         resultSet.getString("name"),
                         resultSet.getString("surname"),
                         resultSet.getString("patronymic"),
-                        resultSet.getInt("department_id"),
-                        resultSet.getInt("age"),
-                        resultSet.getString("department")
+                        resultSet.getInt("age")
+//                        resultSet.getString("department")
                 );
+                staff_entity.setId(resultSet.getInt("id"));
 
-                staff_entity.setPhoto(resultSet.getBlob("photo"));
+                if (resultSet.getBlob("photo") != null) {
+                staff_entity.setPhoto(resultSet.getBlob("photo"));}
             }
 
         } catch (SQLException e) {
@@ -43,22 +47,41 @@ public class Read_Person {
         return staff_entity;
     }
 
+    public Department_Entity getDepartment(Statement statement, int id) {
+        String sql = "SELECT d.id ,d.DEPaRTMENT FROM DEPaRTMENT d inner join staff s on s.department_id=d.id WHERE s.ID=" + id;
+
+        Department_Entity departmentEntity = new Department_Entity();
+        try {
+            ResultSet resultSet = statement.executeQuery(sql);
+            if (resultSet.next()) {
+                departmentEntity.setId(resultSet.getInt("ID"));
+                departmentEntity.setDepartment(resultSet.getString("DEPARTMENT"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return departmentEntity;
+    }
+
 
     public Passport_Entity getPassport(Statement statement, int id) {
         String sql = "Select * from PASSPORT where id=" + id;
         Passport_Entity passport_entity = null;
 
         try {
-            resultSet=statement.executeQuery(sql);
+            resultSet = statement.executeQuery(sql);
             if (resultSet.next()) {
-                passport_entity = new Passport_Entity(resultSet.getInt("id"),
+                passport_entity = new Passport_Entity(
                         resultSet.getString("date_Of_Birth"),
                         resultSet.getString("country_Of_Birth"),
                         resultSet.getString("region_Of_Birth"),
                         resultSet.getString("city_Of_Birth"),
                         resultSet.getInt("document_No")
                 );
-                if (resultSet.getBlob("Scanned_passport")!=null) {
+                passport_entity.setId(resultSet.getInt("id"));
+                if (resultSet.getBlob("Scanned_passport") != null) {
                     passport_entity.setScannedPassport(resultSet.getBlob("Scanned_passport"));
                 }
 
@@ -66,7 +89,7 @@ public class Read_Person {
 
         } catch (SQLException e) {
             System.out.println(e);
-        }finally {
+        } finally {
             if (resultSet != null) {
                 connectionBD.closeResultSet(resultSet, className);
             }
@@ -82,13 +105,15 @@ public class Read_Person {
 
 
         try {
-            resultSet=statement.executeQuery(sql);
+            resultSet = statement.executeQuery(sql);
             if (resultSet.next()) {
-                taxpayerCard_entity = new TaxpayerCard_Entity(resultSet.getInt("id"),
+                taxpayerCard_entity = new TaxpayerCard_Entity(
                         resultSet.getInt("Taxpayer_number")
                 );
 
-                if(resultSet.getBlob("scanned_taxpayer_card")!=null) {
+                taxpayerCard_entity.setId(resultSet.getInt("id"));
+
+                if (resultSet.getBlob("scanned_taxpayer_card") != null) {
                     taxpayerCard_entity.setScannedTaxpayerCard(resultSet.getBlob("scanned_taxpayer_card"));
                 }
 
@@ -97,7 +122,7 @@ public class Read_Person {
         } catch (SQLException e) {
             System.out.println("TaxpayerCard:");
             System.out.println(e);
-        }finally {
+        } finally {
             if (resultSet != null) {
                 connectionBD.closeResultSet(resultSet, className);
             }
@@ -112,19 +137,19 @@ public class Read_Person {
         MedicalBook_Entity medicalBook_entity = null;
 
         try {
-            resultSet=statement.executeQuery(sql);
+            resultSet = statement.executeQuery(sql);
             if (resultSet.next()) {
-                medicalBook_entity = new MedicalBook_Entity(resultSet.getInt("id"),
+                medicalBook_entity = new MedicalBook_Entity(
                         resultSet.getString("date_OF_MEDICAL_EXAMINATION"),
                         resultSet.getString("date_OF_NEXT_MEDICAL_EXAMINATION")
                 );
-
+                medicalBook_entity.setId(resultSet.getInt("id"));
             }
 
         } catch (SQLException e) {
             System.out.println("Medical book:");
             System.out.println(e);
-        }finally {
+        } finally {
             if (resultSet != null) {
                 connectionBD.closeResultSet(resultSet, className);
             }
@@ -143,7 +168,7 @@ public class Read_Person {
         ParametersOfDriver_Entity parametersOfDriver_entity = null;
 
         try {
-            resultSet=statement.executeQuery(sql);
+            resultSet = statement.executeQuery(sql);
             if (resultSet.next()) {
                 parametersOfDriver_entity = new ParametersOfDriver_Entity(resultSet.getString("start_work_hours"),
                         resultSet.getString("end_work_hours"),
@@ -157,7 +182,7 @@ public class Read_Person {
         } catch (SQLException e) {
             System.out.println("Medical book:");
             System.out.println(e);
-        }finally {
+        } finally {
             if (resultSet != null) {
                 connectionBD.closeResultSet(resultSet, className);
             }
@@ -166,29 +191,76 @@ public class Read_Person {
     }
 
 
-    public Department_Entity getDepartment(Statement statement, int id) {
-        String sql = "  SELECT p.POSITION, p.SALARY  FROM ADMINISTRATION a " +
-                "INNER JOIN POSITION p ON a.POSITION_ID =p.POSITION_ID WHERE a.ID =" + id;
-        Department_Entity department_entity = new Department_Entity();
-        try {
-            resultSet=statement.executeQuery(sql);
+    public Position_Entity getPosition(Statement statement, String department, int id) {
+        Position_Entity position_entity = new Position_Entity();
+        String deprt = "";
+        if (department != null) {
+            switch (department) {
+                case "Адміністрація":
+                    deprt = "ADMINISTRATION";
+                    break;
+                case "Водії":
+                    deprt = "BUS_DRIVERS";
+                    break;
 
-            if (resultSet.next()) {
-                department_entity.setPosition(resultSet.getString("position"));
-                department_entity.setSalary(resultSet.getInt("salary"));
+                case "Автомеханіки":
+                    deprt = "CAR_MECHANICS";
+                    break;
 
+                case "Медперсонал":
+                    deprt = "DOCTORS";
+                    break;
             }
 
 
-        } catch (SQLException e) {
-            System.out.println("getDepartment");
-            System.out.println(e);
-        }finally {
-            if (resultSet != null) {
-                connectionBD.closeResultSet(resultSet, className);
+            if (deprt != null) {
+                String sql = "  SELECT p.POSITION, p.SALARY  FROM " + deprt + " a " +
+                        "INNER JOIN POSITION p ON a.POSITION_ID =p.POSITION_ID WHERE a.ID =" + id;
+                try {
+                    resultSet = statement.executeQuery(sql);
+                    if (resultSet.next()) {
+                        position_entity.setPosition(resultSet.getString("position"));
+                        position_entity.setSalary(resultSet.getInt("salary"));
+                    }
+                } catch (SQLException e) {
+                    System.out.println("getDepartment");
+                    System.out.println(e);
+                } finally {
+                    if (resultSet != null) {
+                        connectionBD.closeResultSet(resultSet, className);
+                    }
+                }
             }
         }
-        return department_entity;
+        return position_entity;
+    }
+
+
+    public BusDrivers_Entity getBusDriver(Statement statement,int id){
+        String sql = "select * from BUS_DRIVERS BD LEFT JOIN WORK_HOURS WH  ON WH.WORK_HOUR_ID=BD.WORK_HOUR_ID " +
+                "LEFT JOIN BUS_PARK BP ON BP.BUS_ID=BD.WORK_BUS_ID where BD.id="+id;
+        BusDrivers_Entity busDriversEntity = null;
+        try{
+            ResultSet resultSet = statement.executeQuery(sql);
+            if (resultSet.next()){
+                busDriversEntity = new BusDrivers_Entity(resultSet.getString("START_WORK_HOURS"),
+                        resultSet.getString("END_WORK_HOURS"),
+                        resultSet.getString("BUS")
+                );
+                busDriversEntity.setId(resultSet.getInt("id"));
+                busDriversEntity.setIdBus(resultSet.getInt("BUS_ID"));
+
+
+                if (resultSet.getBlob("DRIVER_LICENSE")!=null){
+                busDriversEntity.setDriverLicense(resultSet.getBlob("DRIVER_LICENSE"));
+            }
+        }
+
+        }catch (SQLException e){
+            System.out.println(e);
+        }
+
+        return  busDriversEntity;
     }
 
 

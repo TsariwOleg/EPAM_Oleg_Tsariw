@@ -2,6 +2,7 @@ package services.CRUD_DB;
 
 import services.ConnectionBD.ConnectionBD;
 import services.DAO.DAO_CRUD;
+import services.Entity.Department_Entity;
 import services.Entity.Staff_Entity;
 
 import java.sql.Connection;
@@ -29,19 +30,18 @@ public class Staff_CRUD extends ConnectionBD implements DAO_CRUD {
             resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
-                Staff_Entity staffEntity = new Staff_Entity(resultSet.getInt("ID"),
+                Staff_Entity staffEntity = new Staff_Entity(
                         resultSet.getString("NAME"),
                         resultSet.getString("SURNAME"),
                         resultSet.getString("PATRONYMIC"),
-                        resultSet.getInt("department_id"),
-                        resultSet.getInt("AGE"),
-                        resultSet.getString("department")
+                        resultSet.getInt("AGE")
                 );
+                staffEntity.setId(resultSet.getInt("id"));
+                staffEntity.setDepartment(resultSet.getString("DEPARTMENT"));
                 staffEntityList.add(staffEntity);
             }
 
         } catch (SQLException e) {
-            System.out.println("STAFFCRUD");
             System.out.println(e);
         }finally {
             if (resultSet!=null){
@@ -51,9 +51,11 @@ public class Staff_CRUD extends ConnectionBD implements DAO_CRUD {
                 closeStatement(statement,className);
             }
 
-            System.out.println("---------------");
         }
 
         return staffEntityList;
     }
+
+
+
 }

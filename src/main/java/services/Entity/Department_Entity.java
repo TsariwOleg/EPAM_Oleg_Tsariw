@@ -1,24 +1,31 @@
 package services.Entity;
 
 public class Department_Entity {
-    private String position;
-    private int salary;
+    private int id;
+    private String department;
 
 
-
-    public String getPosition() {
-        return position;
+    public int getId() {
+        return id;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getSalary() {
-        return salary;
+    public String getDepartment() {
+        return department;
     }
 
-    public void setSalary(int salary) {
-        this.salary = salary;
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    @Override
+    public String toString() {
+        return "Department_Entity{" +
+                "id=" + id +
+                ", department='" + department + '\'' +
+                '}';
     }
 }

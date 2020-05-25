@@ -13,7 +13,7 @@
 
      <ul id="main-ul">
 
-     <li class="men" id="one">Персонал</li>
+     <li class="men" id="one" onclick="location.href='/staff'">Персонал</li>
       <li class="men" id="two">Автопарк</li>
        <li class="men" id="three">Відділення</a>
 
@@ -47,17 +47,15 @@
    <th>Вік</th>
    <th>Відділення</th>
 </thead>
-
-
 </tr>
+
     <c:forEach items="${staff}" var="staffjsp">
-<tr onclick="location.href='/person?name=${staffjsp.id}'">
+<tr onclick="location.href='/person?id=${staffjsp.id}'">
    <td>${staffjsp.name}</td>
    <td>${staffjsp.surname}</td>
    <td>${staffjsp.patronymic}</td>
    <td>${staffjsp.age}</td>
    <td>${staffjsp.department}</td>
-
 </tr>
 
     </c:forEach>

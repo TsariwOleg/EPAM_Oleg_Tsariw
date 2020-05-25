@@ -7,8 +7,7 @@ public class TaxpayerCard_Entity {
     private int taxpayerNumber;
     private String scannedTaxpayerCard;
 
-    public TaxpayerCard_Entity(int id, int taxpayerNumber) {
-        this.id = id;
+    public TaxpayerCard_Entity(int taxpayerNumber) {
         this.taxpayerNumber = taxpayerNumber;
     }
 

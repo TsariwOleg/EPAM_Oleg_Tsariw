@@ -18,7 +18,6 @@ public class Staff extends HttpServlet {
     Staff_CRUD staff_crud = new Staff_CRUD();
     List<Staff_Entity> staffEntityList = new ArrayList<>();
 
-//            staff_crud.getStaff();
 
 
     @Override
@@ -26,9 +25,6 @@ public class Staff extends HttpServlet {
         staffEntityList=staff_crud.getStaff();
 
 
-        for (Staff_Entity q: staffEntityList) {
-            System.out.println(q);
-        }
 
         req.setAttribute("staff",staffEntityList);
         req.setAttribute("q","stntityList");

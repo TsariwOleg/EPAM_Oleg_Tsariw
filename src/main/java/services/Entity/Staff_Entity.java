@@ -13,21 +13,24 @@ public class Staff_Entity {
     private String name;
     private String surname;
     private String patronymic;
-    private int idDepartment;
+//    private int idDepartment;
     private int age;
     private String department;
     private String photo;
 
+    private String position;
+    private int salary;
+
+
+
     BlobToString blobToString = new BlobToString();
 
-    public Staff_Entity(int id, String name, String surname, String patronymic, int idDepartment, int age, String department) {
-        this.id = id;
+    public Staff_Entity(String name, String surname, String patronymic, int age/*, String department*/) {
+
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
-        this.idDepartment = idDepartment;
         this.age = age;
-        this.department = department;
     }
 
     public String getPhoto() {
@@ -72,14 +75,6 @@ public class Staff_Entity {
         this.patronymic = patronymic;
     }
 
-    public int getIdDepartment() {
-        return idDepartment;
-    }
-
-    public void setIdDepartment(int idDepartment) {
-        this.idDepartment = idDepartment;
-    }
-
     public int getAge() {
         return age;
     }
@@ -87,6 +82,11 @@ public class Staff_Entity {
     public void setAge(int age) {
         this.age = age;
     }
+
+
+    public String getPosition() {return position; }
+
+    public void setPosition(String position) {this.position = position;}
 
     public String getDepartment() {
         return department;
@@ -98,14 +98,18 @@ public class Staff_Entity {
 
     @Override
     public String toString() {
-        return "StaffEntity{" +
+        return "Staff_Entity{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", patronymic='" + patronymic + '\'' +
-                ", idDepartment=" + idDepartment +
+//                ", idDepartment=" + idDepartment +
                 ", age=" + age +
-                ", department='" + department + '\'' +
+//                ", department='" + department + '\'' +
+                ", photo='" + photo + '\'' +
+                ", position='" + position + '\'' +
+                ", salary=" + salary +
+                ", blobToString=" + blobToString +
                 '}';
     }
 }

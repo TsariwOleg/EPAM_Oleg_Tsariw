@@ -6,8 +6,7 @@ public class MedicalBook_Entity {
     private String dateOfNextMedicalExam;
 
 
-    public MedicalBook_Entity(int id, String dateOfMedicalExam, String dateOfNextMedicalExam) {
-        this.id = id;
+    public MedicalBook_Entity( String dateOfMedicalExam, String dateOfNextMedicalExam) {
         this.dateOfMedicalExam = dateOfMedicalExam;
         this.dateOfNextMedicalExam = dateOfNextMedicalExam;
     }

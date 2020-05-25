@@ -14,8 +14,7 @@ public class Passport_Entity {
     private InputStream inputStream;
 
 
-    public Passport_Entity(int id, String dateOfBirth, String countryOfBirth, String regionOfBirth, String cityOfBirth, int documentNo) {
-        this.id = id;
+    public Passport_Entity( String dateOfBirth, String countryOfBirth, String regionOfBirth, String cityOfBirth, int documentNo) {
         this.dateOfBirth = dateOfBirth;
         this.countryOfBirth = countryOfBirth;
         this.regionOfBirth = regionOfBirth;
