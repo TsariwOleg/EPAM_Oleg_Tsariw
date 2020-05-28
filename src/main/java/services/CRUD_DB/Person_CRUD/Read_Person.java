@@ -1,22 +1,19 @@
 package services.CRUD_DB.Person_CRUD;
 
-import services.ConnectionBD.ConnectionBD;
+
 import services.Entity.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Read_Person {
-    ConnectionBD connectionBD = new ConnectionBD();
     private String className = this.getClass().getSimpleName();
     private ResultSet resultSet;
     //TODO close result set
 
     public Staff_Entity getStaff(Statement statement, int id) {
-        String sql = "SELECT * FROM STAFF where id=" + id;
+        String sql = "SELECT * FROM STAFF s  LEFT join DEPaRTMENT d  on s.department_id=d.id where s.id=" + id;
 
         Staff_Entity staff_entity = null;
         try {
@@ -29,8 +26,9 @@ public class Read_Person {
                         resultSet.getString("surname"),
                         resultSet.getString("patronymic"),
                         resultSet.getInt("age")
-//                        resultSet.getString("department")
+
                 );
+
                 staff_entity.setId(resultSet.getInt("id"));
 
                 if (resultSet.getBlob("photo") != null) {
@@ -39,10 +37,6 @@ public class Read_Person {
 
         } catch (SQLException e) {
             System.out.println(e);
-        } finally {
-            if (resultSet != null) {
-                connectionBD.closeResultSet(resultSet, className);
-            }
         }
         return staff_entity;
     }
@@ -91,7 +85,7 @@ public class Read_Person {
             System.out.println(e);
         } finally {
             if (resultSet != null) {
-                connectionBD.closeResultSet(resultSet, className);
+                //             connectionBD.closeResultSet(resultSet, className);
             }
         }
 
@@ -124,7 +118,7 @@ public class Read_Person {
             System.out.println(e);
         } finally {
             if (resultSet != null) {
-                connectionBD.closeResultSet(resultSet, className);
+                //               connectionBD.closeResultSet(resultSet, className);
             }
         }
 
@@ -151,7 +145,7 @@ public class Read_Person {
             System.out.println(e);
         } finally {
             if (resultSet != null) {
-                connectionBD.closeResultSet(resultSet, className);
+                //             connectionBD.closeResultSet(resultSet, className);
             }
         }
         return medicalBook_entity;
@@ -184,7 +178,7 @@ public class Read_Person {
             System.out.println(e);
         } finally {
             if (resultSet != null) {
-                connectionBD.closeResultSet(resultSet, className);
+                //             connectionBD.closeResultSet(resultSet, className);
             }
         }
         return parametersOfDriver_entity;
@@ -227,7 +221,7 @@ public class Read_Person {
                     System.out.println(e);
                 } finally {
                     if (resultSet != null) {
-                        connectionBD.closeResultSet(resultSet, className);
+                        //                 connectionBD.closeResultSet(resultSet, className);
                     }
                 }
             }
@@ -243,6 +237,7 @@ public class Read_Person {
         try{
             ResultSet resultSet = statement.executeQuery(sql);
             if (resultSet.next()){
+
                 busDriversEntity = new BusDrivers_Entity(resultSet.getString("START_WORK_HOURS"),
                         resultSet.getString("END_WORK_HOURS"),
                         resultSet.getString("BUS")

@@ -1,7 +1,7 @@
 package services.CRUD_DB;
 
 import services.CRUD_DB.ConstantTables_CRUD.Read_ConstantTables;
-import services.ConnectionBD.ConnectionBD;
+import services.ConnectionBD.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -9,9 +9,10 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ConstantTablesCRUD extends ConnectionBD {
-    Connection connection = getConnection();
-
+public class ConstantTablesCRUD /*extends ConnectionBD*/ {
+//    Connection connection = getConnection();
+ConnectionPool pool = ConnectionPool.getInstance();
+    Connection connection = pool.getConnection();
     public Map readConstantTable (String person){
         Map map = new HashMap();
         Statement statement;

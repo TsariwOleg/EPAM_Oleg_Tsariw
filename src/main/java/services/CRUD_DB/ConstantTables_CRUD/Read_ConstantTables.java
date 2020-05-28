@@ -25,6 +25,7 @@ public class Read_ConstantTables {
                 Position_Entity position_entity =new Position_Entity();
                 position_entity.setPosition(resultSet.getString("POSITION"));
                 position_entity.setSalary(resultSet.getInt("salary"));
+                position_entity.setId(resultSet.getInt("POSITION_ID"));
                 position_entityList.add(position_entity);
             }
 
@@ -32,8 +33,6 @@ public class Read_ConstantTables {
             System.out.println(e);
         }
 
-
-//todo return
         return position_entityList;
     }
 
@@ -47,6 +46,7 @@ public class Read_ConstantTables {
 
             while (resultSet.next()){
                 Department_Entity department_entity = new Department_Entity();
+                department_entity.setId(resultSet.getInt("id"));
                 department_entity.setDepartment(resultSet.getString("department"));
                 department_entityList.add(department_entity);
             }

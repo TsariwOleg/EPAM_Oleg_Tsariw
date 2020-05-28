@@ -1,10 +1,8 @@
 
 
-import services.ConnectionBD.ConnectionBD;
+//import services.ConnectionBD.ConnectionBD;
 
-import java.io.*;
-import java.sql.*;
-import java.util.Base64;
+import services.ConnectionBD.ConnectionPool;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -13,12 +11,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectOutputStream;
+import java.sql.Blob;
+import java.sql.Connection;
+import java.util.Base64;
 
 @WebServlet("/uploadServlet")
 @MultipartConfig(maxFileSize = 16177215)	// upload file's size up to 16MB
 public class FileUploadDBServlet extends HttpServlet {
-	private ConnectionBD connectionBD = new ConnectionBD();
-	Connection conn=connectionBD.getConnection();
+	/*private ConnectionBD connectionBD = new ConnectionBD();
+	Connection conn=connectionBD.getConnection();*/
+	ConnectionPool pool = ConnectionPool.getInstance();
+	Connection connection = pool.getConnection();
 
 	public String getEncode(Blob student){
 		String test="";

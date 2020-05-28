@@ -1,13 +1,16 @@
 package services.CRUD_DB.Person_CRUD;
 
-import services.ConnectionBD.ConnectionBD;
+import services.ConnectionBD.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class Delete_Person extends ConnectionBD {
-    Connection connection = getConnection();
+public class Delete_Person /*extends ConnectionBD*/ {
+    ConnectionPool pool = ConnectionPool.getInstance();
+    Connection connection = pool.getConnection();
+
+//    Connection connection = getConnection();
 
 
     public void deleteStaff(int id , PreparedStatement preparedStatement){

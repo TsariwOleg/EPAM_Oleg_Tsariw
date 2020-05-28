@@ -1,10 +1,3 @@
-/*
- * jQuery FastZoom v1.1.3
- * Copyright 2016
- * Contributing Author: Aleksey Savin
- * E-mail: asavin.work@yandex.ru
- */
-
 (function($) {
 
   var methods = {
@@ -124,4 +117,5 @@
 
   };
 
-})(jQuery);
+})
+(jQuery);

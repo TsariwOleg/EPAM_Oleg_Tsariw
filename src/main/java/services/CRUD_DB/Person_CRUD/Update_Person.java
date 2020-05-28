@@ -1,6 +1,6 @@
 package services.CRUD_DB.Person_CRUD;
 
-import services.ConnectionBD.ConnectionBD;
+import services.ConnectionBD.ConnectionPool;
 import services.Entity.*;
 
 import java.io.InputStream;
@@ -11,8 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Update_Person extends ConnectionBD {
-    Connection connection = getConnection();
+public class Update_Person   {
+    ConnectionPool pool = ConnectionPool.getInstance();
+    Connection connection = pool.getConnection();
 //todo create one method for updating img
     public void updateStaffImg(int id, InputStream inputStream) {
         String sql = "update staff set photo= ? where id=" + id;
@@ -72,24 +73,25 @@ public class Update_Person extends ConnectionBD {
 
 
 
-    public void updateStaff(int id, Map newmap) {
-        Staff_Entity staffEntity = (Staff_Entity) newmap.get("staff");
+    public void updateStaff(int id,Map newValues , Map constantTables) {
+       Staff_Entity staffEntity =(Staff_Entity)newValues.get("staff");
+        List<Department_Entity> department_entityList = (ArrayList) constantTables.get("departments");
+        List<Position_Entity> positionEntityList = (ArrayList)constantTables.get("positions");
 
         int department_id = 0;
-        switch (((Department_Entity) newmap.get("department")).getDepartment()) {
-            case "Адміністрація":
-                department_id = 1;
-                break;
-            case "Водії":
-                department_id = 2;
-                break;
-            case "Автомеханіки":
-                department_id = 3;
-                break;
+        int idPosition=0;
 
-            case "Медперсонал":
-                department_id = 4;
-                break;
+
+        for (Department_Entity departmentEntity : department_entityList) {
+            if (departmentEntity.getDepartment().equals(staffEntity.getDepartment())) {
+                department_id = departmentEntity.getId();
+            }
+        }
+
+        for (Position_Entity positionEntity:positionEntityList) {
+            if (positionEntity.getPosition().equals(((Position_Entity) newValues.get("position")).getPosition())){
+                idPosition=positionEntity.getId();
+            }
         }
 
 
@@ -108,18 +110,24 @@ public class Update_Person extends ConnectionBD {
             String newdepartm = "";
             switch (department_id) {
                 case 1:
-                    newdepartm = "insert into ADMINISTRATION (id) values(" + id + ")";
+                    newdepartm = "set mode MySQL;INSERT INTO ADMINISTRATION(id,POSITION_ID ) " +
+                            "VALUES("+id+", "+ idPosition+") ON DUPLICATE KEY UPDATE position_id="+idPosition;
+
                     break;
                 case 2:
-                    newdepartm = "insert into BUS_DRIVERS (id) values(" + id + ")";
+                    newdepartm = "set mode MySQL;INSERT INTO BUS_DRIVERS(id,POSITION_ID ) " +
+                            "VALUES("+id+", "+ idPosition+") ON DUPLICATE KEY UPDATE position_id="+idPosition;
                     break;
 
                 case 3:
-                    newdepartm = "insert into CAR_MECHANICS (id) values(" + id + ")";
+                    newdepartm = "set mode MySQL;INSERT INTO CAR_MECHANICS(id,POSITION_ID ) " +
+                            "VALUES("+id+", "+ idPosition+") ON DUPLICATE KEY UPDATE position_id="+idPosition;
+
                     break;
 
                 case 4:
-                    newdepartm = "insert into DOCTORS (id) values(" + id + ")";
+                    newdepartm = "set mode MySQL;INSERT INTO DOCTORS(id,POSITION_ID ) " +
+                            "VALUES("+id+", "+ idPosition+") ON DUPLICATE KEY UPDATE position_id="+idPosition;
                     break;
             }
 
@@ -127,8 +135,10 @@ public class Update_Person extends ConnectionBD {
             preparedStatement = connection.prepareStatement("delete from administration where id=" + id);
             preparedStatement.executeUpdate();
 
+            if (!staffEntity.getDepartment().equals("Водії")){
             preparedStatement = connection.prepareStatement("delete from  BUS_DRIVERS where id=" + id);
             preparedStatement.executeUpdate();
+            }
 
             preparedStatement = connection.prepareStatement("delete from  CAR_MECHANICS where id=" + id);
             preparedStatement.executeUpdate();
@@ -144,100 +154,13 @@ public class Update_Person extends ConnectionBD {
             System.out.println(e);
         }
 
-
     }
 
 
-    public void updatePosition(int id, Map newValues, Department_Entity oldValues) {
-        PreparedStatement preparedStatement;
-        String sql = "";
-        int idPosition = 0;
-        Department_Entity departmentEntity = ((Department_Entity) newValues.get("department"));
-
-        switch (((Position_Entity) newValues.get("position")).getPosition()) {
-            case "Директор компанії":
-                idPosition = 1;
-                break;
-            case "Заступник директора":
-                idPosition = 2;
-                break;
-        }
-
-
-
-
-        if (departmentEntity.getDepartment().equals(oldValues.getDepartment())) {
-            switch (departmentEntity.getDepartment()) {
-                case "Адміністрація":
-                    sql = "UPDATE ADMINISTRATION SET POSITION_ID= " + idPosition + "where id=" + id;
-                    break;
-                case "Водії":
-                    sql = "UPDATE BUS_DRIVERS SET POSITION_ID= " + idPosition + "where id=" + id;
-                    break;
-                case "Автомеханіки":
-                    sql = "UPDATE CAR_MECHANICS SET POSITION_ID= " + idPosition + "where id=" + id;
-                    break;
-
-                case "Медперсонал":
-                    sql = "UPDATE DOCTORS SET POSITION_ID= " + idPosition + "where id=" + id;
-                    break;
-            }
-
-            try {
-                preparedStatement = connection.prepareStatement(sql);
-                preparedStatement.executeUpdate();
-            } catch (SQLException e) {
-                System.out.println(e);
-            }
-
-        } else {
-            try {
-                switch (departmentEntity.getDepartment()) {
-                    case "Адміністрація":
-                        sql = "insert  INTO ADMINISTRATION (ID,POSITION_ID) VALUES (?,?) ";
-                        break;
-                    case "Водії":
-                        sql = "insert into  BUS_DRIVERS (ID,POSITION_ID) VALUES (?,?) ";
-                        break;
-
-                    case "Автомеханіки":
-                        sql = "insert into  CAR_MECHANICS (ID,POSITION_ID) VALUES (?,?) ";
-                        break;
-
-                    case "Медаперсонал":
-                        sql = "insert into  DOCTORS (ID,POSITION_ID) VALUES (?,?) ";
-                        break;
-                }
-
-
-                preparedStatement = connection.prepareStatement("DELETE FROM BUS_DRIVERS WHERE ID=" + id);
-                preparedStatement.executeUpdate();
-
-                preparedStatement = connection.prepareStatement("DELETE FROM ADMINISTRATION WHERE ID=" + id);
-                preparedStatement.executeUpdate();
-
-                preparedStatement = connection.prepareStatement("DELETE FROM CAR_MECHANICS WHERE ID=" + id);
-                preparedStatement.executeUpdate();
-
-                preparedStatement = connection.prepareStatement("DELETE FROM DOCTORS WHERE ID=" + id);
-                preparedStatement.executeUpdate();
-
-                preparedStatement= connection.prepareStatement(sql);
-                preparedStatement.setInt(1,id);
-                preparedStatement.setInt(2,idPosition);
-                preparedStatement.executeUpdate();
-
-            } catch (SQLException e) {
-                System.out.println(e);
-            }
-        }
-    }
-
-
-    public void updateBusDriver(int id , BusDrivers_Entity busDriversEntity,Map map){
+    public void updateBusDriver(int id , BusDrivers_Entity busDriversEntity,Map constantTables){
         String sql = "UPDATE BUS_DRIVERS SET WORK_HOUR_ID =? , WORK_BUS_ID=? WHERE ID="+id;
-        List<Buses_Entity> busDriversEntityList = (ArrayList)map.get("workBuses");
-        List<WorkHours_Entity> workHoursEntityList = (ArrayList)map.get("workHours");
+        List<Buses_Entity> busDriversEntityList = (ArrayList)constantTables.get("workBuses");
+        List<WorkHours_Entity> workHoursEntityList = (ArrayList)constantTables.get("workHours");
         int busId=0;
         int hoursId=0;
         String workHours = busDriversEntity.getStartWorkHours()+"-"+busDriversEntity.getEndWorkHours();

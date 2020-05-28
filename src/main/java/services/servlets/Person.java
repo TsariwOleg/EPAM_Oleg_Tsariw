@@ -2,7 +2,6 @@ package services.servlets;
 
 import services.CRUD_DB.ConstantTablesCRUD;
 import services.CRUD_DB.PersonCRUD;
-import services.ConnectionBD.ConnectionBD;
 import services.Entity.*;
 
 import javax.servlet.ServletException;
@@ -13,11 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectOutputStream;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,6 +39,7 @@ public class Person extends HttpServlet {
         req.setAttribute("taxpayerCard", mapPerson.get("taxpayerCard"));
         req.setAttribute("medicalBook", mapPerson.get("medicalBook"));
         req.setAttribute("busDriver", mapPerson.get("busDriver"));
+
 
 
         if (req.getParameter("regime") != null) {
@@ -95,17 +90,16 @@ public class Person extends HttpServlet {
                         blobToString.getUTFString(req.getParameter("newPatronymic")),
                         Integer.parseInt(req.getParameter("newAge"))
                         );
+                staffEntity.setDepartment(blobToString.getUTFString(req.getParameter("newDepartment")));
                 Position_Entity positionEntity = new Position_Entity();
                 positionEntity.setPosition(blobToString.getUTFString(req.getParameter("newPosition")));
-                Department_Entity departmentEntity = new Department_Entity();
-                departmentEntity.setDepartment(blobToString.getUTFString(req.getParameter("newDepartment")));
 
                 newmap.put("staff",staffEntity);
-                newmap.put("department",departmentEntity);
                 newmap.put("position",positionEntity);
 
                 PersonCRUD personCRUD = new PersonCRUD();
-                personCRUD.updatePerson(id,newmap,"staff",mapPerson);
+                personCRUD.updatePerson(id,newmap,"staff",mapConstantTable);
+//                personCRUD.updatePerson(id,newmap,"position",staffEntity,mapConstantTable);
             }
 
             if(req.getParameter("confirmPassport")!=null){

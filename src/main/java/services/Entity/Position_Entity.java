@@ -3,8 +3,15 @@ package services.Entity;
 public class Position_Entity {
     private String position;
     private int salary;
+    private int id;
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getPosition() {
         return position;

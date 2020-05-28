@@ -4,9 +4,8 @@ package services.CRUD_DB;
 import services.CRUD_DB.Person_CRUD.Delete_Person;
 import services.CRUD_DB.Person_CRUD.Read_Person;
 import services.CRUD_DB.Person_CRUD.Update_Person;
-import services.ConnectionBD.ConnectionBD;
+import services.ConnectionBD.ConnectionPool;
 import services.Entity.*;
-
 
 import javax.servlet.http.Part;
 import java.io.IOException;
@@ -18,9 +17,10 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PersonCRUD extends ConnectionBD {
-    Connection connection = getConnection();
-    private String className = this.getClass().getSimpleName();
+public class PersonCRUD {
+    ConnectionPool pool = ConnectionPool.getInstance();
+    Connection connection = pool.getConnection();
+
 
 //todo create dao  close connection
 
@@ -41,7 +41,6 @@ public class PersonCRUD extends ConnectionBD {
             map.put("medicalBook", read_person.getMedicalBook(statement, id));
             map.put("getParametersOfDrivers", read_person.getParametersOfDrivers(statement, id));
 
-
             if (("Водії").equals(((Department_Entity) map.get("department")).getDepartment())){
                 map.put("busDriver",read_person.getBusDriver(statement,id));
             }
@@ -50,12 +49,6 @@ public class PersonCRUD extends ConnectionBD {
         } catch (SQLException e) {
 
             System.out.println(e);
-        } finally {
-
-            if (statement != null) {
-                closeStatement(statement, className);
-            }
-
         }
 
         return map;
@@ -87,21 +80,22 @@ public class PersonCRUD extends ConnectionBD {
     }
 
 
-    public void updatePerson(int id, Map newmap, String table, Map map) {
+    public void updatePerson(int id, Map newmap, String table , Map constantTables) {
         Update_Person updatePerson = new Update_Person();
         if (table.equals("staff")) {
-            updatePerson.updateStaff(id, newmap);
-            updatePerson.updatePosition(id, newmap, (Department_Entity) map.get("department"));
+            updatePerson.updateStaff(id,newmap,constantTables);
         }
+
     }
 
 
-    public void updatePerson(int id, Object newValue, String table, Map map) {
+    public void updatePerson(int id, Object newValue, String table, Map constantTables) {
         Update_Person updatePerson = new Update_Person();
         if (table.equals("busDriver")){
-            updatePerson.updateBusDriver(id,(BusDrivers_Entity)newValue,map);
-
+            updatePerson.updateBusDriver(id,(BusDrivers_Entity)newValue,constantTables);
         }
+
+
     }
 
     public void updatePerson(int id, Object newValue, String table) {
@@ -119,6 +113,14 @@ public class PersonCRUD extends ConnectionBD {
         }
 
     }
+
+
+
+
+
+
+
+
 
     public void deletePerson(int id , String table){
         Delete_Person deletePerson = new Delete_Person();
