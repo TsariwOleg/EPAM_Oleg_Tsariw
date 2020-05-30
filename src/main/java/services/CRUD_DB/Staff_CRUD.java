@@ -87,7 +87,7 @@ public class Staff_CRUD implements DAO_CRUD {
 
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.execute();
-            System.out.println(max);
+
 
         } catch (SQLException e) {
             System.out.println(e);

@@ -180,7 +180,7 @@
 
 			<ul id="main-ul">
 				<li class="men" id="one" onclick="location.href='/staff'">Персонал</li>
-				<li class="men" id="two">Автопарк</li>
+				<li class="men" id="two" onclick="location.href='/buspark'">Автопарк</li>
 				<li class="men" id="three">Відділення</a>
 
 				<ul>

@@ -1,9 +1,6 @@
 package services.CRUD_DB.ConstantTables_CRUD;
 
-import services.Entity.Buses_Entity;
-import services.Entity.Department_Entity;
-import services.Entity.Position_Entity;
-import services.Entity.WorkHours_Entity;
+import services.Entity.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -98,6 +95,26 @@ public class Read_ConstantTables {
         }
 
         return busesEntityList;
+    }
+
+    public List<Route_Entity> getRoute(Statement statement){
+        String sql = "SELECT ID,ROUTE FROM ROUTE";
+        List<Route_Entity> routeEntityList = new ArrayList<>();
+        try{
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()){
+                Route_Entity routeEntity = new Route_Entity();
+                routeEntity.setId(resultSet.getInt("id"));
+                routeEntity.setRoute(resultSet.getString("ROUTE"));
+
+                routeEntityList.add(routeEntity);
+            }
+
+        }catch (SQLException e){
+            System.out.println(e);
+        }
+
+        return routeEntityList;
     }
 
 
