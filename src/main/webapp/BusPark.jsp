@@ -55,6 +55,9 @@
             </div>
          </c:if>
       </form>
+
+
+
       <form  method="post"  onsubmit='redirect();return false;'>
          <c:if test="${regime eq 'DeleteBus'}">
             <c:choose>

@@ -18,6 +18,10 @@ position:relative;
    min-height:50%;
 }
 
+.modal-window h1{
+color:black;
+}
+
 
   /* class applies to select element itself, not a wrapper element */
 .changeValues select {

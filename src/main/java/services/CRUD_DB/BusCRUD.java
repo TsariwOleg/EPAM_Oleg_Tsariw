@@ -20,9 +20,7 @@ public class BusCRUD {
         return map;
     }
 
-    public Buses_Entity readBus(int id){
-        return getBusEntity(id);
-    }
+
 
     public void updateBus(int id ,Buses_Entity busesEntity ,List<Route_Entity> routeEntityList){
         String sql = "UPDATE BUS_PARK SET BUS=? , MODEL=? , YEAR_OF_ISSUE=? ,FUEL_CONSUMPTION=? , ROUTE_ID=? " +

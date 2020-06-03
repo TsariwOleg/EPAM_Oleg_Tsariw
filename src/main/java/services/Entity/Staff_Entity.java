@@ -1,23 +1,16 @@
 package services.Entity;
 
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Blob;
-import java.sql.SQLException;
-import java.util.Base64;
 
 public class Staff_Entity {
     private int id ;
     private String name;
     private String surname;
     private String patronymic;
-//    private int idDepartment;
     private int age;
     private String department;
     private String photo;
-
     private String position;
     private int salary;
 

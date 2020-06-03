@@ -10,11 +10,15 @@
       <script>
          function removeRequired(form){
          $.each(form, function(key, value) {
-         if ( value.hasAttribute("required")){
+         if ( value.hasAttribute("required")||value.hasAttribute("min")){
                   value.removeAttribute("required");
+                value.removeAttribute("min");
          }
          });
          }
+
+
+
       </script>
    </head>
    <body>
@@ -38,7 +42,7 @@
                         </tr>
                         <tr>
                            <td>Вік</td>
-                           <td><input type="number" name="newAge"  required></td>
+                           <td><input min="16" max="70" type="number" name="newAge"  required></td>
                         </tr>
                         <tr>
                            <td>Відділення</td>
@@ -59,6 +63,7 @@
             </div>
          </c:if>
       </form>
+
       <form  method="post"  onsubmit='redirect();return false;'>
          <c:if test="${regime eq 'DeletePerson'}">
             <c:choose>
@@ -98,6 +103,8 @@
             <hr id="hr_css">
          </ul>
       </div>
+
+
       <div id="div_table">
          <table class="table" id="table">
             <tr>
@@ -135,6 +142,7 @@
             </c:choose>
          </table>
       </div>
+
       <div class="tooltip">
          <c:choose>
             <c:when test="${regime eq 'DeletePerson'}">

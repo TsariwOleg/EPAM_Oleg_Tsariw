@@ -6,16 +6,22 @@
       <link href="Back&Menu.css" rel="stylesheet">
       <link href="Person.css" rel="stylesheet">
       <link href="ModalWindow.css" rel="stylesheet">
-      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
       <script type="text/javascript" src="js/pop-upMenu.js"></script>
+      <!-- Подключение jQuery плагина Masked Input -->
+      <script src="js/jquery.maskedinput.min.js"></script>
+
       <script>
          function removeRequired(form){
          $.each(form, function(key, value) {
-         if ( value.hasAttribute("required")){
-                  value.removeAttribute("required");
+         if ( value.hasAttribute("required") || value.hasAttribute("min")){
+                                                              value.removeAttribute("required");
+                                                              value.removeAttribute("min");
          }
          });
          }
+
+
       </script>
    </head>
    <body>
@@ -36,12 +42,20 @@
                            </tr>
                            <tr>
                               <td>Рік випуску автобуса</td>
-                              <td> <input type="number" name="newYearOfIssue" value="${bus.yearOfIssue }" required></td>
+                              <td> <input type="number"  name="newYearOfIssue" value="${bus.yearOfIssue }" min="1970" max="3000" required></td>
                            </tr>
+
+
+
+
                            <tr>
                               <td>Розхід палива</td>
-                              <td><input type="text" name="newFuelConsumption" value="${bus.fuelConsumption }" required></td>
+                              <td><input type="text"  id="FuelCons"  name="newFuelConsumption" value="${bus.fuelConsumption }" required></td>
                            </tr>
+<script>
+$('#FuelCons').mask("99/100km");
+</script>
+
                            <tr>
                               <td>Маршрут</td>
                               <td>
@@ -63,6 +77,7 @@
             </div>
          </c:if>
       </form>
+
       <div class="Bar">
          <ul id="main-ul">
             <li class="men" id="one" onclick="location.href='/staff'">Персонал</li>
@@ -80,6 +95,7 @@
             <hr id="hr_css">
          </ul>
       </div>
+
       <form method="post" onsubmit='redirect();return false;'>
          <div id="information_about_person_div">
             <div id="information_about_person">

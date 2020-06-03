@@ -12,8 +12,9 @@
       <script>
          function removeRequired(form){
          $.each(form, function(key, value) {
-         if ( value.hasAttribute("required")){
+         if ( value.hasAttribute("required") || value.hasAttribute("min")){
                   value.removeAttribute("required");
+                  value.removeAttribute("min");
          }
          });
          }
@@ -41,7 +42,7 @@
                            </tr>
                            <tr>
                               <td>Вік</td>
-                              <td><input type="number" name="newAge" value="${staff.age }" required></td>
+                              <td><input type="number" min="16" max="70" name="newAge" value="${staff.age }" required></td>
                            </tr>
                            <tr>
                               <td>Відділення</td>

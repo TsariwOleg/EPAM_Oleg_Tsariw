@@ -105,9 +105,10 @@ public class Staff_CRUD implements DAO_CRUD {
                 "DELETE FROM TAXPAYER_CARD WHERE ID="+id+";" +
                 "DELETE FROM CONTACT WHERE ID="+id+";" +
                 "DELETE FROM ADMINISTRATION WHERE ID="+id+";" +
-                "DELETE FROM CAR_MECHANICS WHERE ID="+id+";" +
                 "DELETE FROM DOCTORS WHERE ID="+id+";" +
                 "DELETE FROM BUS_DRIVERS WHERE ID="+id+";" +
+                //todo delete repaired bus
+//                "DELETE FROM REPAIRED_BUS WHERE MECHANIC_ID="+id+";" +
                 "DELETE FROM STAFF WHERE ID="+id;
 
 

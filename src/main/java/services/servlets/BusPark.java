@@ -19,6 +19,7 @@ public class BusPark extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         req.setAttribute("buses",busParkCRUD.readBusPark());
 
         if (req.getParameter("regime")!=null){
