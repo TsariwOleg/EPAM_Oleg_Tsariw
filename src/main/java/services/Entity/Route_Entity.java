@@ -3,9 +3,33 @@ package services.Entity;
 public class Route_Entity {
     private int id;
     private String route;
+    private int avarageProfit;
+    private int avarageFuelConsuption;
+    private String fullRoute;
 
+    public String getFullRoute() {
+        return fullRoute;
+    }
 
+    public void setFullRoute(String fullRoute) {
+        this.fullRoute = fullRoute;
+    }
 
+    public int getAvarageProfit() {
+        return avarageProfit;
+    }
+
+    public void setAvarageProfit(int avarageProfit) {
+        this.avarageProfit = avarageProfit;
+    }
+
+    public int getAvarageFuelConsuption() {
+        return avarageFuelConsuption;
+    }
+
+    public void setAvarageFuelConsuption(int avarageFuelConsuption) {
+        this.avarageFuelConsuption = avarageFuelConsuption;
+    }
 
     public String getRoute() {
         return route;

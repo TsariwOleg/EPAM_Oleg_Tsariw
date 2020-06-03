@@ -117,5 +117,28 @@ public class Read_ConstantTables {
         return routeEntityList;
     }
 
+    public List<CarMechanics_Entity> getCarMechanics(Statement statement){
+        List<CarMechanics_Entity> carMechanicsEntityList = new ArrayList<>();
+        String sql = "SELECT S.ID,NAME,SURNAME,PATRONYMIC FROM CAR_MECHANICS cm INNER JOIN STAFF S ON (cm.ID = S.ID )";
+        try{
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()){
+                CarMechanics_Entity carMechanicsEntity = new CarMechanics_Entity();
+                carMechanicsEntity.setId(resultSet.getInt("id"));
+                String nsp="";
+                nsp+=resultSet.getString("NAME")+" ";
+                nsp+=resultSet.getString("SURNAME")+" ";
+                nsp+=resultSet.getString("PATRONYMIC");
+                carMechanicsEntity.setNSP(nsp);
+                carMechanicsEntityList.add(carMechanicsEntity);
+            }
+
+
+        }catch (SQLException e){
+            System.out.println(e);
+        }
+        return carMechanicsEntityList;
+    }
+
 
 }

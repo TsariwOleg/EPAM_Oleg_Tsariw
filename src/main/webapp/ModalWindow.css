@@ -15,7 +15,7 @@ position:relative;
    top:20%;
    left:15%;
    width:70%;
-   height:50%;
+   min-height:50%;
 }
 
 
@@ -67,7 +67,8 @@ font-weight: bold;
 
 .changeValues input[type=text],
  .changeValues input[type=number],
- .changeValues input[type=date]
+ .changeValues input[type=date],
+ .changeValues .textarea
 {
  font-weight: bold;
    font-size:large;
@@ -95,10 +96,16 @@ background:#ccc;
     -webkit-border-radius: 5px;
     border-radius: 5px;
     transition: all 0.45s;
+    margin-top:1%;
+    margin-bottom:4%;
     }
 
 
 .changeValues input[type=submit]:hover {
 background:#333;
 color:white;
+}
+
+h1{
+padding-top:0;
 }

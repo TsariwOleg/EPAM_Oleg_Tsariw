@@ -1,6 +1,7 @@
 package services.CRUD_DB.Person_CRUD;
 
-import services.ConnectionBD.ConnectionPool;
+import org.h2.jdbc.JdbcSQLException;
+import services.ConnectionBD.ConnectionBD;
 import services.Entity.*;
 
 import java.io.InputStream;
@@ -12,9 +13,10 @@ import java.util.List;
 import java.util.Map;
 
 public class Update_Person   {
-    ConnectionPool pool = ConnectionPool.getInstance();
-    Connection connection = pool.getConnection();
-//todo create one method for updating img
+    ConnectionBD connectionBD = new ConnectionBD();
+    Connection connection = connectionBD.getConnection();
+
+    //todo create one method for updating img
     public void updateStaffImg(int id, InputStream inputStream) {
         String sql = "update staff set photo= ? where id=" + id;
         PreparedStatement preparedStatement;
@@ -140,11 +142,20 @@ public class Update_Person   {
             preparedStatement.executeUpdate();
             }
 
-            preparedStatement = connection.prepareStatement("delete from  CAR_MECHANICS where id=" + id);
-            preparedStatement.executeUpdate();
+            if (!staffEntity.getDepartment().equals("Автомеханіки")){
+                try {
+                    preparedStatement = connection.prepareStatement("delete from  CAR_MECHANICS where id=" + id);
+                    preparedStatement.executeUpdate();
+                }catch (JdbcSQLException e){
+                    System.out.println("Порушення обмеження референтної цілісності");
+                }
 
+            }
+
+            if (!staffEntity.getDepartment().equals("Медики")){
             preparedStatement = connection.prepareStatement("delete from  DOCTORS where id=" + id);
             preparedStatement.executeUpdate();
+            }
 
 
             preparedStatement = connection.prepareStatement(newdepartm);

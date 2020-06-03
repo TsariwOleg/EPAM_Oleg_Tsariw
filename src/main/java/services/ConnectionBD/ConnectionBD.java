@@ -1,4 +1,3 @@
-/*
 package services.ConnectionBD;
 
 import java.sql.*;
@@ -10,7 +9,6 @@ public class ConnectionBD {
     private String Login ="sa";
 
     public Connection getConnection(){
-        System.out.println("saf");
         Connection connection = null;
 
         try{
@@ -18,10 +16,10 @@ public class ConnectionBD {
             connection= DriverManager.getConnection(URL,Login,Password);
 
         }catch (SQLException | ClassNotFoundException e) {
-            */
+
 /* TODO
             * do log
-            * *//*
+            * */
 
             e.printStackTrace();
             System.out.println("problem");
@@ -64,4 +62,4 @@ public class ConnectionBD {
     }
 
 }
-*/
+

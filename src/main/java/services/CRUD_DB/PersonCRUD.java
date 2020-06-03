@@ -4,7 +4,7 @@ package services.CRUD_DB;
 import services.CRUD_DB.Person_CRUD.Delete_Person;
 import services.CRUD_DB.Person_CRUD.Read_Person;
 import services.CRUD_DB.Person_CRUD.Update_Person;
-import services.ConnectionBD.ConnectionPool;
+import services.ConnectionBD.ConnectionBD;
 import services.Entity.*;
 
 import javax.servlet.http.Part;
@@ -18,8 +18,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PersonCRUD {
-    ConnectionPool pool = ConnectionPool.getInstance();
-    Connection connection = pool.getConnection();
+    ConnectionBD connectionBD = new ConnectionBD();
+    Connection connection = connectionBD.getConnection();
+
 
 
 //todo create dao  close connection

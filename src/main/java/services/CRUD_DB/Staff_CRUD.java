@@ -1,7 +1,7 @@
 package services.CRUD_DB;
 
 
-import services.ConnectionBD.ConnectionPool;
+import services.ConnectionBD.ConnectionBD;
 import services.DAO.DAO_CRUD;
 import services.Entity.Department_Entity;
 import services.Entity.Staff_Entity;
@@ -12,8 +12,9 @@ import java.util.List;
 import java.util.Map;
 
 public class Staff_CRUD implements DAO_CRUD {
-    ConnectionPool pool = ConnectionPool.getInstance();
-    Connection connection = pool.getConnection();
+    ConnectionBD connectionBD = new ConnectionBD();
+    Connection connection = connectionBD.getConnection();
+
 
 
     @Override
@@ -85,6 +86,10 @@ public class Staff_CRUD implements DAO_CRUD {
                 sql = sql + "INSERT INTO BUS_DRIVERS(id) VALUES(" + max + ")";
             }
 
+            if (department_id == 3) {
+                sql = sql + "INSERT INTO Car_MECHANICS(id) VALUES(" + max + ")";
+            }
+//            org.h2.jdbc.JdbcSQLException:
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.execute();
 

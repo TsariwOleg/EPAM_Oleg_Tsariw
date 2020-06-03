@@ -1,7 +1,7 @@
 package services.CRUD_DB;
 
 import services.CRUD_DB.ConstantTables_CRUD.Read_ConstantTables;
-import services.ConnectionBD.ConnectionPool;
+import services.ConnectionBD.ConnectionBD;
 import services.Entity.Route_Entity;
 
 import java.sql.Connection;
@@ -13,8 +13,9 @@ import java.util.Map;
 
 public class ConstantTablesCRUD /*extends ConnectionBD*/ {
 //    Connection connection = getConnection();
-ConnectionPool pool = ConnectionPool.getInstance();
-    Connection connection = pool.getConnection();
+ConnectionBD connectionBD = new ConnectionBD();
+    Connection connection = connectionBD.getConnection();
+
     Read_ConstantTables read_constantTables = new Read_ConstantTables();
     public Map readConstantTable (String person){
         Map map = new HashMap();
@@ -52,6 +53,20 @@ ConnectionPool pool = ConnectionPool.getInstance();
 
 
         return routeEntityList;
+    }
+
+    public Map readConstantTableH(){
+        Statement statement;
+        Map map = new HashMap();
+
+        try {
+            statement= connection.createStatement();
+            map.put("bus", read_constantTables.getWorkBus(statement));
+            map.put("carmechanics",read_constantTables.getCarMechanics(statement));
+        }catch (SQLException e){
+            System.out.println(e);
+        }
+        return map;
     }
 
 }

@@ -1,6 +1,6 @@
 package services.CRUD_DB;
 
-import services.ConnectionBD.ConnectionPool;
+import services.ConnectionBD.ConnectionBD;
 import services.Entity.Buses_Entity;
 import services.Entity.Route_Entity;
 
@@ -9,8 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BusParkCRUD {
-    ConnectionPool pool = ConnectionPool.getInstance();
-    Connection connection = pool.getConnection();
+    ConnectionBD connectionBD = new ConnectionBD();
+    Connection connection = connectionBD.getConnection();
+
 
     public List<Buses_Entity> readBusPark(){
         List<Buses_Entity> busParkEntityList = new ArrayList<>();
