@@ -1,5 +1,7 @@
 package services.Entity;
 
+import services.BlobToString;
+
 import java.io.InputStream;
 import java.sql.Blob;
 

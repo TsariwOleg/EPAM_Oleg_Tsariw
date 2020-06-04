@@ -2,7 +2,7 @@ package services.servlets;
 
 import services.CRUD_DB.CheckUpCRUD;
 import services.CRUD_DB.ConstantTablesCRUD;
-import services.Entity.BlobToString;
+import services.BlobToString;
 import services.Entity.CheckUp_Entity;
 import services.Entity.Staff_Entity;
 
@@ -26,7 +26,10 @@ public class CheckUp extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        if (req.getSession().getAttribute("departmentId")!=null){
+            System.out.println(req.getSession().getAttribute("departmentId"));
+            req.setAttribute("access",req.getSession().getAttribute("departmentId"));
+        }
 
 
         if (selectDateTriger==0){

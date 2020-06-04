@@ -1,7 +1,7 @@
 package services.servlets;
 import services.CRUD_DB.ConstantTablesCRUD;
 import services.CRUD_DB.Staff_CRUD;
-import services.Entity.BlobToString;
+import services.BlobToString;
 import services.Entity.Staff_Entity;
 
 
@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,15 +23,22 @@ public class Staff extends HttpServlet {
     List<Staff_Entity> staffEntityList = new ArrayList<>();
     private Map mapConstantTable;
     ConstantTablesCRUD constantTablesCRUD = new ConstantTablesCRUD();
-
+    private HttpSession session;
 
 
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)  {
+
+
+
+        if (req.getSession().getAttribute("departmentId")!=null){
+            req.setAttribute("access",req.getSession().getAttribute("departmentId"));
+        }
+
         staffEntityList=staff_crud.getStaff();
 
-//        System.out.println(req.getParameter("regime"));
+
 
 
         req.setAttribute("staff",staffEntityList);

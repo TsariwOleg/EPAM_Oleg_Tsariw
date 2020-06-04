@@ -18,6 +18,8 @@
       </script>
    </head>
    <body>
+
+      <c:if test="${access eq '1'}">
       <c:choose>
          <c:when test="${empty target}">
             <form  method="post" action="/historyOfRepair">
@@ -101,6 +103,8 @@
             </c:choose>
          </c:if>
       </form>
+
+      </c:if>
       <div class="Bar">
          <ul id="main-ul">
             <li class="men" id="one" onclick="location.href='/staff'">Персонал</li>
@@ -114,7 +118,14 @@
                   <li id="Doc">Медперсонал</li>
                </ul>
             </li>
-            <li class="men" id="four">Ввійти</li>
+            <c:if test="${empty access}">
+                        <li class="men" id="four" onclick="location.href='/login'">Ввійти</li>
+                        </c:if>
+
+                        <c:if test="${not empty access}">
+                        <li class="men" id="four" onclick="location.href='/login?regime=logout'">Вийти</li>
+                        </c:if>
+
             <hr id="hr_css">
          </ul>
       </div>
@@ -152,6 +163,8 @@
                      </c:when>
                      <c:otherwise>
                         <c:forEach items="${history}" var="history">
+                                <c:if test="${access eq '1'}">
+
                            <c:choose>
                               <c:when test="${empty target}">
                                  <tr onclick="location.href='/historyOfRepair?regime=DeleteHistory&deleteId=${history.repairedNo}'">
@@ -160,6 +173,12 @@
                               <tr onclick="location.href='/historyOfRepair?target=${target}&id=${id}&regime=DeleteHistory&deleteId=${history.repairedNo}'">
                               </c:otherwise>
                            </c:choose>
+
+</c:if>
+                                                   <c:if test="${access ne '1'}">
+                                                   <tr>
+                                                   </c:if>
+
                            <td>${history.repairedNo}</td>
                            <td>${history.malfunction}</td>
                            <td>${history.costOfRepair}</td>
@@ -174,6 +193,8 @@
             </c:choose>
          </table>
       </div>
+
+                                                         <c:if test="${access eq '1'}">
       <div class="tooltip">
          <c:choose>
             <c:when test="${regime eq 'DeleteHistory'}">
@@ -210,5 +231,6 @@
             </c:otherwise>
          </c:choose>
       </div>
+      </c:if>
    </body>
 </html>

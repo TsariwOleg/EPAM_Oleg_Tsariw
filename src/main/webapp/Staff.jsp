@@ -22,6 +22,7 @@
       </script>
    </head>
    <body>
+   <c:if test="${access eq '1'}">
       <form  method="post" action="/staff">
          <c:if test="${regime eq 'AddPerson'}">
             <div class="change">
@@ -63,6 +64,8 @@
             </div>
          </c:if>
       </form>
+      </c:if>
+   <c:if test="${access eq '1'}">
 
       <form  method="post"  onsubmit='redirect();return false;'>
          <c:if test="${regime eq 'DeletePerson'}">
@@ -86,6 +89,7 @@
             </c:choose>
          </c:if>
       </form>
+      </c:if>
       <div class="Bar">
          <ul id="main-ul">
             <li class="men" id="one" onclick="location.href='/staff'">Персонал</li>
@@ -99,7 +103,14 @@
                   <li id="Doc">Медперсонал</li>
                </ul>
             </li>
-            <li class="men" id="four">Ввійти</li>
+            <c:if test="${empty access}">
+                        <li class="men" id="four" onclick="location.href='/login'">Ввійти</li>
+                        </c:if>
+
+                        <c:if test="${not empty access}">
+                        <li class="men" id="four" onclick="location.href='/login?regime=logout'">Вийти</li>
+                        </c:if>
+
             <hr id="hr_css">
          </ul>
       </div>
@@ -130,7 +141,13 @@
                </c:when>
                <c:otherwise>
                   <c:forEach items="${staff}" var="staffjsp">
+                     <c:if test="${access eq '1'}">
                      <tr onclick="location.href='/staff?regime=DeletePerson&id=${staffjsp.id}'">
+                     </c:if>
+
+                        <c:if test="${access ne '1'}">
+                                          <tr onclick="location.href='/person?id=${staffjsp.id}'">
+</c:if>
                         <td>${staffjsp.name}</td>
                         <td>${staffjsp.surname}</td>
                         <td>${staffjsp.patronymic}</td>
@@ -143,6 +160,7 @@
          </table>
       </div>
 
+<c:if test="${access eq '1'}">
       <div class="tooltip">
          <c:choose>
             <c:when test="${regime eq 'DeletePerson'}">
@@ -159,5 +177,7 @@
             </c:otherwise>
          </c:choose>
       </div>
+
+      </c:if>
    </body>
 </html>

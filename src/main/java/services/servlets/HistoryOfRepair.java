@@ -2,7 +2,7 @@ package services.servlets;
 
 import services.CRUD_DB.ConstantTablesCRUD;
 import services.CRUD_DB.HistoryOfRepairCRUD;
-import services.Entity.BlobToString;
+import services.BlobToString;
 import services.Entity.HistoryOfRepair_Entity;
 
 import javax.servlet.ServletException;
@@ -23,6 +23,9 @@ public class HistoryOfRepair extends HttpServlet {
     Map map = constantTablesCRUD.readConstantTableH();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (req.getSession().getAttribute("departmentId")!=null){
+            req.setAttribute("access",req.getSession().getAttribute("departmentId"));
+        }
 
         if (("AddNewHistory").equals(req.getParameter("regime"))){
 

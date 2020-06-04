@@ -25,6 +25,8 @@
       </script>
    </head>
    <body>
+   <c:if test="${access eq '1'}">
+
       <form  method="post" action="/bus?id=${bus.id}">
          <c:if test="${not empty regime}">
             <div class="change">
@@ -77,6 +79,7 @@ $('#FuelCons').mask("99/100km");
             </div>
          </c:if>
       </form>
+      </c:if>
 
       <div class="Bar">
          <ul id="main-ul">
@@ -91,7 +94,13 @@ $('#FuelCons').mask("99/100km");
                   <li id="Doc">Медперсонал</li>
                </ul>
             </li>
-            <li class="men" id="four">Ввійти</li>
+            <c:if test="${empty access}">
+            <li class="men" id="four" onclick="location.href='/login'">Ввійти</li>
+            </c:if>
+
+            <c:if test="${not empty access}">
+            <li class="men" id="four" onclick="location.href='/login?regime=logout'">Вийти</li>
+            </c:if>
             <hr id="hr_css">
          </ul>
       </div>
@@ -129,6 +138,8 @@ $('#FuelCons').mask("99/100km");
                         </label>
                      </td>
                   </tr>
+                  <c:if test="${access eq '1'}">
+
                   <tr class="input">
                      <td onclick="location.href='/bus?id=${bus.id}&regime=UpdateInfoBus'">
                         <label>
@@ -138,6 +149,7 @@ $('#FuelCons').mask("99/100km");
                         </label>
                      </td>
                   </tr>
+                  </c:if>
                </table>
                <div class="table2">
                   <script type="text/javascript"></script>

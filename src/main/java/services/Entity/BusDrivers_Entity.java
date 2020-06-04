@@ -1,5 +1,7 @@
 package services.Entity;
 
+import services.BlobToString;
+
 import java.sql.Blob;
 
 public class BusDrivers_Entity {

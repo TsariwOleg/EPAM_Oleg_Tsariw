@@ -1,6 +1,7 @@
 package services.CRUD_DB.Person_CRUD;
 
 import org.h2.jdbc.JdbcSQLException;
+import services.BlobToString;
 import services.ConnectionBD.ConnectionBD;
 import services.Entity.*;
 

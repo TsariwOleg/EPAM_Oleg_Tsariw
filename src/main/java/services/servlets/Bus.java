@@ -2,7 +2,7 @@ package services.servlets;
 
 import services.CRUD_DB.BusCRUD;
 import services.CRUD_DB.ConstantTablesCRUD;
-import services.Entity.BlobToString;
+import services.BlobToString;
 import services.Entity.Buses_Entity;
 
 import javax.servlet.ServletException;
@@ -22,6 +22,11 @@ private Map mapBus;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (req.getSession().getAttribute("departmentId")!=null){
+            req.setAttribute("access",req.getSession().getAttribute("departmentId"));
+        }
+
+
         mapBus= busCRUD.getBus(Integer.parseInt(req.getParameter("id")));
 
         req.setAttribute("bus",mapBus.get("bus"));

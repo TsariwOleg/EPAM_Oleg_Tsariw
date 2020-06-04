@@ -18,6 +18,7 @@
       </script>
    </head>
    <body>
+   <c:if test="${access eq '1'}">
       <form  method="post" action="/buspark">
          <c:if test="${regime eq 'AddBus'}">
             <div class="change">
@@ -55,9 +56,10 @@
             </div>
          </c:if>
       </form>
+      </c:if>
 
 
-
+   <c:if test="${access eq '1'}">
       <form  method="post"  onsubmit='redirect();return false;'>
          <c:if test="${regime eq 'DeleteBus'}">
             <c:choose>
@@ -80,6 +82,8 @@
             </c:choose>
          </c:if>
       </form>
+      </c:if>
+
       <div class="Bar">
          <ul id="main-ul">
             <li class="men" id="one" onclick="location.href='/staff'">Персонал</li>
@@ -93,7 +97,14 @@
                   <li id="Doc">Медперсонал</li>
                </ul>
             </li>
-            <li class="men" id="four">Ввійти</li>
+            <c:if test="${empty access}">
+                        <li class="men" id="four" onclick="location.href='/login'">Ввійти</li>
+                        </c:if>
+
+                        <c:if test="${not empty access}">
+                        <li class="men" id="four" onclick="location.href='/login?regime=logout'">Вийти</li>
+                        </c:if>
+
             <hr id="hr_css">
          </ul>
       </div>
@@ -131,6 +142,9 @@
             </c:choose>
          </table>
       </div>
+
+
+      <c:if test="${access eq '1'}">
       <div class="tooltip">
          <c:choose>
             <c:when test="${regime eq 'DeleteBus'}">
@@ -147,5 +161,7 @@
             </c:otherwise>
          </c:choose>
       </div>
+            </c:if>
+
    </body>
 </html>

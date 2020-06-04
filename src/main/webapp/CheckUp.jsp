@@ -48,6 +48,8 @@
                      </c:if>
    </form>
 
+   <c:if test="${access eq '4'}">
+
     <form  method="post" action="/checkUp">
             <c:if test="${regime eq 'AddCheckUp'}">
                <div class="change">
@@ -108,7 +110,8 @@
                </div>
             </c:if>
          </form>
-
+</c:if>
+   <c:if test="${access eq '4'}">
 
 <form  method="post"  onsubmit='redirect();return false;'>
          <c:if test="${regime eq 'DeleteCheckUp'}">
@@ -132,7 +135,9 @@
             </c:choose>
          </c:if>
       </form>
+</c:if>
 
+                      <c:if test="${access eq '4'}">
 
 <form  method="post"  onsubmit='redirect();return false;'>
          <c:if test="${regime eq 'EditCheckUp'}">
@@ -203,6 +208,7 @@
             </c:choose>
          </c:if>
       </form>
+</c:if>
 
     <div class="Bar">
             <ul id="main-ul">
@@ -217,7 +223,14 @@
                      <li id="Doc">Медперсонал</li>
                   </ul>
                </li>
-               <li class="men" id="four">Ввійти</li>
+               <c:if test="${empty access}">
+                           <li class="men" id="four" onclick="location.href='/login'">Ввійти</li>
+                           </c:if>
+
+                           <c:if test="${not empty access}">
+                           <li class="men" id="four" onclick="location.href='/login?regime=logout'">Вийти</li>
+                           </c:if>
+                           <hr id="hr_css">
                <hr id="hr_css">
             </ul>
          </div>
@@ -284,22 +297,27 @@
                    <c:otherwise>
                       <img class="wrench" src="resources/feature.png" width=35px/>
                       <div class="person create">
-                         <img  src="resources/edit.png" width=30px onclick="location.href='/checkUp?regime=AddCheckUp'">
+                            <img src="resources/changeDate.png" width=30px onclick="location.href='/checkUp?regime=ChangeDate'">
+
                       </div>
+                      <c:if test="${access eq '4'}">
+
                       <div class="person delete">
-                         <img src="resources/trash.png" width=30px onclick="location.href='/checkUp?regime=DeleteCheckUp'">
+                                 <img  src="resources/edit.png" width=30px onclick="location.href='/checkUp?regime=AddCheckUp'">
+
                       </div>
                       <div class="person edit">
                           <img src="resources/fix.png" width=30px onclick="location.href='/checkUp?regime=EditCheckUp'">
                       </div>
 
                       <div class="person changeDate">
-                          <img src="resources/changeDate.png" width=30px onclick="location.href='/checkUp?regime=ChangeDate'">
+                          <img src="resources/trash.png" width=30px onclick="location.href='/checkUp?regime=DeleteCheckUp'">
                       </div>
-
+    </c:if>
                    </c:otherwise>
                 </c:choose>
              </div>
+
 
    </body>
 

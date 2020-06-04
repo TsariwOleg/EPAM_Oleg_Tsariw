@@ -1,5 +1,6 @@
 package services.servlets;
 
+import services.BlobToString;
 import services.CRUD_DB.ConstantTablesCRUD;
 import services.CRUD_DB.PersonCRUD;
 import services.Entity.*;
@@ -29,6 +30,9 @@ public class Person extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
+        if (req.getSession().getAttribute("departmentId")!=null){
+            req.setAttribute("access",req.getSession().getAttribute("departmentId"));
+        }
         mapPerson = personCRUD.readPerson(Integer.parseInt(req.getParameter("id")));
 
 
@@ -74,6 +78,7 @@ public class Person extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
+
         mapPerson = personCRUD.readPerson(Integer.parseInt(req.getParameter("id")));
         int id = Integer.parseInt(req.getParameter("id"));
         Part part;

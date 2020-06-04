@@ -2,7 +2,7 @@ package services.servlets;
 
 import services.CRUD_DB.BusParkCRUD;
 import services.CRUD_DB.ConstantTablesCRUD;
-import services.Entity.BlobToString;
+import services.BlobToString;
 import services.Entity.Buses_Entity;
 
 import javax.servlet.ServletException;
@@ -19,7 +19,9 @@ public class BusPark extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        if (req.getSession().getAttribute("departmentId")!=null){
+            req.setAttribute("access",req.getSession().getAttribute("departmentId"));
+        }
         req.setAttribute("buses",busParkCRUD.readBusPark());
 
         if (req.getParameter("regime")!=null){

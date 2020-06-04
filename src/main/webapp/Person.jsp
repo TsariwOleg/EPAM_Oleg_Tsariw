@@ -21,6 +21,7 @@
       </script>
    </head>
    <body>
+   <c:if test="${access eq '1'}">
       <form  method="post" action="/person?id=${staff.id}">
          <c:if test="${not empty regime}">
             <div class="change">
@@ -99,7 +100,7 @@
                      <c:if test="${regime eq 'UpdateInfoTaxpayerCard'}">
                         <table>
                            <tr>
-                              <td>Місце народження</td>
+                              <td>Номер карти платника:</td>
                               <td><input type="number" name="newTaxpayerNumber" value="${taxpayerCard.taxpayerNumber}" required></td>
                            </tr>
                         </table>
@@ -154,6 +155,8 @@
             </div>
          </c:if>
       </form>
+      </c:if>
+
       <div class="Bar">
          <ul id="main-ul">
             <li class="men" id="one" onclick="location.href='/staff'">Персонал</li>
@@ -167,7 +170,14 @@
                   <li id="Doc">Медперсонал</li>
                </ul>
             </li>
-            <li class="men" id="four">Ввійти</li>
+           <c:if test="${empty access}">
+                       <li class="men" id="four" onclick="location.href='/login'">Ввійти</li>
+                       </c:if>
+
+                       <c:if test="${not empty access}">
+                       <li class="men" id="four" onclick="location.href='/login?regime=logout'">Вийти</li>
+                       </c:if>
+
             <hr id="hr_css">
          </ul>
       </div>
@@ -238,6 +248,7 @@
                         </td>
                      </tr>
                   </c:if>
+                  <c:if test="${access eq '1'}">
                   <tr class="input">
                      <td onclick="location.href='/person?id=${staff.id}&regime=UpdateInfoAboutPers'">
                         <label>
@@ -247,6 +258,7 @@
                         </label>
                      </td>
                   </tr>
+                  </c:if>
                </table>
                <div class="table2">
                   <script type="text/javascript"></script>
@@ -294,6 +306,7 @@
                               <svg height="60" width="0" ></svg>
                            </td>
                         </tr>
+                        <c:if test="${access eq '1'}">
                         <tr class="input">
                            <td onclick="location.href='/person?id=${staff.id}&regime=UpdateInfoPassport'">
                               <label>
@@ -303,6 +316,7 @@
                               </label>
                            </td>
                         </tr>
+                        </c:if>
                      </table>
                   </div>
                </div>
@@ -336,6 +350,7 @@
                               <svg height="60" width="0" ></svg>
                            </td>
                         </tr>
+                        <c:if test="${access eq '1'}">
                         <tr class="input">
                            <td onclick="location.href='/person?id=${staff.id}&regime=UpdateInfoTaxpayerCard'">
                               <label>
@@ -345,6 +360,7 @@
                               </label>
                            </td>
                         </tr>
+                        </c:if>
                      </table>
                   </div>
                </div>
@@ -367,6 +383,7 @@
                               <svg height="60" width="0" ></svg>
                            </td>
                         </tr>
+                        <c:if test="${access eq '1'}">
                         <tr class="input">
                            <td onclick="location.href='/person?id=${staff.id}&regime=UpdateInfoMedicalBook'">
                               <label>
@@ -376,6 +393,7 @@
                               </label>
                            </td>
                         </tr>
+                        </c:if>
                      </table>
                   </div>
                </div>
@@ -418,6 +436,7 @@
                                  <svg height="60" width="0" ></svg>
                               </td>
                            </tr>
+                           <c:if test="${access eq '1'}">
                            <tr class="input">
                               <td onclick="location.href='/person?id=${staff.id}&regime=UpdateInfoOther'">
                                  <label>
@@ -427,6 +446,7 @@
                                  </label>
                               </td>
                            </tr>
+                           </c:if>
                         </table>
                      </div>
                   </div>

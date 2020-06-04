@@ -1,6 +1,8 @@
 package services.Entity;
 
 
+import services.BlobToString;
+
 import java.sql.Blob;
 
 public class Staff_Entity {
