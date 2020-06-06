@@ -6,6 +6,15 @@ public class Route_Entity {
     private int avarageProfit;
     private int avarageFuelConsuption;
     private String fullRoute;
+    private int countOfBuses;
+
+    public int getCountOfBuses() {
+        return countOfBuses;
+    }
+
+    public void setCountOfBuses(int countOfBuses) {
+        this.countOfBuses = countOfBuses;
+    }
 
     public String getFullRoute() {
         return fullRoute;

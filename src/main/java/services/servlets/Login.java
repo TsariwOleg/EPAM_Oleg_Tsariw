@@ -35,6 +35,7 @@ public class Login extends HttpServlet {
             if (signInEntity.getNSP()!=null){
                 session= req.getSession();
                 session.setAttribute("departmentId",signInEntity.getDepartmentId());
+                System.out.println(signInEntity.getDepartmentId());
 
             }else {
                 System.out.println("null");

@@ -59,16 +59,12 @@ public class BlobToString {
         List<SignIn_Entity> signInEntityList = new SignInCRUD().getSignIn();
         SignIn_Entity existingSignIn = new SignIn_Entity();
         for (SignIn_Entity sign : signInEntityList) {
-            System.out.print(signInEntity.getLogin()+"=");
-            System.out.println(sign.getLogin());
 
-            System.out.print(  signInEntity.getPassword()+"=");
-            System.out.println(sign.getPassword());
             if (signInEntity.getLogin().equals(sign.getLogin()) &&
                     signInEntity.getPassword().equals(sign.getPassword())) {
 
                 existingSignIn=sign;
-                System.out.println(sign);
+
                 break;
             }
 

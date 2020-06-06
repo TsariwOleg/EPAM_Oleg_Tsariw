@@ -25,8 +25,8 @@
       </script>
    </head>
    <body>
-   <c:if test="${access eq '1'}">
 
+   <c:if test="${access eq '1'}">
       <form  method="post" action="/bus?id=${bus.id}">
          <c:if test="${not empty regime}">
             <div class="change">

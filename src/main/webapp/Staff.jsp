@@ -65,6 +65,7 @@
          </c:if>
       </form>
       </c:if>
+
    <c:if test="${access eq '1'}">
 
       <form  method="post"  onsubmit='redirect();return false;'>
@@ -90,6 +91,7 @@
          </c:if>
       </form>
       </c:if>
+
       <div class="Bar">
          <ul id="main-ul">
             <li class="men" id="one" onclick="location.href='/staff'">Персонал</li>
@@ -159,6 +161,7 @@
             </c:choose>
          </table>
       </div>
+
 
 <c:if test="${access eq '1'}">
       <div class="tooltip">

@@ -85,7 +85,7 @@
 
                            <tr>
                               <td>Нотатки</td>
-                              <td><input type="text" name="newNote"></td>
+                              <td><textarea class="textarea" rows="4" name="newNote"  required></textarea></td>
                            </tr>
 
 

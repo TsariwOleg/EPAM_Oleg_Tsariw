@@ -102,26 +102,44 @@ cursor:pointer;
 margin-top:4%;
 margin-left:7%;
 float: left; /* Обтекание по правому краю */
-
-
 cursor:pointer;
 color:white;
 font-weight: bold;
 font-size:x-large;
 }
-
 .input td{
  background:linear-gradient(#3D7EAA, #FFE47A) center bottom; /*OR bottom right OR bottom left*/
+}
+.inputBus td{
+ background:linear-gradient(#3D7EAA, #FFE47A) bottom left; /*OR bottom right OR bottom left*/
+
+}
+
+.input td,
+.inputBus td{
     background-size: 0% 2px; /*width:0% height:2px*/
     background-repeat:no-repeat; /* Don't repeat !!*/
     transition: all 0.45s;
 }
 
-.input td:hover{
 
+.input td:hover,
+.inputBus td:hover{
   background-size: 100% 2px; /*width:100% height:2px*/
   cursor:pointer;
 }
+
+.inputBus .ntr{
+          margin-bottom:4%;
+          margin-left:7%;
+          float: left; /* Обтекание по правому краю */
+          cursor:pointer;
+          color:white;
+          font-weight: bold;
+          font-size:x-large;
+          }
+
+
 
 svg{
 opacity:0;
