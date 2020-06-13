@@ -66,6 +66,9 @@ public class SignIn_Entity {
                 ", password='" + password + '\'' +
                 ", department='" + department + '\'' +
                 ", departmentId=" + departmentId +
+                ", NSP='" + NSP + '\'' +
                 '}';
     }
+
+
 }

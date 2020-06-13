@@ -20,7 +20,7 @@ public class Update_Person   {
     //todo create one method for updating img
     public void updateStaffImg(int id, InputStream inputStream) {
         String sql = "update staff set photo= ? where id=" + id;
-        PreparedStatement preparedStatement;
+        PreparedStatement preparedStatement=null;
         try {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setBlob(1, inputStream);
@@ -28,13 +28,21 @@ public class Update_Person   {
 
         } catch (SQLException e) {
             System.out.println(e);
+        }finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
         }
     }
 
 
     public void updatePassportImg(int id, InputStream inputStream) {
         String sql = "update passport set Scanned_passport= ? where id=" + id;
-        PreparedStatement preparedStatement;
+        PreparedStatement preparedStatement=null;
         try {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setBlob(1, inputStream);
@@ -42,13 +50,21 @@ public class Update_Person   {
 
         } catch (SQLException e) {
             System.out.println(e);
+        }finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
         }
     }
 
 
     public void updateTaxpayerCardImg(int id, InputStream inputStream) {
         String sql = "update taxpayer_card set scanned_taxpayer_card= ? where id=" + id;
-        PreparedStatement preparedStatement;
+        PreparedStatement preparedStatement=null;
         try {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setBlob(1, inputStream);
@@ -56,13 +72,21 @@ public class Update_Person   {
 
         } catch (SQLException e) {
             System.out.println(e);
+        }finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
         }
     }
 
 
     public void updateBusDriverImg(int id, InputStream inputStream) {
         String sql = "update bus_drivers set driver_license= ? where id=" + id;
-        PreparedStatement preparedStatement;
+        PreparedStatement preparedStatement=null;
         try {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setBlob(1, inputStream);
@@ -70,6 +94,14 @@ public class Update_Person   {
 
         } catch (SQLException e) {
             System.out.println(e);
+        }finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
         }
     }
 
@@ -98,7 +130,7 @@ public class Update_Person   {
         }
 
 
-        PreparedStatement preparedStatement;
+        PreparedStatement preparedStatement=null;
         String sql = "UPDATE STAFF SET NAME=? ,SURNAME=? , Patronymic=? , AGE=? , department_id=?  WHERE ID=" + id;
         try {
             preparedStatement = connection.prepareStatement(sql);
@@ -164,6 +196,14 @@ public class Update_Person   {
 
         } catch (SQLException e) {
             System.out.println(e);
+        }finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
         }
 
     }
@@ -189,17 +229,23 @@ public class Update_Person   {
             }
         }
 
+        PreparedStatement preparedStatement = null;
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1,hoursId);
             preparedStatement.setInt(2,busId);
             preparedStatement.executeUpdate();
         }catch (SQLException e){
             System.out.println(e);
+        }finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
         }
-
-
-
 
 
     }
@@ -207,12 +253,14 @@ public class Update_Person   {
 
 
 
-    BlobToString blobToString = new BlobToString();
     public void updatePassport (int id , Passport_Entity passportEntity){
+        BlobToString blobToString = new BlobToString();
+
         String sql = "UPDATE PASSPORT SET  DATE_OF_BIRTH=? , " +
         "COUNTRY_OF_BIRTH=? ,REGION_OF_BIRTH=? ,CITY_OF_BIRTH=? , DOCUMENT_NO=? WHERE ID="+id;
+        PreparedStatement preparedStatement = null;
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+             preparedStatement = connection.prepareStatement(sql);
 
             preparedStatement.setString(1,blobToString.getUTFString(passportEntity.getDateOfBirth()) );
             preparedStatement.setString(2,blobToString.getUTFString(passportEntity.getCountryOfBirth()));
@@ -222,6 +270,14 @@ public class Update_Person   {
             preparedStatement.executeUpdate();
         }catch (SQLException  e){
             System.out.println(e);
+        }finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
         }
 
     }
@@ -229,25 +285,44 @@ public class Update_Person   {
 
     public void updateTaxpayerCard(int id , TaxpayerCard_Entity taxpayerCardEntity){
         String sql = "UPDATE taxpayer_card SET  TAXPAYER_NUMBER=? where id="+id;
-        try{
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1,taxpayerCardEntity.getTaxpayerNumber());
             preparedStatement.executeUpdate();
         }catch (SQLException e){
             System.out.println(e);
+        }finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
         }
     }
 
 
     public void updateMedicalBook(int id , MedicalBook_Entity medicalBookEntity) {
+        BlobToString blobToString = new BlobToString();
         String sql="UPDATE Medical_book SET date_OF_MEDICAL_EXAMINATION=?, date_OF_NEXT_MEDICAL_EXAMINATION=? WHERE ID="+id;
-        try{
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1,blobToString.getUTFString(medicalBookEntity.getDateOfMedicalExam()));
             preparedStatement.setString(2,blobToString.getUTFString(medicalBookEntity.getDateOfNextMedicalExam()));
             preparedStatement.executeUpdate();
         }catch (SQLException e){
             System.out.println(e);
+        }finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
         }
 
     }

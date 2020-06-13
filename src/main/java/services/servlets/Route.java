@@ -27,9 +27,9 @@ public class Route extends HttpServlet {
         if (req.getParameter("regime")!=null){
             req.setAttribute("regime",req.getParameter("regime"));
         }
-
-        id=Integer.parseInt(req.getParameter("id"));
-
+if (req.getParameter("id")!=null) {
+    id = Integer.parseInt(req.getParameter("id"));
+}
         req.setAttribute("route",oneRouteCRUD.getRoute(id));
         req.setAttribute("buses",oneRouteCRUD.getBuses(id));
 

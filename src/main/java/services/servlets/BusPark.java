@@ -27,7 +27,7 @@ public class BusPark extends HttpServlet {
         if (req.getParameter("regime")!=null){
             if (req.getParameter("regime").equals("AddBus")){
                 req.setAttribute("regime",req.getParameter("regime"));
-                req.setAttribute("route",constantTablesCRUD.readConstantTable());
+                req.setAttribute("route",constantTablesCRUD.readRoute());
             }
 
             if (req.getParameter("regime").equals("DeleteBus")){
@@ -69,7 +69,7 @@ public class BusPark extends HttpServlet {
             busesEntity.setRoute(blobToString.getUTFString(req.getParameter("newRoute")));
 
             BusParkCRUD busParkCRUD = new BusParkCRUD();
-            busParkCRUD.createBus(busesEntity,constantTablesCRUD.readConstantTable());
+            busParkCRUD.createBus(busesEntity,constantTablesCRUD.readRoute());
         }
 
         doGet(req,resp);

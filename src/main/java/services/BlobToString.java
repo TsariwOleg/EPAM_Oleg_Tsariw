@@ -56,15 +56,22 @@ public class BlobToString {
     }
 
     public SignIn_Entity ifExist(SignIn_Entity signInEntity) {
-        List<SignIn_Entity> signInEntityList = new SignInCRUD().getSignIn();
+        List<SignIn_Entity> signInEntityList = new SignInCRUD().getUsersOfSite("");
         SignIn_Entity existingSignIn = new SignIn_Entity();
         for (SignIn_Entity sign : signInEntityList) {
 
             if (signInEntity.getLogin().equals(sign.getLogin()) &&
                     signInEntity.getPassword().equals(sign.getPassword())) {
 
+
                 existingSignIn=sign;
 
+
+                if (existingSignIn.getNSP()==null){
+                    existingSignIn.setNSP("admin");
+                    existingSignIn.setDepartment("admin");
+                    existingSignIn.setDepartmentId(0);
+                }
                 break;
             }
 

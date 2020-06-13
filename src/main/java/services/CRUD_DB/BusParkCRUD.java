@@ -13,13 +13,15 @@ public class BusParkCRUD {
     Connection connection = connectionBD.getConnection();
 
 
-    public List<Buses_Entity> readBusPark(){
+    public List<Buses_Entity> readBusPark() {
         List<Buses_Entity> busParkEntityList = new ArrayList<>();
         String sql = "SELECT * FROM BUS_PARK bp LEFT JOIN ROUTE r ON bp.ROUTE_ID =r.id ";
+        Statement statement = null;
+        ResultSet resultSet = null;
         try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
-            while (resultSet.next()){
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
                 Buses_Entity busesEntity = new Buses_Entity();
                 busesEntity.setId(resultSet.getInt("BUS_ID"));
                 busesEntity.setBusNo(resultSet.getString("BUS"));
@@ -32,58 +34,110 @@ public class BusParkCRUD {
             }
 
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
         }
         return busParkEntityList;
     }
 
 
-
-    public void createBus(Buses_Entity busesEntity , List<Route_Entity> list){
+    public void createBus(Buses_Entity busesEntity, List<Route_Entity> list) {
         String sql = "INSERT INTO BUS_PARK(BUS_ID,BUS,Year_Of_Issue,MODEL,ROUTE_ID) VALUES (?,?,?,?,?)";
-        int routeid=0;
-        for (Route_Entity routeEntity :list) {
-            if (busesEntity.getRoute().equals(routeEntity.getRoute())){
-                routeid=routeEntity.getId();
+        int routeid = 0;
+        for (Route_Entity routeEntity : list) {
+            if (busesEntity.getRoute().equals(routeEntity.getRoute())) {
+                routeid = routeEntity.getId();
             }
         }
-
-        try{
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT MAX(BUS_ID) FROM BUS_PARK");
+        Statement statement = null;
+        ResultSet resultSet = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT MAX(BUS_ID) FROM BUS_PARK");
             int max = 0;
             if (resultSet.next()) {
-                max = resultSet.getInt(1)+1;
+                max = resultSet.getInt(1) + 1;
             }
 
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1,max);
-            preparedStatement.setString(2,busesEntity.getBusNo());
-            preparedStatement.setInt(3,busesEntity.getYearOfIssue());
-            preparedStatement.setString(4,busesEntity.getModel());
-            preparedStatement.setInt(5,routeid);
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, max);
+            preparedStatement.setString(2, busesEntity.getBusNo());
+            preparedStatement.setInt(3, busesEntity.getYearOfIssue());
+            preparedStatement.setString(4, busesEntity.getModel());
+            preparedStatement.setInt(5, routeid);
             preparedStatement.execute();
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
         }
 
     }
 
 
-    public void deleteBus(int id){
-        String sql = "UPDATE BUS_DRIVERS SET WORK_BUS_ID=NULL WHERE WORK_BUS_ID ="+id;
-        try{
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+    public void deleteBus(int id) {
+        String sql = "UPDATE BUS_DRIVERS SET WORK_BUS_ID=NULL WHERE WORK_BUS_ID =" + id;
+        PreparedStatement preparedStatement=null;
+        try {
+             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.execute();
 
-            sql="delete from BUS_PARK where bus_id="+id;
-            preparedStatement=connection.prepareStatement(sql);
+            sql = "delete from BUS_PARK where bus_id=" + id;
+            preparedStatement = connection.prepareStatement(sql);
             preparedStatement.execute();
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
+        }finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
         }
 
     }

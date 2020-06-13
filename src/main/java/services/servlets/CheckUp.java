@@ -42,8 +42,8 @@ public class CheckUp extends HttpServlet {
                 return;
             }
 
-        List<Staff_Entity> staff = constantTablesCRUD.readStaff();
-        List<Staff_Entity> doctors = constantTablesCRUD.readDoctor();
+        List<Staff_Entity> staff = constantTablesCRUD.readStaff("");
+        List<Staff_Entity> doctors = constantTablesCRUD.readStaff("WHERE DEPARTMENT_ID=4");
         if (req.getParameter("regime") != null) {
             if (req.getParameter("regime").equals("AddCheckUp")) {
                 req.setAttribute("staff", staff);
@@ -78,8 +78,8 @@ public class CheckUp extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Staff_Entity> staff = constantTablesCRUD.readStaff();
-        List<Staff_Entity> doctors = constantTablesCRUD.readDoctor();
+        List<Staff_Entity> staff = constantTablesCRUD.readStaff("");
+        List<Staff_Entity> doctors = constantTablesCRUD.readStaff("WHERE DEPARTMENT_ID=4");
         BlobToString blobToString = new BlobToString();
         if (req.getParameter("confirmCheckUp") != null) {
             CheckUp_Entity checkUpEntity = new CheckUp_Entity();

@@ -29,15 +29,7 @@
             <ul id="main-ul">
                <li class="men" id="one" onclick="location.href='/staff'">Персонал</li>
                <li class="men" id="two" onclick="location.href='/buspark'">Автопарк</li>
-               <li class="men" id="three">
-                  Відділення</a>
-                  <ul>
-                     <li id="adm">Адміністрація</li>
-                     <li id="Dri">Водії</li>
-                     <li id="Mech">Автомеханіки</li>
-                     <li id="Doc">Медперсонал</li>
-                  </ul>
-               </li>
+              <li class="men" id="three" onclick="location.href='/department'">Відділення</li>
                <c:if test="${empty access}">
                            <li class="men" id="four" onclick="location.href='/login'">Ввійти</li>
                            </c:if>

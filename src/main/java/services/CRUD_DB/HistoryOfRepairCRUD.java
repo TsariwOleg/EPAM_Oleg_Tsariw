@@ -30,10 +30,11 @@ public class HistoryOfRepairCRUD {
             " inner join STAFF s ON (s.ID = rb.MECHANIC_ID )";
         }
 
-
+        Statement statement = null;
+        ResultSet resultSet = null;
         try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
+             statement = connection.createStatement();
+             resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
 
                 HistoryOfRepair_Entity historyOfRepairEntity = new HistoryOfRepair_Entity();
@@ -56,6 +57,22 @@ public class HistoryOfRepairCRUD {
             }
         } catch (SQLException e) {
             System.out.println(e);
+        }finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
         }
 
         return historyOfRepairList;
@@ -89,9 +106,11 @@ public class HistoryOfRepairCRUD {
         }
         }
 
+        Statement statement = null;
+        ResultSet resultSet = null;
         try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT MAX(REPAIRENO) FROM REPAIRED_BUS");
+             statement = connection.createStatement();
+             resultSet = statement.executeQuery("SELECT MAX(REPAIRENO) FROM REPAIRED_BUS");
             if (resultSet.next()) {
                 repaireNo = resultSet.getInt(1) + 1;
             }
@@ -107,6 +126,22 @@ public class HistoryOfRepairCRUD {
 
         }catch (SQLException e){
             System.out.println(e);
+        }finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
         }
 
     }
@@ -115,11 +150,21 @@ public class HistoryOfRepairCRUD {
 
     public void deleteHistory(int id){
         String sql= "DELETE FROM REPAIRED_BUS WHERE REPAIRENO="+id;
+        PreparedStatement preparedStatement = null;
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.execute();
         }catch (SQLException e){
             System.out.println();
+        }finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+
         }
 
     }

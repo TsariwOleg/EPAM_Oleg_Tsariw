@@ -22,7 +22,7 @@
       </script>
    </head>
    <body>
-   <c:if test="${access eq '1'}">
+   <c:if test="${access eq '1' || access eq '0'}">
       <form  method="post" action="/staff">
          <c:if test="${regime eq 'AddPerson'}">
             <div class="change">
@@ -66,7 +66,7 @@
       </form>
       </c:if>
 
-   <c:if test="${access eq '1'}">
+   <c:if test="${access eq '1' || access eq '0'}">
 
       <form  method="post"  onsubmit='redirect();return false;'>
          <c:if test="${regime eq 'DeletePerson'}">
@@ -96,15 +96,7 @@
          <ul id="main-ul">
             <li class="men" id="one" onclick="location.href='/staff'">Персонал</li>
             <li class="men" id="two" onclick="location.href='/buspark'">Автопарк</li>
-            <li class="men" id="three">
-               Відділення</a>
-               <ul>
-                  <li id="adm">Адміністрація</li>
-                  <li id="Dri">Водії</li>
-                  <li id="Mech">Автомеханіки</li>
-                  <li id="Doc">Медперсонал</li>
-               </ul>
-            </li>
+            <li class="men" id="three" onclick="location.href='/department'">Відділення</li>
             <c:if test="${empty access}">
                         <li class="men" id="four" onclick="location.href='/login'">Ввійти</li>
                         </c:if>
@@ -143,11 +135,11 @@
                </c:when>
                <c:otherwise>
                   <c:forEach items="${staff}" var="staffjsp">
-                     <c:if test="${access eq '1'}">
+                     <c:if test="${access eq '1' || access eq '0'}">
                      <tr onclick="location.href='/staff?regime=DeletePerson&id=${staffjsp.id}'">
                      </c:if>
 
-                        <c:if test="${access ne '1'}">
+                        <c:if test="${access ne '1' && access ne '0'}">
                                           <tr onclick="location.href='/person?id=${staffjsp.id}'">
 </c:if>
                         <td>${staffjsp.name}</td>
@@ -163,7 +155,7 @@
       </div>
 
 
-<c:if test="${access eq '1'}">
+<c:if test="${access eq '1' || access eq '0'}">
       <div class="tooltip">
          <c:choose>
             <c:when test="${regime eq 'DeletePerson'}">
@@ -180,7 +172,8 @@
             </c:otherwise>
          </c:choose>
       </div>
-
       </c:if>
+
+
    </body>
 </html>

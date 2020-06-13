@@ -28,7 +28,6 @@ public class HistoryOfRepair extends HttpServlet {
         }
 
         if (("AddNewHistory").equals(req.getParameter("regime"))){
-
             req.setAttribute("bus",map.get("bus"));
             req.setAttribute("carmechanics",map.get("carmechanics"));
         }

@@ -21,7 +21,7 @@
       </script>
    </head>
    <body>
-   <c:if test="${access eq '1'}">
+   <c:if test="${access eq '1' || access eq '0'}">
       <form  method="post" action="/person?id=${staff.id}">
          <c:if test="${not empty regime}">
             <div class="change">
@@ -161,15 +161,7 @@
          <ul id="main-ul">
             <li class="men" id="one" onclick="location.href='/staff'">Персонал</li>
             <li class="men" id="two" onclick="location.href='/buspark'">Автопарк</li>
-            <li class="men" id="three">
-               Відділення</a>
-               <ul>
-                  <li id="adm">Адміністрація</li>
-                  <li id="Dri">Водії</li>
-                  <li id="Mech">Автомеханіки</li>
-                  <li id="Doc">Медперсонал</li>
-               </ul>
-            </li>
+            <li class="men" id="three" onclick="location.href='/department'">Відділення</li>
            <c:if test="${empty access}">
                        <li class="men" id="four" onclick="location.href='/login'">Ввійти</li>
                        </c:if>
@@ -181,6 +173,7 @@
             <hr id="hr_css">
          </ul>
       </div>
+
       <form method="post" onsubmit='redirect();return false;'  enctype="multipart/form-data">
          <div id="information_about_person_div">
             <div id="information_about_person">
@@ -248,7 +241,7 @@
                         </td>
                      </tr>
                   </c:if>
-                  <c:if test="${access eq '1'}">
+                  <c:if test="${access eq '1' || access eq '0'}">
                   <tr class="input">
                      <td onclick="location.href='/person?id=${staff.id}&regime=UpdateInfoAboutPers'">
                         <label>
@@ -306,7 +299,7 @@
                               <svg height="60" width="0" ></svg>
                            </td>
                         </tr>
-                        <c:if test="${access eq '1'}">
+                        <c:if test="${access eq '1' || access eq '0'}">
                         <tr class="input">
                            <td onclick="location.href='/person?id=${staff.id}&regime=UpdateInfoPassport'">
                               <label>
@@ -350,7 +343,7 @@
                               <svg height="60" width="0" ></svg>
                            </td>
                         </tr>
-                        <c:if test="${access eq '1'}">
+                        <c:if test="${access eq '1' || access eq '0'}">
                         <tr class="input">
                            <td onclick="location.href='/person?id=${staff.id}&regime=UpdateInfoTaxpayerCard'">
                               <label>
@@ -383,7 +376,7 @@
                               <svg height="60" width="0" ></svg>
                            </td>
                         </tr>
-                        <c:if test="${access eq '1'}">
+                        <c:if test="${access eq '1' || access eq '0'}">
                         <tr class="input">
                            <td onclick="location.href='/person?id=${staff.id}&regime=UpdateInfoMedicalBook'">
                               <label>
@@ -436,7 +429,7 @@
                                  <svg height="60" width="0" ></svg>
                               </td>
                            </tr>
-                           <c:if test="${access eq '1'}">
+                           <c:if test="${access eq '1' || access eq '0'}">
                            <tr class="input">
                               <td onclick="location.href='/person?id=${staff.id}&regime=UpdateInfoOther'">
                                  <label>

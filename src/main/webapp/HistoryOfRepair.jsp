@@ -19,7 +19,7 @@
    </head>
    <body>
 
-      <c:if test="${access eq '1'}">
+      <c:if test="${access eq '1' || access eq '0'}">
       <c:choose>
          <c:when test="${empty target}">
             <form  method="post" action="/historyOfRepair">
@@ -109,15 +109,7 @@
          <ul id="main-ul">
             <li class="men" id="one" onclick="location.href='/staff'">Персонал</li>
             <li class="men" id="two" onclick="location.href='/buspark'">Автопарк</li>
-            <li class="men" id="three">
-               Відділення</a>
-               <ul>
-                  <li id="adm">Адміністрація</li>
-                  <li id="Dri">Водії</li>
-                  <li id="Mech">Автомеханіки</li>
-                  <li id="Doc">Медперсонал</li>
-               </ul>
-            </li>
+            <li class="men" id="three" onclick="location.href='/department'">Відділення</li>
             <c:if test="${empty access}">
                         <li class="men" id="four" onclick="location.href='/login'">Ввійти</li>
                         </c:if>
@@ -163,7 +155,7 @@
                      </c:when>
                      <c:otherwise>
                         <c:forEach items="${history}" var="history">
-                                <c:if test="${access eq '1'}">
+                                <c:if test="${access eq '1' || access eq '0'}">
 
                            <c:choose>
                               <c:when test="${empty target}">
@@ -175,7 +167,7 @@
                            </c:choose>
 
 </c:if>
-                                                   <c:if test="${access ne '1'}">
+                                                   <c:if test="${access ne '1' || access eq '0'}">
                                                    <tr>
                                                    </c:if>
 
@@ -194,7 +186,7 @@
          </table>
       </div>
 
-                                                         <c:if test="${access eq '1'}">
+                                                         <c:if test="${access eq '1' || access eq '0'}">
       <div class="tooltip">
          <c:choose>
             <c:when test="${regime eq 'DeleteHistory'}">

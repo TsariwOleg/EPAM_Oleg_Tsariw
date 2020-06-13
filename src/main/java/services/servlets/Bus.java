@@ -34,7 +34,7 @@ private Map mapBus;
 
         if(req.getParameter("regime")!=null){
             if(req.getParameter("regime").equals("UpdateInfoBus")){
-                req.setAttribute("constRoute",constantTablesCRUD.readConstantTable());
+                req.setAttribute("constRoute",constantTablesCRUD.readRoute());
 
             }
            req.setAttribute("regime",req.getParameter("regime"));
@@ -60,7 +60,7 @@ private Map mapBus;
             busesEntity.setRoute(blobToString.getUTFString(req.getParameter("newRoute")));
 
             busCRUD.updateBus(Integer.parseInt(req.getParameter("id")),busesEntity,
-                    constantTablesCRUD.readConstantTable()     );
+                    constantTablesCRUD.readRoute());
 
         }
         doGet(req,resp);
