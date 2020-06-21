@@ -8,6 +8,14 @@ z-index:9999;
  background: rgba(40,42,52, 0.8);
 }
 
+.modal-windowDepart{
+position:relative;
+   background: rgba(255,255,255, 0.8);
+   top:20%;
+   left:15%;
+   width:70%;
+}
+
 .modal-window{
 position:relative;
    border: 2px solid #282A34;
@@ -17,6 +25,8 @@ position:relative;
    width:70%;
    min-height:50%;
 }
+
+
 
 .modal-window h1{
 color:black;
@@ -72,6 +82,7 @@ font-weight: bold;
 .changeValues input[type=text],
  .changeValues input[type=number],
  .changeValues input[type=date],
+ .changeValues input[type=time],
  .changeValues .textarea
 {
  font-weight: bold;

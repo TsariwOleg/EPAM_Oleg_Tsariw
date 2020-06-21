@@ -1,6 +1,7 @@
 package services.CRUD_DB;
 
 
+import org.apache.log4j.Logger;
 import services.ConnectionBD.ConnectionBD;
 import services.DAO.DAO_CRUD;
 import services.Entity.Department_Entity;
@@ -14,6 +15,7 @@ import java.util.Map;
 public class Staff_CRUD implements DAO_CRUD {
     ConnectionBD connectionBD = new ConnectionBD();
     Connection connection = connectionBD.getConnection();
+    private final Logger logger = Logger.getRootLogger();
 
 
     @Override
@@ -44,25 +46,24 @@ public class Staff_CRUD implements DAO_CRUD {
 
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            logger.error("SQLException in getStaff block:" + e);
         } finally {
             try {
                 if (statement != null) {
                     statement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getStaff block(close statement):" + e);
             }
-
             try {
                 if (resultSet != null) {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getStaff block(close resultSet):" + e);
+
             }
         }
-
         return staffEntityList;
     }
 
@@ -107,28 +108,26 @@ public class Staff_CRUD implements DAO_CRUD {
             if (department_id == 3) {
                 sql = sql + "INSERT INTO Car_MECHANICS(id) VALUES(" + max + ")";
             }
-//            org.h2.jdbc.JdbcSQLException:
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.execute();
 
 
         } catch (SQLException e) {
-            System.out.println(e);
+            logger.error("SQLException in createPerson block:" + e);
         } finally {
             try {
                 if (statement != null) {
                     statement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in createPerson block(close statement):" + e);
             }
-
             try {
                 if (resultSet != null) {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in createPerson block(close resultSet):" + e);
             }
 
             try {
@@ -136,7 +135,8 @@ public class Staff_CRUD implements DAO_CRUD {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in createPerson block(close preparedStatement):" + e);
+
             }
         }
     }
@@ -162,20 +162,17 @@ public class Staff_CRUD implements DAO_CRUD {
             preparedStatement.execute();
 
         } catch (SQLException e) {
-            System.out.println(e);
+            logger.error("SQLException in deletePerson block:" + e);
+
         } finally {
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in deletePerson block(close preparedStatement):" + e);
             }
-
-
         }
-
-
     }
 
 

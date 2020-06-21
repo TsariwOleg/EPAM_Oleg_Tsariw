@@ -1,5 +1,6 @@
 package services.CRUD_DB;
 
+import org.apache.log4j.Logger;
 import services.ConnectionBD.ConnectionBD;
 import services.Entity.Buses_Entity;
 import services.Entity.CarMechanics_Entity;
@@ -13,6 +14,7 @@ import java.util.Map;
 public class HistoryOfRepairCRUD {
     ConnectionBD connectionBD = new ConnectionBD();
     Connection connection = connectionBD.getConnection();
+    private final Logger logger = Logger.getRootLogger();
 
     public List<HistoryOfRepair_Entity> getHistory(int id, String target) {
         String sql = "";
@@ -56,14 +58,16 @@ public class HistoryOfRepairCRUD {
             historyOfRepairList.add(historyOfRepairEntity);
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            logger.error("SQLException in getCheckUp block:"+e);
+
         }finally {
             try {
                 if (statement != null) {
                     statement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getHistory block(close statement):"+e);
+
             }
 
             try {
@@ -71,7 +75,8 @@ public class HistoryOfRepairCRUD {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getHistory block(close resultSet):"+e);
+
             }
         }
 
@@ -125,14 +130,16 @@ public class HistoryOfRepairCRUD {
             preparedStatement.execute();
 
         }catch (SQLException e){
-            System.out.println(e);
+            logger.error("SQLException in createHistory block:"+e);
+
         }finally {
             try {
                 if (statement != null) {
                     statement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in createHistory block(close statement):"+e);
+
             }
 
             try {
@@ -140,7 +147,8 @@ public class HistoryOfRepairCRUD {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in createHistory block(close resultSet):"+e);
+
             }
         }
 
@@ -155,14 +163,16 @@ public class HistoryOfRepairCRUD {
              preparedStatement = connection.prepareStatement(sql);
             preparedStatement.execute();
         }catch (SQLException e){
-            System.out.println();
+            logger.error("SQLException in deleteHistory block:"+e);
+
         }finally {
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in deleteHistory block(close preparedStatement):"+e);
+
             }
 
         }

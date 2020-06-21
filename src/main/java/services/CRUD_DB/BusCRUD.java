@@ -1,5 +1,6 @@
 package services.CRUD_DB;
 
+import org.apache.log4j.Logger;
 import services.ConnectionBD.ConnectionBD;
 import services.Entity.Buses_Entity;
 import services.Entity.Route_Entity;
@@ -12,6 +13,7 @@ import java.util.Map;
 public class BusCRUD {
     ConnectionBD connectionBD = new ConnectionBD();
     Connection connection = connectionBD.getConnection();
+    private final Logger logger = Logger.getRootLogger();
 
     public Map getBus(int id) {
         Map map = new HashMap();
@@ -42,7 +44,7 @@ public class BusCRUD {
             preparedStatement.setInt(5, routeId);
             preparedStatement.execute();
         } catch (SQLException e) {
-            System.out.println(e);
+           logger.error("SQLException in updateBus block:"+e);
         } finally {
 
             try {
@@ -50,7 +52,7 @@ public class BusCRUD {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in updateBus block(close preparedStatement):"+e);
             }
         }
 
@@ -66,7 +68,7 @@ public class BusCRUD {
             preparedStatement.execute();
 
         } catch (SQLException e) {
-            System.out.println(e);
+            logger.error("SQLException in deleteBus block:"+e);
         } finally {
 
             try {
@@ -74,7 +76,7 @@ public class BusCRUD {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in deleteBus block(close preparedStatement):"+e);
             }
         }
 
@@ -100,7 +102,8 @@ public class BusCRUD {
 
 
         } catch (SQLException e) {
-            System.out.println(e);
+            logger.error("SQLException in getBusEntity block:"+e);
+
         } finally {
 
             try {
@@ -108,7 +111,8 @@ public class BusCRUD {
                     statement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getBusEntity block(close statement):"+e);
+
             }
 
             try {
@@ -116,7 +120,8 @@ public class BusCRUD {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in updateBus block(close resultSet):"+e);
+
             }
 
 
@@ -141,7 +146,8 @@ public class BusCRUD {
                 routeEntity.setFullRoute(resultSet.getString("FULL_ROUTE"));
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            logger.error("SQLException in getRoute block:"+e);
+
         } finally {
 
             try {
@@ -149,7 +155,8 @@ public class BusCRUD {
                     statement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getRoute block(close statement):"+e);
+
             }
 
             try {
@@ -157,7 +164,8 @@ public class BusCRUD {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getRoute block(close resultSet):"+e);
+
             }
         }
 

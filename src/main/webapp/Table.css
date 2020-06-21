@@ -13,6 +13,17 @@ z-index:1;
 }
 
 
+#tableDep{
+  background: white;
+  border-radius:3px;
+  border-collapse: collapse;
+  margin: auto;
+  padding:5px;
+  width: 100%;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  animation: float 5s infinite;
+}
+
 #table{
   background: white;
   border-radius:3px;
@@ -24,6 +35,8 @@ z-index:1;
   animation: float 5s infinite;
 
 }
+
+
 
 .table th {
   color:#D5DDE5;
@@ -201,4 +214,6 @@ color:white;
 .table .emptyField{
 text-align: center;
 }
+
+
 

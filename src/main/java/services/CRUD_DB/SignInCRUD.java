@@ -1,5 +1,6 @@
 package services.CRUD_DB;
 
+import org.apache.log4j.Logger;
 import services.ConnectionBD.ConnectionBD;
 import services.Entity.SignIn_Entity;
 import services.Entity.Staff_Entity;
@@ -11,6 +12,7 @@ import java.util.List;
 public class SignInCRUD {
     ConnectionBD connectionBD = new ConnectionBD();
     Connection connection = connectionBD.getConnection();
+    private final Logger logger = Logger.getRootLogger();
 
     public List<SignIn_Entity> getUsersOfSite(String string) {
         String sql = "SELECT atw.ID ,ATW.LOGIN ,ATW.PASSWORD ,s1.NAME , s1.SURNAME , s1.PATRONYMIC  ,s1.DEPARTMENT_ID ," +
@@ -65,14 +67,15 @@ public class SignInCRUD {
             }
 
         } catch (SQLException e) {
-            System.out.println(e);
+            logger.error("SQLException in getUsersOfSite block:" + e);
+
         }finally {
             try {
                 if (statement != null) {
                     statement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getUsersOfSite block(close statement):" + e);
             }
 
             try {
@@ -80,7 +83,7 @@ public class SignInCRUD {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getUsersOfSite block(close resultSet):" + e);
             }
         }
 
@@ -102,14 +105,16 @@ public class SignInCRUD {
 
 
         }catch (SQLException e){
-            System.out.println(e);
+            logger.error("SQLException in getOneSignIn block:" + e);
+
         }finally {
             try {
                 if (statement != null) {
                     statement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getOneSignIn block(close statement):" + e);
+
             }
 
             try {
@@ -117,7 +122,8 @@ public class SignInCRUD {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getOneSignIn block(close resultSet):" + e);
+
             }
         }
 
@@ -141,17 +147,15 @@ public class SignInCRUD {
             preparedStatement.setString(3,newUser.getPassword());
             preparedStatement.execute();
         }catch (SQLException e){
-            System.out.println(e);
+            logger.error("SQLException in createUsersOfSite block:" + e);
         }finally {
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in createUsersOfSite block(close preparedStatement):" + e);
             }
-
-
         }
     }
 
@@ -163,19 +167,16 @@ public class SignInCRUD {
             preparedStatement.execute();
 
         } catch (SQLException e){
-            System.out.println(e);
+            logger.error("SQLException in deleteUserOfSite block:" + e);
         }finally {
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in deleteUserOfSite block(close preparedStatement):" + e);
             }
-
-
         }
-
     }
 
     public void updateSignId(int id , SignIn_Entity newSignIn){
@@ -186,22 +187,17 @@ public class SignInCRUD {
             preparedStatement.setString(1,newSignIn.getLogin());
             preparedStatement.setString(2,newSignIn.getPassword());
             preparedStatement.execute();
-
         } catch (SQLException e){
-            System.out.println(e);
+            logger.error("SQLException in updateSignId block:" + e);
         }finally {
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in updateSignId block(close preparedStatement):" + e);
             }
-
-
         }
-
-
     }
 
 }

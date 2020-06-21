@@ -1,6 +1,7 @@
 package services.CRUD_DB.Person_CRUD;
 
 
+import org.apache.log4j.Logger;
 import services.ConnectionBD.ConnectionBD;
 import services.Entity.*;
 
@@ -10,9 +11,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Read_Person {
-    //TODO close result set
+
     ConnectionBD connectionBD = new ConnectionBD();
     Connection connection = connectionBD.getConnection();
+    private final Logger logger = Logger.getRootLogger();
 
     public Staff_Entity getStaff(int id) {
         String sql = "SELECT * FROM STAFF s  LEFT join DEPARTMENT d  on s.department_id=d.id where s.id=" + id;
@@ -42,14 +44,14 @@ public class Read_Person {
             }
 
         } catch (SQLException e) {
-            System.out.println(e);
+            logger.error("SQLException in getStaff block:"+e);
         } finally {
             try {
                 if (statement != null) {
                     statement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getStaff block(close statement):"+e);
             }
 
             try {
@@ -57,7 +59,7 @@ public class Read_Person {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getStaff block(close statement):"+e);
             }
         }
         return staff_entity;
@@ -78,14 +80,14 @@ public class Read_Person {
             }
 
         } catch (SQLException e) {
-            System.out.println(e);
+            logger.error("SQLException in getDepartment block:"+e);
         } finally {
             try {
                 if (statement != null) {
                     statement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getDepartment block(close statement):"+e);
             }
 
             try {
@@ -93,7 +95,7 @@ public class Read_Person {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getDepartment block(close statement):"+e);
             }
         }
 
@@ -126,14 +128,15 @@ public class Read_Person {
             }
 
         } catch (SQLException e) {
-            System.out.println(e);
+            logger.error("SQLException in getPassport block:"+e);
+
         } finally {
             try {
                 if (statement != null) {
                     statement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getPassport block(close statement):"+e);
             }
 
             try {
@@ -141,7 +144,7 @@ public class Read_Person {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getPassport block(close statement):"+e);
             }
         }
 
@@ -173,15 +176,15 @@ public class Read_Person {
             }
 
         } catch (SQLException e) {
-            System.out.println("TaxpayerCard:");
-            System.out.println(e);
+            logger.error("SQLException in getTaxpayerCard block:"+e);
+
         } finally {
             try {
                 if (statement != null) {
                     statement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getTaxpayerCard block(close statement):"+e);
             }
 
             try {
@@ -189,7 +192,7 @@ public class Read_Person {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getTaxpayerCard block(close statement):"+e);
             }
         }
 
@@ -215,15 +218,15 @@ public class Read_Person {
             }
 
         } catch (SQLException e) {
-            System.out.println("Medical book:");
-            System.out.println(e);
+            logger.error("SQLException in getMedicalBook block:"+e);
+
         } finally {
             try {
                 if (statement != null) {
                     statement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getMedicalBook block(close statement):"+e);
             }
 
             try {
@@ -231,7 +234,7 @@ public class Read_Person {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getMedicalBook block(close statement):"+e);
             }
         }
         return medicalBook_entity;
@@ -263,15 +266,15 @@ public class Read_Person {
             }
 
         } catch (SQLException e) {
-            System.out.println("Medical book:");
-            System.out.println(e);
+            logger.error("SQLException in getParametersOfDrivers block:"+e);
+
         } finally {
             try {
                 if (statement != null) {
                     statement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getParametersOfDrivers block(close statement):"+e);
             }
 
             try {
@@ -279,7 +282,7 @@ public class Read_Person {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getParametersOfDrivers block(close statement):"+e);
             }
         }
         return parametersOfDriver_entity;
@@ -321,15 +324,15 @@ public class Read_Person {
                         position_entity.setSalary(resultSet.getInt("salary"));
                     }
                 } catch (SQLException e) {
-                    System.out.println("getDepartment");
-                    System.out.println(e);
+                    logger.error("SQLException in getPosition block:"+e);
+
                 } finally {
                     try {
                         if (statement != null) {
                             statement.close();
                         }
                     } catch (SQLException e) {
-                        System.out.println(e);
+                        logger.error("SQLException in getPosition block(close statement):"+e);
                     }
 
                     try {
@@ -337,7 +340,7 @@ public class Read_Person {
                             resultSet.close();
                         }
                     } catch (SQLException e) {
-                        System.out.println(e);
+                        logger.error("SQLException in getPosition block(close statement):"+e);
                     }
                 }
             }
@@ -371,14 +374,14 @@ public class Read_Person {
             }
 
         } catch (SQLException e) {
-            System.out.println(e);
+            logger.error("SQLException in getBusDriver block:"+e);
         } finally {
             try {
                 if (statement != null) {
                     statement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getBusDriver block(close statement):"+e);
             }
 
             try {
@@ -386,7 +389,7 @@ public class Read_Person {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getBusDriver block(close statement):"+e);
             }
         }
 

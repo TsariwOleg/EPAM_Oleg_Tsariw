@@ -1,5 +1,6 @@
 package services.CRUD_DB;
 
+import org.apache.log4j.Logger;
 import services.ConnectionBD.ConnectionBD;
 import services.Entity.DepartmentPage_Entity;
 
@@ -11,6 +12,8 @@ import java.sql.Statement;
 public class DepartmentCRUD {
     ConnectionBD connectionBD = new ConnectionBD();
     Connection connection = connectionBD.getConnection();
+    private final Logger logger = Logger.getRootLogger();
+
 
     public DepartmentPage_Entity getForDepartmentPage() {
         String sql = "SELECT COUNT(*) FROM STAFF WHERE DEPARTMENT_ID=1";
@@ -34,7 +37,8 @@ public class DepartmentCRUD {
                 }
 
             } catch (ArithmeticException e) {
-                System.out.println(e);
+                logger.error("ArithmeticException in getForDepartmentPage block:" + e);
+
             }
 
 
@@ -53,7 +57,8 @@ public class DepartmentCRUD {
                             departmentPageEntity.getCountOfDrivers());
                 }
             } catch (ArithmeticException e) {
-                System.out.println(e);
+                logger.error("ArithmeticException in getForDepartmentPage block:" + e);
+
             }
 
 
@@ -71,7 +76,8 @@ public class DepartmentCRUD {
                             departmentPageEntity.getCountOfMechanics());
                 }
             } catch (ArithmeticException e) {
-                System.out.println(e);
+                logger.error("ArithmeticException in getForDepartmentPage block:" + e);
+
             }
 
 
@@ -90,19 +96,22 @@ public class DepartmentCRUD {
                             departmentPageEntity.getCountOfDoctors());
                 }
             } catch (ArithmeticException e) {
-                System.out.println(e);
+                logger.error("ArithmeticException in getForDepartmentPage block:" + e);
+
             }
 
 
         } catch (SQLException e) {
-            System.out.println(e);
+            logger.error("SQLException in getForDepartmentPage block:" + e);
+
         } finally {
             try {
                 if (statement != null) {
                     statement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getForDepartmentPage block(close statement):" + e);
+
             }
 
             try {
@@ -110,7 +119,7 @@ public class DepartmentCRUD {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getForDepartmentPage block(close resultSet):" + e);
             }
         }
 

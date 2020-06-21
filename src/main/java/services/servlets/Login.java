@@ -1,5 +1,7 @@
 package services.servlets;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 import services.BlobToString;
 import services.Entity.SignIn_Entity;
 
@@ -14,12 +16,29 @@ import java.io.IOException;
 @WebServlet ("/login")
 public class Login extends HttpServlet {
     HttpSession session;
+    private static final Logger logger = Logger.getRootLogger();
+    int idSession = -1;
+
+    @Override
+    public void init(){
+        BasicConfigurator.configure();
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+
         if (req.getSession().getAttribute("departmentId")!=null){
         if (req.getParameter("regime")!=null){
             req.setAttribute("regime",req.getParameter("regime"));
-        }}
+        }else {
+            resp.sendRedirect("/department");
+            return;
+        }
+
+
+
+        }
 
         req.getRequestDispatcher("/Login.jsp").forward(req,resp);
     }
@@ -35,23 +54,27 @@ public class Login extends HttpServlet {
             if (signInEntity.getNSP()!=null){
                 session= req.getSession();
                 session.setAttribute("departmentId",signInEntity.getDepartmentId());
-                System.out.println(signInEntity.getDepartmentId());
-
+                idSession=signInEntity.getDepartmentId();
+                logger.info("\n Access to web is successful. User_id="+idSession);
             }else {
-                System.out.println("null");
+                logger.info("Access to web is denied");
             }
 
         }
 
         if (req.getParameter("cancellogout")!=null){
-        resp.sendRedirect("/login");
+            logger.info("Log out from web is cancelling. User_id="+idSession);
+            resp.sendRedirect("/login");
         return;
         }
 
         if (req.getParameter("logout")!=null){
+            logger.info("Log out from web. User="+idSession);
+            idSession=-1;
             req.getSession().removeAttribute("departmentId");
-        resp.sendRedirect("/login");
-        return;
+            resp.sendRedirect("/login");
+            return;
+
         }
 
         doGet(req,resp);

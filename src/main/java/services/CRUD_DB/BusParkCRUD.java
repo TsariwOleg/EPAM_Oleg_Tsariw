@@ -1,5 +1,6 @@
 package services.CRUD_DB;
 
+import org.apache.log4j.Logger;
 import services.ConnectionBD.ConnectionBD;
 import services.Entity.Buses_Entity;
 import services.Entity.Route_Entity;
@@ -11,6 +12,7 @@ import java.util.List;
 public class BusParkCRUD {
     ConnectionBD connectionBD = new ConnectionBD();
     Connection connection = connectionBD.getConnection();
+    private final Logger logger = Logger.getRootLogger();
 
 
     public List<Buses_Entity> readBusPark() {
@@ -35,7 +37,8 @@ public class BusParkCRUD {
 
 
         } catch (SQLException e) {
-            System.out.println(e);
+            logger.error("SQLException in readBusPark block:"+e);
+
         } finally {
 
             try {
@@ -43,7 +46,8 @@ public class BusParkCRUD {
                     statement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in readBusPark block(close statement):"+e);
+
             }
 
             try {
@@ -51,7 +55,8 @@ public class BusParkCRUD {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in readBusPark block(close resultSet):"+e);
+
             }
         }
         return busParkEntityList;
@@ -86,7 +91,8 @@ public class BusParkCRUD {
             preparedStatement.execute();
 
         } catch (SQLException e) {
-            System.out.println(e);
+            logger.error("SQLException in createBus block:"+e);
+
         } finally {
 
             try {
@@ -94,7 +100,8 @@ public class BusParkCRUD {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in createBus block(close preparedStatement):"+e);
+
             }
 
             try {
@@ -102,7 +109,8 @@ public class BusParkCRUD {
                     statement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in createBus block(close statement):"+e);
+
             }
 
             try {
@@ -110,7 +118,8 @@ public class BusParkCRUD {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in createBus block(close resultSet):"+e);
+
             }
         }
 
@@ -129,14 +138,16 @@ public class BusParkCRUD {
             preparedStatement.execute();
 
         } catch (SQLException e) {
-            System.out.println(e);
+            logger.error("SQLException in deleteBus block:"+e);
+
         }finally {
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in deleteBus block(close preparedStatement):"+e);
+
             }
         }
 

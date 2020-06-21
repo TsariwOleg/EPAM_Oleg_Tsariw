@@ -218,12 +218,12 @@
                      <td>${positionOfPerson.position}</td>
                   </tr>
                   <tr>
-                     <td>Заробітна плата роб. :    </td>
+                     <td>Заробітна плата  :    </td>
                      <td>${positionOfPerson.salary}</td>
                   </tr>
                   <tr>
                      <td>
-                        <svg height="60" width="0" ></svg>
+                        <svg height="60" width="220" ></svg>
                      </td>
                   </tr>
                   <c:if test="${department.department eq 'Автомеханіки'}">

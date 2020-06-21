@@ -1,5 +1,6 @@
 package services;
 
+import org.apache.log4j.Logger;
 import services.CRUD_DB.SignInCRUD;
 import services.Entity.SignIn_Entity;
 
@@ -14,6 +15,7 @@ import java.util.List;
 
 public class BlobToString {
     private String stringBlob;
+    private final Logger logger = Logger.getRootLogger();
 
     public String getStringFromBlob(Blob blob) {
         InputStream inputStream = null;
@@ -29,14 +31,18 @@ public class BlobToString {
             }
             byte[] imageBytes = outputStream.toByteArray();
             stringBlob = Base64.getEncoder().encodeToString(imageBytes);
-        } catch (SQLException | IOException e) {
-            System.out.println("staff entity");
-        } finally {
+        } catch (SQLException e) {
+            logger.error("SQLException in converting blob to string "+e);
+        } catch (IOException e){
+            logger.error("IOException in converting blob to string "+e);
+
+        }
+        finally {
             try {
                 inputStream.close();
                 outputStream.close();
             } catch (IOException e) {
-                System.out.println("Stream exception");
+                logger.error("IOException.Stream close exception "+e);
             }
         }
         return stringBlob;
@@ -49,7 +55,7 @@ public class BlobToString {
             UTFString = new String(string.getBytes("ISO-8859-1"), "UTF-8");
 
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            logger.error("UnsupportedEncodingException "+e);
         }
 
         return UTFString;

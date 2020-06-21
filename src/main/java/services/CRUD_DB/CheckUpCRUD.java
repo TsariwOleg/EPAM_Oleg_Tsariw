@@ -1,5 +1,6 @@
 package services.CRUD_DB;
 
+import org.apache.log4j.Logger;
 import services.ConnectionBD.ConnectionBD;
 import services.Entity.CheckUp_Entity;
 import services.Entity.Staff_Entity;
@@ -14,6 +15,7 @@ public class CheckUpCRUD {
     ConnectionBD connectionBD = new ConnectionBD();
     Connection connection = connectionBD.getConnection();
     String formattedDate = "";
+    private final Logger logger = Logger.getRootLogger();
 
     public List<CheckUp_Entity> getCheckUp() {
         List<CheckUp_Entity> checkUpEntityList = new ArrayList<>();
@@ -61,14 +63,15 @@ public class CheckUpCRUD {
             }
 
         } catch (SQLException e) {
-            System.out.println(e);
+            logger.error("SQLException in getCheckUp block:"+e);
         } finally {
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getCheckUp block(close preparedStatement):"+e);
+
             }
         }
 
@@ -106,14 +109,16 @@ public class CheckUpCRUD {
             }
 
         } catch (SQLException e) {
-            System.out.println(e);
+            logger.error("SQLException in getCheckUp block:"+e);
+
         } finally {
             try {
                 if (statement != null) {
                     statement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getCheckUp block(close statement):"+e);
+
             }
 
             try {
@@ -121,7 +126,8 @@ public class CheckUpCRUD {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in deleteBus block(close resultSet):"+e);
+
             }
         }
         return checkUpEntity;
@@ -167,14 +173,16 @@ public class CheckUpCRUD {
 
 
         } catch (SQLException e) {
-            System.out.println(e);
+            logger.error("SQLException in createCheckUp block:"+e);
+
         }finally {
             try {
                 if (statement != null) {
                     statement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in createCheckUp block(close statement):"+e);
+
             }
 
             try {
@@ -182,7 +190,8 @@ public class CheckUpCRUD {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in createCheckUp block(close resultSet):"+e);
+
             }
         }
     }
@@ -196,14 +205,16 @@ public class CheckUpCRUD {
             preparedStatement.execute();
 
         } catch (SQLException e) {
-            System.out.println(e);
+            logger.error("SQLException in deleteCheckUp block:"+e);
+
         }finally {
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in deleteCheckUp block(close preparedStatement):"+e);
+
             }
 
 
@@ -240,14 +251,16 @@ public class CheckUpCRUD {
             preparedStatement.execute();
 
         } catch (SQLException e) {
-            System.out.println(e);
+            logger.error("SQLException in updateCheckUp block:"+e);
+
         }finally {
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in updateCheckUp block(close preparedStatement):"+e);
+
             }
 
 

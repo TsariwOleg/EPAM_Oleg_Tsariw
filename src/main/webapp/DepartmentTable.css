@@ -1,0 +1,124 @@
+
+.change #div_table{
+position:relative;
+top:140px;
+width:100%;
+z-index:1;
+}
+
+
+.change  #tableDep{
+  background: white;
+  border-radius:3px;
+  border-collapse: collapse;
+  margin: auto;
+  padding:5px;
+  width: 100%;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  animation: float 5s infinite;
+}
+
+
+
+
+.change  .table th {
+  color:#D5DDE5;
+  background:#1b1e24;
+  border-bottom:4px solid #9ea7af;
+  border-right: 1px solid #343a45;
+  font-size:19px;
+  font-weight: 100;
+  padding:20px;
+  text-align:left;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+
+}
+
+.change .table th:first-child {
+  border-top-left-radius:3px;
+}
+
+.change .table th:last-child {
+  border-top-right-radius:3px;
+  border-right:none;
+}
+
+.change .table tr {
+  border-top: 1px solid #C1C3D1;
+  border-bottom-: 1px solid #C1C3D1;
+  color:#666B85;
+  font-size:16px;
+  font-weight:normal;
+  text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+}
+
+.change .table tr:hover td {
+  background:#4E5066;
+  color:#FFFFFF;
+  border-top: 1px solid #22262e;
+}
+
+.change .table tr:first-child {
+  border-top:none;
+}
+
+.change .table tr:last-child {
+  border-bottom:none;
+}
+
+.change .table tr:nth-child(odd) td {
+  background:#EBEBEB;
+}
+
+.change .table tr:nth-child(odd):hover td {
+  background:#4E5066;
+}
+
+.change .table tr:last-child td:first-child {
+  border-bottom-left-radius:3px;
+}
+
+.change .table tr:last-child td:last-child {
+  border-bottom-right-radius:3px;
+}
+
+.change .table td {
+  background:#FFFFFF;
+  padding:17px;
+  text-align:left;
+  vertical-align:middle;
+  font-weight:300;
+  font-size:16px;
+  text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+  border-right: 1px solid #C1C3D1;
+}
+
+.change .table td:last-child {
+  border-right: 0px;
+}
+
+.change .table th.text-left {
+  text-align: left;
+}
+
+.change .table th.text-center {
+  text-align: center;
+}
+
+.change .table th.text-right {
+  text-align: right;
+}
+
+.change .table td.text-left {
+  text-align: left;
+}
+
+.change .table td.text-center {
+  text-align: center;
+}
+
+.change .table td.text-right {
+  text-align: right;
+}
+
+

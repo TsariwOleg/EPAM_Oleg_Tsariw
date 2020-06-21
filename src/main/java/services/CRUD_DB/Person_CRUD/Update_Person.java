@@ -1,5 +1,6 @@
 package services.CRUD_DB.Person_CRUD;
 
+import org.apache.log4j.Logger;
 import org.h2.jdbc.JdbcSQLException;
 import services.BlobToString;
 import services.ConnectionBD.ConnectionBD;
@@ -16,8 +17,9 @@ import java.util.Map;
 public class Update_Person   {
     ConnectionBD connectionBD = new ConnectionBD();
     Connection connection = connectionBD.getConnection();
+    private final Logger logger = Logger.getRootLogger();
 
-    //todo create one method for updating img
+
     public void updateStaffImg(int id, InputStream inputStream) {
         String sql = "update staff set photo= ? where id=" + id;
         PreparedStatement preparedStatement=null;
@@ -27,14 +29,14 @@ public class Update_Person   {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println(e);
+            logger.error("SQLException in updateStaffImg block:"+e);
         }finally {
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in updateStaffImg block(close statement):"+e);
             }
         }
     }
@@ -49,14 +51,14 @@ public class Update_Person   {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println(e);
+            logger.error("SQLException in updatePassportImg block:"+e);
         }finally {
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in updatePassportImg block(close statement):"+e);
             }
         }
     }
@@ -71,14 +73,14 @@ public class Update_Person   {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println(e);
+            logger.error("SQLException in updateTaxpayerCardImg block:"+e);
         }finally {
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in updateTaxpayerCardImg block(close statement):"+e);
             }
         }
     }
@@ -93,14 +95,14 @@ public class Update_Person   {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println(e);
+            logger.error("SQLException in updateBusDriverImg block:"+e);
         }finally {
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in updateBusDriverImg block(close statement):"+e);
             }
         }
     }
@@ -166,7 +168,6 @@ public class Update_Person   {
                     break;
             }
 
-            //todo
             preparedStatement = connection.prepareStatement("delete from administration where id=" + id);
             preparedStatement.executeUpdate();
 
@@ -180,7 +181,7 @@ public class Update_Person   {
                     preparedStatement = connection.prepareStatement("delete from  CAR_MECHANICS where id=" + id);
                     preparedStatement.executeUpdate();
                 }catch (JdbcSQLException e){
-                    System.out.println("Порушення обмеження референтної цілісності");
+                    logger.error("JdbcSQLException referential integrity violation in updateStaff block:"+e);
                 }
 
             }
@@ -195,14 +196,14 @@ public class Update_Person   {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println(e);
+            logger.error("SQLException in updateStaff block:"+e);
         }finally {
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in updateStaff block(close statement):"+e);
             }
         }
 
@@ -236,14 +237,14 @@ public class Update_Person   {
             preparedStatement.setInt(2,busId);
             preparedStatement.executeUpdate();
         }catch (SQLException e){
-            System.out.println(e);
+            logger.error("SQLException in updateBusDriver block:"+e);
         }finally {
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in updateBusDriver block(close statement):"+e);
             }
         }
 
@@ -269,14 +270,14 @@ public class Update_Person   {
             preparedStatement.setInt(5,passportEntity.getDocumentNo());
             preparedStatement.executeUpdate();
         }catch (SQLException  e){
-            System.out.println(e);
+            logger.error("SQLException in updatePassport block:"+e);
         }finally {
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in updatePassport block(close statement):"+e);
             }
         }
 
@@ -291,14 +292,14 @@ public class Update_Person   {
             preparedStatement.setInt(1,taxpayerCardEntity.getTaxpayerNumber());
             preparedStatement.executeUpdate();
         }catch (SQLException e){
-            System.out.println(e);
+            logger.error("SQLException in updateTaxpayerCard block:"+e);
         }finally {
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in updateTaxpayerCard block(close statement):"+e);
             }
         }
     }
@@ -314,21 +315,16 @@ public class Update_Person   {
             preparedStatement.setString(2,blobToString.getUTFString(medicalBookEntity.getDateOfNextMedicalExam()));
             preparedStatement.executeUpdate();
         }catch (SQLException e){
-            System.out.println(e);
+            logger.error("SQLException in updateMedicalBook block:"+e);
         }finally {
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in updateMedicalBook block(close statement):"+e);
             }
         }
-
     }
-
-
-
-
 
 }

@@ -1,5 +1,7 @@
 package services.servlets;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 import services.BlobToString;
 import services.CRUD_DB.ConstantTablesCRUD;
 import services.CRUD_DB.SignInCRUD;
@@ -18,13 +20,26 @@ public class ListOfUsers extends HttpServlet {
     SignInCRUD signInCRUD = new SignInCRUD();
     ConstantTablesCRUD constantTablesCRUD = new ConstantTablesCRUD();
     BlobToString blobToString = new BlobToString();
+    int idSession = -1;
+    private final Logger logger = Logger.getRootLogger();
+
+    @Override
+    public void init() {
+        BasicConfigurator.configure();
+    }
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<SignIn_Entity> signInEntityList = signInCRUD.getUsersOfSite("");
         if (req.getSession().getAttribute("departmentId") != null) {
             req.setAttribute("access", req.getSession().getAttribute("departmentId"));
+            idSession = (Integer) req.getSession().getAttribute("departmentId");
+
+        } else {
+            idSession = -1;
         }
+
 
         if (req.getParameter("regime") != null) {
 
@@ -32,23 +47,29 @@ public class ListOfUsers extends HttpServlet {
             if (req.getParameter("regime").equals("DeleteUser")) {
                 signInEntityList = signInCRUD.getUsersOfSite(" WHERE ATW.id<>0");
                 req.setAttribute("changeUser", req.getParameter("id"));
-                System.out.println(req.getParameter("id"));
+                logger.info("User want to delete person from list of users.User_id=" + idSession);
             }
 
-            if (req.getParameter("regime").equals("EditUser") && req.getParameter("id") != null) {
-                req.setAttribute("changeCheckUpId", req.getParameter("id"));
-                req.setAttribute("changedSignIn",
-                        signInCRUD.getOneSignIn(Integer.parseInt(req.getParameter("id"))));
-
+            if (req.getParameter("regime").equals("EditUser")) {
+                if (req.getParameter("id") != null) {
+                    req.setAttribute("changeCheckUpId", req.getParameter("id"));
+                    req.setAttribute("changedSignIn",
+                            signInCRUD.getOneSignIn(Integer.parseInt(req.getParameter("id"))));
+                    logger.info("User chose a person(person_id=" + req.getParameter("id") +
+                            ") in order to edit him.User_id=" + idSession);
+                } else {
+                    logger.info("User want to edit user of site.User_id=" + idSession);
+                }
             }
             if (req.getParameter("regime").equals("AddUser")) {
                 req.setAttribute("staff", constantTablesCRUD.readStaffForSignUp(signInEntityList));
+                logger.info("User want to add a new user of site.User_id=" + idSession);
             }
 
             req.setAttribute("regime", req.getParameter("regime"));
 
         } else {
-
+            logger.info("User opened ListOfUser page.User_id=" + idSession);
         }
 
         req.setAttribute("listOfUsers", signInEntityList);
@@ -64,15 +85,26 @@ public class ListOfUsers extends HttpServlet {
             signInEntity.setPassword(blobToString.getUTFString(req.getParameter("newPassword")));
             signInCRUD.createUsersOfSite(
                     constantTablesCRUD.readStaff("WHERE (DEPARTMENT_ID=1 or DEPARTMENT_ID=4)"), signInEntity);
+
+            logger.info("User added a new user of site: " +
+                    " \n  NSP:" + signInEntity.getNSP() +
+                    "\n  Login:" + signInEntity.getLogin() +
+                    "\n  Model:" + signInEntity.getPassword() +
+                    ".User_id=" + idSession);
         }
 
         if (req.getParameter("deleteUser") != null) {
+            logger.info("User deleted user of site(user_id=" + req.getParameter("id")
+                    + "). User_id=" + idSession);
+
             signInCRUD.deleteUserOfSite(Integer.parseInt(req.getParameter("id")));
             resp.sendRedirect("/listofusers");
             return;
         }
 
         if (req.getParameter("cancelDeletingUser") != null) {
+            logger.info("User canceled deleting/editing user. User_id=" + idSession);
+
             resp.sendRedirect("/listofusers");
             return;
         }
@@ -82,6 +114,12 @@ public class ListOfUsers extends HttpServlet {
             signInEntity.setLogin(blobToString.getUTFString(req.getParameter("newLogin")));
             signInEntity.setPassword(blobToString.getUTFString(req.getParameter("newPassword")));
             signInCRUD.updateSignId(Integer.parseInt(req.getParameter("id")), signInEntity);
+
+            logger.info("User edited  user of site: " +
+                    " \n  new NSP:" + signInEntity.getNSP() +
+                    "\n  new Login:" + signInEntity.getLogin() +
+                    "\n new Model:" + signInEntity.getPassword() +
+                    ".User_id=" + idSession);
             resp.sendRedirect("/listofusers");
             return;
         }

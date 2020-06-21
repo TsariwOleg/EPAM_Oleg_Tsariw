@@ -1,5 +1,6 @@
 package services.CRUD_DB;
 
+import org.apache.log4j.Logger;
 import services.ConnectionBD.ConnectionBD;
 import services.Entity.Buses_Entity;
 import services.Entity.Route_Entity;
@@ -11,6 +12,7 @@ import java.util.List;
 public class OneRouteCRUD {
     ConnectionBD connectionBD = new ConnectionBD();
     Connection connection = connectionBD.getConnection();
+    private final Logger logger = Logger.getRootLogger();
 
 
     public Route_Entity getRoute(int id) {
@@ -30,14 +32,16 @@ public class OneRouteCRUD {
             }
 
         } catch (SQLException e) {
-            System.out.println(e);
+            logger.error("SQLException in getRoute block:"+e);
+
         } finally {
             try {
                 if (statement != null) {
                     statement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getRoute block(close statement):"+e);
+
             }
 
             try {
@@ -45,7 +49,8 @@ public class OneRouteCRUD {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getRoute block(close resultSet):"+e);
+
             }
         }
 
@@ -69,14 +74,16 @@ public class OneRouteCRUD {
             }
 
         } catch (SQLException e) {
-            System.out.println(e);
+            logger.error("SQLException in getBuses block:"+e);
+
         } finally {
             try {
                 if (statement != null) {
                     statement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getBuses block(close statement):"+e);
+
             }
 
             try {
@@ -84,7 +91,8 @@ public class OneRouteCRUD {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in getBuses block(close resultSet):"+e);
+
             }
         }
 
@@ -103,14 +111,16 @@ public class OneRouteCRUD {
             preparedStatement.execute();
 
         } catch (SQLException e) {
-            System.out.println(e);
+            logger.error("SQLException in updateRoute block:"+e);
+
         } finally {
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in updateRoute block(close preparedStatement):"+e);
+
             }
 
         }
@@ -124,14 +134,16 @@ public class OneRouteCRUD {
             preparedStatement.execute();
 
         } catch (SQLException e) {
-            System.out.println(e);
+            logger.error("SQLException in deleteRoute block:"+e);
+
         } finally {
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                System.out.println(e);
+                logger.error("SQLException in deleteRoute block(close preparedStatement):"+e);
+
             }
 
 

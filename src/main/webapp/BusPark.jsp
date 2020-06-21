@@ -18,88 +18,87 @@
       </script>
    </head>
    <body>
-   <c:if test="${access eq '1' || access eq '0'}">
-      <form  method="post" action="/buspark">
-         <c:if test="${regime eq 'AddBus'}">
-            <div class="change">
-               <div class="modal-window">
-                  <div class="changeValues" align="center">
-                     <table >
-                        <tr>
-                           <td>Номер автобуса</td>
-                           <td><input type="text" name="newBusNo" required></td>
-                        </tr>
-                        <tr>
-                           <td>Модель</td>
-                           <td> <input type="text" name="newModel"  required></td>
-                        </tr>
-                        <tr>
-                           <td>Рік випуску</td>
-                           <td><input type="number" name="newYear"  required></td>
-                        </tr>
-                        <tr>
-                           <td>Маршрут</td>
-                           <td>
-                              <select name="newRoute"  required>
-                                 <option value="" selected disabled hidden>Виберіть маршрут</option>
-                                 <c:forEach items="${route}" var="route">
-                                    <option  >${route.route}</option>
-                                 </c:forEach>
-                              </select>
-                           </td>
-                        </tr>
-                     </table>
-                     <input type="submit" name="confirmBus" value="Підтвердити" >
-                     <input type="submit" value="Скасувати" onClick="removeRequired(this.form)">
-                  </div>
-               </div>
-            </div>
-         </c:if>
-      </form>
-      </c:if>
 
-
-   <c:if test="${access eq '1' || access eq '0'}">
-      <form  method="post"  onsubmit='redirect();return false;'>
-         <c:if test="${regime eq 'DeleteBus'}">
-            <c:choose>
-               <c:when test="${empty deleteBusId}">
-                  <div class="deleteField">
-                     <h1 >Видалення</h1>
-                  </div>
-               </c:when>
-               <c:otherwise>
-                  <div class="change">
-                     <div class="modal-window">
-                        <div class="changeValues" align="center">
-                           <h1>Ви дійсно хочете видалити цей автобус з бази?</h1>
-                           <input type="submit" value="Так" name="deleteBus">
-                           <input type="submit" value="Скасувати" name="cancelDeletingBus">
-                        </div>
+      <c:if test="${access eq '1' || access eq '0'}">
+         <form  method="post" action="/buspark">
+            <c:if test="${regime eq 'AddBus'}">
+               <div class="change">
+                  <div class="modal-window">
+                     <div class="changeValues" align="center">
+                        <table >
+                           <tr>
+                              <td>Номер автобуса</td>
+                              <td><input type="text" name="newBusNo" required></td>
+                           </tr>
+                           <tr>
+                              <td>Модель</td>
+                              <td> <input type="text" name="newModel"  required></td>
+                           </tr>
+                           <tr>
+                              <td>Рік випуску</td>
+                              <td><input type="number" name="newYear"  required></td>
+                           </tr>
+                           <tr>
+                              <td>Маршрут</td>
+                              <td>
+                                 <select name="newRoute"  required>
+                                    <option value="" selected disabled hidden>Виберіть маршрут</option>
+                                    <c:forEach items="${route}" var="route">
+                                       <option  >${route.route}</option>
+                                    </c:forEach>
+                                 </select>
+                              </td>
+                           </tr>
+                        </table>
+                        <input type="submit" name="confirmBus" value="Підтвердити" >
+                        <input type="submit" value="Скасувати" onClick="removeRequired(this.form)">
                      </div>
                   </div>
-               </c:otherwise>
-            </c:choose>
-         </c:if>
-      </form>
+               </div>
+            </c:if>
+         </form>
+      </c:if>
+
+      <c:if test="${access eq '1' || access eq '0'}">
+         <form  method="post"  onsubmit='redirect();return false;'>
+            <c:if test="${regime eq 'DeleteBus'}">
+               <c:choose>
+                  <c:when test="${empty deleteBusId}">
+                     <div class="deleteField">
+                        <h1 >Видалення</h1>
+                     </div>
+                  </c:when>
+                  <c:otherwise>
+                     <div class="change">
+                        <div class="modal-window">
+                           <div class="changeValues" align="center">
+                              <h1>Ви дійсно хочете видалити цей автобус з бази?</h1>
+                              <input type="submit" value="Так" name="deleteBus">
+                              <input type="submit" value="Скасувати" name="cancelDeletingBus">
+                           </div>
+                        </div>
+                     </div>
+                  </c:otherwise>
+               </c:choose>
+            </c:if>
+         </form>
       </c:if>
 
       <div class="Bar">
          <ul id="main-ul">
             <li class="men" id="one" onclick="location.href='/staff'">Персонал</li>
             <li class="men" id="two" onclick="location.href='/buspark'">Автопарк</li>
-           <li class="men" id="three" onclick="location.href='/department'">Відділення</li>
+            <li class="men" id="three" onclick="location.href='/department'">Відділення</li>
             <c:if test="${empty access}">
-                        <li class="men" id="four" onclick="location.href='/login'">Ввійти</li>
-                        </c:if>
-
-                        <c:if test="${not empty access}">
-                        <li class="men" id="four" onclick="location.href='/login?regime=logout'">Вийти</li>
-                        </c:if>
-
+               <li class="men" id="four" onclick="location.href='/login'">Ввійти</li>
+            </c:if>
+            <c:if test="${not empty access}">
+               <li class="men" id="four" onclick="location.href='/login?regime=logout'">Вийти</li>
+            </c:if>
             <hr id="hr_css">
          </ul>
       </div>
+
       <div id="div_table">
          <table class="table" id="table">
             <tr>
@@ -135,25 +134,23 @@
          </table>
       </div>
 
-
       <c:if test="${access eq '1' || access eq '0'}">
-      <div class="tooltip">
-         <c:choose>
-            <c:when test="${regime eq 'DeleteBus'}">
-               <img id="close" src="resources/close.png" width=35px onClick="location.href='/buspark'"/>
-            </c:when>
-            <c:otherwise>
-               <img class="wrench" src="resources/feature.png" width=35px/>
-               <div class="person create">
-                  <img  src="resources/edit.png" width=30px onclick="location.href='/buspark?regime=AddBus'">
-               </div>
-               <div class="person delete">
-                  <img src="resources/trash.png" width=30px onclick="location.href='/buspark?regime=DeleteBus'">
-               </div>
-            </c:otherwise>
-         </c:choose>
-      </div>
-            </c:if>
-
+         <div class="tooltip">
+            <c:choose>
+               <c:when test="${regime eq 'DeleteBus'}">
+                  <img id="close" src="resources/close.png" width=35px onClick="location.href='/buspark'"/>
+               </c:when>
+               <c:otherwise>
+                  <img class="wrench" src="resources/feature.png" width=35px/>
+                  <div class="person create">
+                     <img  src="resources/edit.png" width=30px onclick="location.href='/buspark?regime=AddBus'">
+                  </div>
+                  <div class="person delete">
+                     <img src="resources/trash.png" width=30px onclick="location.href='/buspark?regime=DeleteBus'">
+                  </div>
+               </c:otherwise>
+            </c:choose>
+         </div>
+      </c:if>
    </body>
 </html>

@@ -35,7 +35,7 @@ height:300px;
 
 
 
-.table{
+#information_about_person .table{
 margin-top:5%;
 margin-left:5%;
 float: left; /* Обтекание по правому краю */
