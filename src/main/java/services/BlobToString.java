@@ -39,8 +39,11 @@ public class BlobToString {
         }
         finally {
             try {
-                inputStream.close();
-                outputStream.close();
+                if (inputStream!=null){
+                inputStream.close();}
+
+                if (outputStream!=null){
+                outputStream.close();}
             } catch (IOException e) {
                 logger.error("IOException.Stream close exception "+e);
             }
@@ -76,7 +79,7 @@ public class BlobToString {
                 if (existingSignIn.getNSP()==null){
                     existingSignIn.setNSP("admin");
                     existingSignIn.setDepartment("admin");
-                    existingSignIn.setDepartmentId(0);
+                    existingSignIn.setId(0);
                 }
                 break;
             }

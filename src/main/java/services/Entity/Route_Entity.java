@@ -55,4 +55,16 @@ public class Route_Entity {
     public void setId(int id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "Route_Entity{" +
+                "id=" + id +
+                ", route='" + route + '\'' +
+                ", avarageProfit=" + avarageProfit +
+                ", avarageFuelConsuption=" + avarageFuelConsuption +
+                ", fullRoute='" + fullRoute + '\'' +
+                ", countOfBuses=" + countOfBuses +
+                '}';
+    }
 }

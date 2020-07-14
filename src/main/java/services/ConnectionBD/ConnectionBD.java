@@ -1,5 +1,7 @@
 package services.ConnectionBD;
 
+import org.apache.log4j.Logger;
+
 import java.sql.*;
 
 public class ConnectionBD {
@@ -7,6 +9,7 @@ public class ConnectionBD {
     private String Password ="";
     private String Driver ="org.h2.Driver";
     private String Login ="sa";
+    private final Logger logger = Logger.getRootLogger();
 
     public Connection getConnection(){
         Connection connection = null;
@@ -15,50 +18,13 @@ public class ConnectionBD {
             Class.forName(Driver);
             connection= DriverManager.getConnection(URL,Login,Password);
 
-        }catch (SQLException | ClassNotFoundException e) {
-
-/* TODO
-            * do log
-            * */
-
-            e.printStackTrace();
-            System.out.println("problem");
+        }catch (SQLException e) {
+            logger.error("Doesnt create connection.SQLException"+e);
+        }catch (ClassNotFoundException e){
+            logger.error("Doesnt find class.ClassNotFoundException"+e);
         }
 
        return connection;
-    }
-
-
-
-
-    public void closeSPrepareStatement(PreparedStatement preparedStatement, String className){
-        try {
-            preparedStatement.close();
-        }catch (SQLException e){
-            System.out.println(className);
-            System.out.println("Exeption con. slose");
-            System.out.println(e);
-        }
-    }
-
-    public void closeStatement(Statement statement, String className){
-        try {
-            statement.close();
-        }catch (SQLException e){
-            System.out.println(className);
-            System.out.println("Exeption con. slose");
-            System.out.println(e);
-        }
-    }
-
-    public void closeResultSet(ResultSet resultSet, String className){
-        try {
-            resultSet.close();
-        }catch (SQLException e){
-            System.out.println(className);
-            System.out.println("Exeption con. slose");
-            System.out.println(e);
-        }
     }
 
 }

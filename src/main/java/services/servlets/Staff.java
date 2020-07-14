@@ -4,7 +4,7 @@ import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import services.BlobToString;
 import services.CRUD_DB.ConstantTablesCRUD;
-import services.CRUD_DB.Staff_CRUD;
+import services.CRUD_DB.StaffCRUD;
 import services.Entity.Staff_Entity;
 
 import javax.servlet.ServletException;
@@ -20,7 +20,7 @@ import java.util.Map;
 
 @WebServlet("/staff")
 public class Staff extends HttpServlet {
-    Staff_CRUD staff_crud = new Staff_CRUD();
+    StaffCRUD staff_crud = new StaffCRUD();
     List<Staff_Entity> staffEntityList = new ArrayList<>();
     private Map mapConstantTable;
     ConstantTablesCRUD constantTablesCRUD = new ConstantTablesCRUD();
@@ -34,7 +34,7 @@ public class Staff extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         staffEntityList = staff_crud.getStaff();
 
         if (req.getSession().getAttribute("departmentId") != null) {
@@ -74,13 +74,9 @@ public class Staff extends HttpServlet {
         req.setAttribute("staff", staffEntityList);
 
 
-        try {
+
             req.getRequestDispatcher("/Staff.jsp").forward(req, resp);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
 
 
     }
@@ -104,11 +100,11 @@ public class Staff extends HttpServlet {
         if (req.getParameter("confirmPerson") != null) {
 
             BlobToString blobToString = new BlobToString();
-            Staff_Entity staffEntity = new Staff_Entity(blobToString.getUTFString(req.getParameter("newName")),
-                    blobToString.getUTFString(req.getParameter("newSurname")),
-                    blobToString.getUTFString(req.getParameter("newPatronymic")),
-                    Integer.parseInt(req.getParameter("newAge"))
-            );
+            Staff_Entity staffEntity = new Staff_Entity();
+            staffEntity.setName(blobToString.getUTFString(req.getParameter("newName")));
+            staffEntity.setSurname(blobToString.getUTFString(req.getParameter("newSurname")));
+            staffEntity.setPatronymic(blobToString.getUTFString(req.getParameter("newPatronymic")));
+            staffEntity.setAge(Integer.parseInt(req.getParameter("newAge")));
             staffEntity.setDepartment(blobToString.getUTFString(req.getParameter("newDepartment")));
             logger.info("User added a new person:" +
                     "\n Name:" + staffEntity.getName() +

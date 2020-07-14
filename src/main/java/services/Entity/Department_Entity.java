@@ -1,16 +1,16 @@
 package services.Entity;
 
 public class Department_Entity {
-    private int id;
+    private int departmentId;
     private String department;
 
 
-    public int getId() {
-        return id;
+    public int getDepartmentId() {
+        return departmentId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setDepartmentId(int departmentId) {
+        this.departmentId = departmentId;
     }
 
     public String getDepartment() {
@@ -24,7 +24,7 @@ public class Department_Entity {
     @Override
     public String toString() {
         return "Department_Entity{" +
-                "id=" + id +
+                "id=" + departmentId +
                 ", department='" + department + '\'' +
                 '}';
     }

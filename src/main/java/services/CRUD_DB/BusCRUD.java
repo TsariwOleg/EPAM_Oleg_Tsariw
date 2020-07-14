@@ -28,7 +28,6 @@ public class BusCRUD {
                 "WHERE BUS_ID = " + id;
         int routeId = 0;
         for (Route_Entity routeEntity : routeEntityList) {
-
             if (routeEntity.getRoute().equals(busesEntity.getRoute())) {
                 routeId = routeEntity.getId();
 
@@ -172,4 +171,8 @@ public class BusCRUD {
         return routeEntity;
     }
 
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
 }

@@ -15,8 +15,6 @@ import java.util.Map;
 public class PersonCRUD {
 
 
-//todo create dao  close connection
-
 
     public Map readPerson(int id) {
         Map<String, Object> map = new HashMap<>();
@@ -28,7 +26,6 @@ public class PersonCRUD {
         map.put("passport", read_person.getPassport(id));
         map.put("taxpayerCard", read_person.getTaxpayerCard(id));
         map.put("medicalBook", read_person.getMedicalBook(id));
-        map.put("getParametersOfDrivers", read_person.getParametersOfDrivers(id));
 
         if (("Водії").equals(((Department_Entity) map.get("department")).getDepartment())) {
             map.put("busDriver", read_person.getBusDriver(id));
@@ -56,7 +53,6 @@ public class PersonCRUD {
             update_person.updateTaxpayerCardImg(id, inputStream);
         }
 
-        //todo
         if (table.equals("driverLicense")) {
             update_person.updateBusDriverImg(id, inputStream);
         }

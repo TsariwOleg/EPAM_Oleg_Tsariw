@@ -1,5 +1,2 @@
-[INFO] DATE:2020-06-21 23:09:06,261 doPost - 
- Access to web is successful. User_id=0
-[INFO] DATE:2020-06-21 23:09:07,767 doPost - Log out from web is cancelling. User_id=0
-[INFO] DATE:2020-06-21 23:09:07,784 doGet - User open department page.User_id=0
-[INFO] DATE:2020-06-21 23:09:10,503 doGet - User open staff page.User_id=0
+[INFO] DATE:2020-07-12 22:22:30,196 doPost - Access to web is denied
+[INFO] DATE:2020-07-12 22:22:41,368 doPost - Access to web is denied

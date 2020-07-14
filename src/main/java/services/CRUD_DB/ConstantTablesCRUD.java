@@ -27,6 +27,13 @@ public class ConstantTablesCRUD {
         return map;
     }
 
+    public Map readConstantTableH() {
+        Map map = new HashMap();
+        map.put("bus", getWorkBus());
+        map.put("carmechanics", getCarMechanics());
+        return map;
+    }
+
 
     public List<Route_Entity> readRoute() {
         String sql = "SELECT ID,ROUTE FROM ROUTE";
@@ -66,14 +73,6 @@ public class ConstantTablesCRUD {
         return routeEntityList;
     }
 
-
-    public Map readConstantTableH() {
-        Map map = new HashMap();
-        map.put("bus", getWorkBus());
-        map.put("carmechanics", getCarMechanics());
-        return map;
-    }
-
     public List<Staff_Entity> readStaff(String department) {
         List<Staff_Entity> staffEntityList = new ArrayList<>();
         String sql = "SELECT * FROM STAFF " + department;
@@ -83,13 +82,14 @@ public class ConstantTablesCRUD {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
-                Staff_Entity staffEntity = new Staff_Entity(
-                        resultSet.getString("NAME"),
-                        resultSet.getString("SURNAME"),
-                        resultSet.getString("patronymic"),
-                        resultSet.getInt("AGE"));
+                Staff_Entity staffEntity = new Staff_Entity();
+                staffEntity.setName(resultSet.getString("NAME"));
+                staffEntity.setSurname(resultSet.getString("SURNAME"));
+                staffEntity.setPatronymic(resultSet.getString("PATRONYMIC"));
+                staffEntity.setAge(resultSet.getInt("AGE"));
                 staffEntity.setId(resultSet.getInt("ID"));
                 staffEntityList.add(staffEntity);
+
             }
         } catch (SQLException e) {
             logger.error("SQLException in readConstantTableH block:"+e);
@@ -113,11 +113,13 @@ public class ConstantTablesCRUD {
     }
 
 
+    //This method we use for getting users that arent registering on the website and belong to Administration and Doctors
     public List<Staff_Entity> readStaffForSignUp(List<SignIn_Entity> newSignInEntityList) {
         List<Staff_Entity> signInEntityList = readStaff("WHERE (DEPARTMENT_ID=1 or DEPARTMENT_ID=4)");
         List<Staff_Entity> newS = new ArrayList<>();
         List idNewSignIn = new ArrayList();
         List idSignIn = new ArrayList();
+
         for (Staff_Entity s1 : signInEntityList) {
             idSignIn.add(s1.getId());
         }
@@ -190,6 +192,7 @@ public class ConstantTablesCRUD {
             if (resultSet.next()) {
                 max = resultSet.getInt(1)+1;
             }
+
             preparedStatement=connection.prepareStatement(sql);
             preparedStatement.setInt(1,max);
             preparedStatement.setString(2,(String) startWorkHours);
@@ -371,14 +374,13 @@ public class ConstantTablesCRUD {
         String sql ="UPDATE BUS_DRIVERS SET POSITION_ID=NULL WHERE POSITION_ID="+id+
                 ";UPDATE ADMINISTRATION SET POSITION_ID=NULL WHERE POSITION_ID="+id+
                 ";UPDATE DOCTORS SET POSITION_ID=NULL WHERE POSITION_ID="+id+
-                ";UPDATE CAR_MECHANICS SET POSITION_ID=NULL WHERE POSITION_ID="+id+";";
+                ";UPDATE CAR_MECHANICS SET POSITION_ID=NULL WHERE POSITION_ID="+id+
+                ";DELETE FROM POSITION WHERE POSITION_ID="+id;
 
 
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement=connection.prepareStatement(sql);
-            preparedStatement.execute();
-            preparedStatement = connection.prepareStatement( "DELETE FROM POSITION WHERE POSITION_ID="+id);
             preparedStatement.execute();
 
         }catch (SQLException e){
@@ -435,7 +437,7 @@ public class ConstantTablesCRUD {
 
             while (resultSet.next()){
                 Department_Entity department_entity = new Department_Entity();
-                department_entity.setId(resultSet.getInt("id"));
+                department_entity.setDepartmentId(resultSet.getInt("id"));
                 department_entity.setDepartment(resultSet.getString("department"));
                 department_entityList.add(department_entity);
             }
@@ -506,9 +508,8 @@ public class ConstantTablesCRUD {
     }
 
 
-
-    public List<CarMechanics_Entity> getCarMechanics(){
-        List<CarMechanics_Entity> carMechanicsEntityList = new ArrayList<>();
+    public List<Staff_Entity> getCarMechanics(){
+        List<Staff_Entity> staffEntityList = new ArrayList<>();
         String sql = "SELECT S.ID,NAME,SURNAME,PATRONYMIC FROM CAR_MECHANICS cm INNER JOIN STAFF S ON (cm.ID = S.ID )";
         Statement statement = null;
         ResultSet resultSet = null;
@@ -516,14 +517,13 @@ public class ConstantTablesCRUD {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sql);
             while (resultSet.next()){
-                CarMechanics_Entity carMechanicsEntity = new CarMechanics_Entity();
-                carMechanicsEntity.setId(resultSet.getInt("id"));
-                String nsp="";
-                nsp+=resultSet.getString("NAME")+" ";
-                nsp+=resultSet.getString("SURNAME")+" ";
-                nsp+=resultSet.getString("PATRONYMIC");
-                carMechanicsEntity.setNSP(nsp);
-                carMechanicsEntityList.add(carMechanicsEntity);
+                Staff_Entity staffEntity = new Staff_Entity();
+                staffEntity.setId(resultSet.getInt("id"));
+                staffEntity.setName(resultSet.getString("NAME"));
+                staffEntity.setSurname(resultSet.getString("SURNAME"));
+                staffEntity.setPatronymic(resultSet.getString("PATRONYMIC"));
+
+                staffEntityList.add(staffEntity);
             }
 
 
@@ -546,6 +546,11 @@ public class ConstantTablesCRUD {
                 logger.error("SQLException in getCarMechanics block(close resultSet):"+e);
             }
         }
-        return carMechanicsEntityList;
+        return staffEntityList;
+    }
+
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
     }
 }

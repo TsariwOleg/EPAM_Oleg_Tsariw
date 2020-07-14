@@ -79,6 +79,7 @@ public class BusPark extends HttpServlet {
             logger.info("User deleted bus(bus=" + Integer.parseInt(req.getParameter("id"))
                     + "). User_id=" + idSession);
             busParkCRUD.deleteBus(Integer.parseInt(req.getParameter("id")));
+            System.out.println("dfsdf");
             resp.sendRedirect("/buspark");
             return;
         }

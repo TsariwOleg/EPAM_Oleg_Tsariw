@@ -106,6 +106,7 @@ public class CheckUp extends HttpServlet {
         req.setAttribute("checkUp", checkUpCRUD.getCheckUp());
         req.setAttribute("date",date);
         }
+
         req.getRequestDispatcher("/CheckUp.jsp").forward(req, resp);
     }
 

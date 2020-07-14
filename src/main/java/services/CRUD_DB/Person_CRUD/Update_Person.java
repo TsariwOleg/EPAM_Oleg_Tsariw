@@ -121,7 +121,7 @@ public class Update_Person   {
 
         for (Department_Entity departmentEntity : department_entityList) {
             if (departmentEntity.getDepartment().equals(staffEntity.getDepartment())) {
-                department_id = departmentEntity.getId();
+                department_id = departmentEntity.getDepartmentId();
             }
         }
 
@@ -216,7 +216,7 @@ public class Update_Person   {
         List<WorkHours_Entity> workHoursEntityList = (ArrayList)constantTables.get("workHours");
         int busId=0;
         int hoursId=0;
-        String workHours = busDriversEntity.getStartWorkHours()+"-"+busDriversEntity.getEndWorkHours();
+        String workHours = busDriversEntity.getStartWorkHour()+"-"+busDriversEntity.getEndWorkHour();
         for (Buses_Entity workBus:busDriversEntityList) {
             if (workBus.getBusNo().equals(busDriversEntity.getWorkBus())){
                 busId=workBus.getId();
@@ -327,4 +327,7 @@ public class Update_Person   {
         }
     }
 
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
 }

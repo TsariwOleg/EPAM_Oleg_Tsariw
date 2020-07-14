@@ -2,7 +2,6 @@ package services.Entity;
 
 import services.BlobToString;
 
-import java.io.InputStream;
 import java.sql.Blob;
 
 public class Passport_Entity {
@@ -13,7 +12,7 @@ public class Passport_Entity {
     private String cityOfBirth;
     private int documentNo;
     private String scannedPassport;
-    private InputStream inputStream;
+
 
 
     public Passport_Entity( String dateOfBirth, String countryOfBirth, String regionOfBirth, String cityOfBirth, int documentNo) {

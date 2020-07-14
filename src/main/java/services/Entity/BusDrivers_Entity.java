@@ -4,20 +4,13 @@ import services.BlobToString;
 
 import java.sql.Blob;
 
-public class BusDrivers_Entity {
+public class BusDrivers_Entity  extends WorkHours_Entity{
     private int id;
-    private String startWorkHours;
-    private String endWorkHours;
     private String workBus;
     private String driverLicense;
     private int idBus;
 
 
-    public BusDrivers_Entity(String startWorkHours, String endWorkHours, String workBus) {
-        this.startWorkHours = startWorkHours;
-        this.endWorkHours = endWorkHours;
-        this.workBus = workBus;
-    }
 
 
     public int getId() {
@@ -38,21 +31,6 @@ public class BusDrivers_Entity {
     }
 
     BlobToString blobToString = new BlobToString();
-    public String getStartWorkHours() {
-        return startWorkHours;
-    }
-
-    public void setStartWorkHours(String startWorkHours) {
-        this.startWorkHours = startWorkHours;
-    }
-
-    public String getEndWorkHours() {
-        return endWorkHours;
-    }
-
-    public void setEndWorkHours(String endWorkHours) {
-        this.endWorkHours = endWorkHours;
-    }
 
     public String getWorkBus() {
         return workBus;
@@ -67,15 +45,14 @@ public class BusDrivers_Entity {
     }
 
     public void setDriverLicense(Blob blob) {
-        this.driverLicense = blobToString.getStringFromBlob(blob);;
+        this.driverLicense = blobToString.getStringFromBlob(blob);
     }
 
 
     @Override
     public String toString() {
         return "BusDrivers_Entity{" +
-                "startWorkHours='" + startWorkHours + '\'' +
-                ", endWorkHours='" + endWorkHours + '\'' +
+                "id=" + id +
                 ", workBus='" + workBus + '\'' +
                 ", driverLicense='" + driverLicense + '\'' +
                 ", idBus=" + idBus +

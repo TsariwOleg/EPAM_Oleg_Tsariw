@@ -118,6 +118,7 @@ public class HistoryOfRepair extends HttpServlet {
 
             return;
         }
+
         if (req.getParameter("confirmHistory") != null) {
             BlobToString blobToString = new BlobToString();
             HistoryOfRepair_Entity historyOfRepairEntity = new HistoryOfRepair_Entity();

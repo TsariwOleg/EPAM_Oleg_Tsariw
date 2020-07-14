@@ -14,19 +14,11 @@ public class Staff_Entity {
     private String department;
     private String photo;
     private String position;
-    private int salary;
 
 
 
     BlobToString blobToString = new BlobToString();
 
-    public Staff_Entity(String name, String surname, String patronymic, int age/*, String department*/) {
-
-        this.name = name;
-        this.surname = surname;
-        this.patronymic = patronymic;
-        this.age = age;
-    }
 
     public String getPhoto() {
         return photo;
@@ -98,12 +90,9 @@ public class Staff_Entity {
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", patronymic='" + patronymic + '\'' +
-//                ", idDepartment=" + idDepartment +
                 ", age=" + age +
-//                ", department='" + department + '\'' +
                 ", photo='" + photo + '\'' +
                 ", position='" + position + '\'' +
-                ", salary=" + salary +
                 ", blobToString=" + blobToString +
                 '}';
     }

@@ -35,7 +35,10 @@ public class Bus extends HttpServlet {
             idSession = (Integer) req.getSession().getAttribute("departmentId");
 
             if (req.getParameter("regime") != null) {
+                System.out.println("sj");
+
                 if (req.getParameter("regime").equals("UpdateInfoBus")) {
+                    System.out.println("sj");
                     req.setAttribute("constRoute", constantTablesCRUD.readRoute());
                     logger.info("User want to update information about bus (bus_id="
                             + req.getParameter("id") + ").User_id=" + idSession);
@@ -74,9 +77,9 @@ public class Bus extends HttpServlet {
             busesEntity.setModel(blobToString.getUTFString(req.getParameter("newModel")));
             busesEntity.setYearOfIssue(Integer.parseInt(req.getParameter("newYearOfIssue")));
             busesEntity.setFuelConsumption(blobToString.getUTFString(req.getParameter("newFuelConsumption")));
-            System.out.println(blobToString.getUTFString(req.getParameter("newFuelConsumption")));
             busesEntity.setRoute(blobToString.getUTFString(req.getParameter("newRoute")));
 
+            System.out.println(busesEntity);
             logger.info("User updated information about bus(bus=" + req.getParameter("id") + "):" +
                     "\n New busNo:" + busesEntity.getBusNo() +
                     "\n New model of bus:" + busesEntity.getModel() +
@@ -88,5 +91,6 @@ public class Bus extends HttpServlet {
 
         }
         doGet(req, resp);
+
     }
 }

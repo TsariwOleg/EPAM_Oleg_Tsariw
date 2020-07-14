@@ -57,7 +57,7 @@
          <td><select name="newCarMechanics"  required>
          <option value="" selected disabled hidden>Виберіть механіка</option>
          <c:forEach items="${carmechanics}" var="carmechanics">
-         <option  >${carmechanics.NSP}</option>
+         <option  >${carmechanics.name} ${carmechanics.surname} ${carmechanics.patronymic}</option>
          </c:forEach>
          </select></td>
          </tr>

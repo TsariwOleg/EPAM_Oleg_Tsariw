@@ -414,11 +414,11 @@
                         <table class="table">
                            <tr>
                               <td>Початок роб. дня:</td>
-                              <td>${busDriver.startWorkHours}</td>
+                              <td>${busDriver.startWorkHour}</td>
                            </tr>
                            <tr>
                               <td>Кінець роб. дня:</td>
-                              <td>${busDriver.endWorkHours}</td>
+                              <td>${busDriver.endWorkHour}</td>
                            </tr>
                            <tr>
                               <td>Робочий автобус:</td>

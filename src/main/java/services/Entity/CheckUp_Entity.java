@@ -2,7 +2,6 @@ package services.Entity;
 
 public class CheckUp_Entity {
     private int id;
-    private int idPerson;
     private String NSP;//name surname patronymic
     private String pressure;
     private String ppm;//promile
@@ -10,14 +9,7 @@ public class CheckUp_Entity {
     private String note;
     private String doctorNSP;
     private int doctorId;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    private int idPerson;
 
     public int getIdPerson() {
         return idPerson;
@@ -25,6 +17,14 @@ public class CheckUp_Entity {
 
     public void setIdPerson(int idPerson) {
         this.idPerson = idPerson;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNSP() {
@@ -87,7 +87,6 @@ public class CheckUp_Entity {
     public String toString() {
         return "CheckUp_Entity{" +
                 "id=" + id +
-                ", idPerson=" + idPerson +
                 ", NSP='" + NSP + '\'' +
                 ", pressure='" + pressure + '\'' +
                 ", ppm='" + ppm + '\'' +

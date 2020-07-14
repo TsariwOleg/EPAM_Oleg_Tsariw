@@ -20,7 +20,6 @@ public class CheckUpCRUD {
     public List<CheckUp_Entity> getCheckUp() {
         List<CheckUp_Entity> checkUpEntityList = new ArrayList<>();
 
-
         String createTable = "CREATE TABLE IF NOT EXISTS CHECKUP_" + formattedDate + " (id int primary key," +
                 "pressure varchar(16)," +
                 "ppm varchar(10) ," +
@@ -174,7 +173,6 @@ public class CheckUpCRUD {
 
         } catch (SQLException e) {
             logger.error("SQLException in createCheckUp block:"+e);
-
         }finally {
             try {
                 if (statement != null) {
@@ -216,8 +214,6 @@ public class CheckUpCRUD {
                 logger.error("SQLException in deleteCheckUp block(close preparedStatement):"+e);
 
             }
-
-
         }
     }
 
@@ -241,6 +237,7 @@ public class CheckUpCRUD {
         }
         PreparedStatement preparedStatement = null;
         try {
+
              preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, checkUpEntity.getPressure());
             preparedStatement.setString(2, checkUpEntity.getPpm());
@@ -272,4 +269,7 @@ public class CheckUpCRUD {
         formattedDate = localDate.format(DateTimeFormatter.ofPattern("dd_MM_yyyy"));
     }
 
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
 }

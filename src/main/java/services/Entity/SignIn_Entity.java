@@ -1,12 +1,9 @@
 package services.Entity;
 
-public class SignIn_Entity {
-    //todo delete unneccesary variable
+public class SignIn_Entity extends Department_Entity{
     private int id;
     private String login;
     private String password;
-    private String department;
-    private int departmentId;
     private String NSP;
 
 
@@ -42,30 +39,12 @@ public class SignIn_Entity {
         this.password = password;
     }
 
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
-    public int getDepartmentId() {
-        return departmentId;
-    }
-
-    public void setDepartmentId(int departmentId) {
-        this.departmentId = departmentId;
-    }
-
     @Override
     public String toString() {
         return "SignIn_Entity{" +
                 "id=" + id +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
-                ", department='" + department + '\'' +
-                ", departmentId=" + departmentId +
                 ", NSP='" + NSP + '\'' +
                 '}';
     }

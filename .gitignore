@@ -1,5 +1,5 @@
 .idea/
+/logging
 EPAM_Oleg_Tsariw.iml
 target/
 *.txt
-.logging/

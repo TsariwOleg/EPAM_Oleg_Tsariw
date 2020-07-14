@@ -3,8 +3,8 @@ package services.CRUD_DB;
 import org.apache.log4j.Logger;
 import services.ConnectionBD.ConnectionBD;
 import services.Entity.Buses_Entity;
-import services.Entity.CarMechanics_Entity;
 import services.Entity.HistoryOfRepair_Entity;
+import services.Entity.Staff_Entity;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -19,24 +19,25 @@ public class HistoryOfRepairCRUD {
     public List<HistoryOfRepair_Entity> getHistory(int id, String target) {
         String sql = "";
         List<HistoryOfRepair_Entity> historyOfRepairList = new ArrayList<>();
+
         if (("bus").equals(target)) {
-            sql = "SELECT * FROM REPAIRED_BUS rb inner join BUS_PARK bp INNER JOIN STAFF on (rb.BUS_ID="+id+" AND  bp.BUS_ID="+id+")" +
+            sql = "SELECT * FROM REPAIRED_BUS rb inner join BUS_PARK bp INNER JOIN STAFF on (rb.BUS_ID=" + id + " AND  bp.BUS_ID=" + id + ")" +
                     " AND (rb.MECHANIC_ID =staff.id)";
         }
         if (("carMechanic").equals(target)) {
-            sql = "SELECT * FROM REPAIRED_BUS  inner join STAFF on (Mechanic_ID="+id+" AND id="+id+")"+
-            " INNER JOIN BUS_PARK on(REPAIRED_BUS.BUS_ID =BUS_PARK.BUS_ID )";
+            sql = "SELECT * FROM REPAIRED_BUS  inner join STAFF on (Mechanic_ID=" + id + " AND id=" + id + ")" +
+                    " INNER JOIN BUS_PARK on(REPAIRED_BUS.BUS_ID =BUS_PARK.BUS_ID )";
         }
-        if (("all").equals(target)){
-            sql="SELECT * FROM REPAIRED_BUS rb inner join BUS_PARK bp ON (rb.BUS_ID = bp.BUS_ID)"+
-            " inner join STAFF s ON (s.ID = rb.MECHANIC_ID )";
+        if (("all").equals(target)) {
+            sql = "SELECT * FROM REPAIRED_BUS rb inner join BUS_PARK bp ON (rb.BUS_ID = bp.BUS_ID)" +
+                    " inner join STAFF s ON (s.ID = rb.MECHANIC_ID )";
         }
 
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-             statement = connection.createStatement();
-             resultSet = statement.executeQuery(sql);
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
 
                 HistoryOfRepair_Entity historyOfRepairEntity = new HistoryOfRepair_Entity();
@@ -47,26 +48,26 @@ public class HistoryOfRepairCRUD {
                 historyOfRepairEntity.setBus_id(resultSet.getInt("BUS_ID"));
                 historyOfRepairEntity.setMechanic_id(resultSet.getInt("MECHANIC_ID"));
 
-                    historyOfRepairEntity.setBus(resultSet.getString("BUS"));
+                historyOfRepairEntity.setBus(resultSet.getString("BUS"));
 
 
-                    historyOfRepairEntity.setNSP(resultSet.getString("NAME")+" "+
-                            resultSet.getString("SURNAME")+" "+
-                            resultSet.getString("patronymic"));
+                historyOfRepairEntity.setNSP(resultSet.getString("NAME") + " " +
+                        resultSet.getString("SURNAME") + " " +
+                        resultSet.getString("patronymic"));
 
 
-            historyOfRepairList.add(historyOfRepairEntity);
+                historyOfRepairList.add(historyOfRepairEntity);
             }
         } catch (SQLException e) {
-            logger.error("SQLException in getCheckUp block:"+e);
+            logger.error("SQLException in getCheckUp block:" + e);
 
-        }finally {
+        } finally {
             try {
                 if (statement != null) {
                     statement.close();
                 }
             } catch (SQLException e) {
-                logger.error("SQLException in getHistory block(close statement):"+e);
+                logger.error("SQLException in getHistory block(close statement):" + e);
 
             }
 
@@ -75,7 +76,7 @@ public class HistoryOfRepairCRUD {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                logger.error("SQLException in getHistory block(close resultSet):"+e);
+                logger.error("SQLException in getHistory block(close resultSet):" + e);
 
             }
         }
@@ -84,61 +85,64 @@ public class HistoryOfRepairCRUD {
     }
 
 
-    public void createHistory(HistoryOfRepair_Entity historyOfRepairEntity, Map constantTable){
-        String sql="INSERT INTO REPAIRED_BUS VALUES (?,?,?,?,?,?)";
-        List<Buses_Entity> busesEntityList = (ArrayList)constantTable.get("bus");
-        List<CarMechanics_Entity> carMechanicsEntityList = (ArrayList)constantTable.get("carmechanics");
-        int busId=historyOfRepairEntity.getBus_id();
-        int carmechanicId=historyOfRepairEntity.getMechanic_id();
-        System.out.println(carmechanicId);
-        int repaireNo=1;
+    public void createHistory(HistoryOfRepair_Entity historyOfRepairEntity, Map constantTable) {
+        String sql = "INSERT INTO REPAIRED_BUS VALUES (?,?,?,?,?,?)";
+        List<Buses_Entity> busesEntityList = (ArrayList) constantTable.get("bus");
+        List<Staff_Entity> staffEntityList = (ArrayList) constantTable.get("carmechanics");
+        int busId = historyOfRepairEntity.getBus_id();
+        int carmechanicId = historyOfRepairEntity.getMechanic_id();
 
-        if (historyOfRepairEntity.getBus_id()==0){
-            for (Buses_Entity bus:busesEntityList) {
-                if (historyOfRepairEntity.getBus().equals(bus.getBusNo())){
-                    busId=bus.getId();
+        int repaireNo = 1;
+
+
+        if (historyOfRepairEntity.getBus_id() == 0) {
+            for (Buses_Entity bus : busesEntityList) {
+                if (historyOfRepairEntity.getBus().equals(bus.getBusNo())) {
+                    busId = bus.getId();
                 }
             }
         }
 
 
-
-        if (historyOfRepairEntity.getMechanic_id()==0){
-        for (CarMechanics_Entity carMechanics:carMechanicsEntityList) {
-            if (historyOfRepairEntity.getNSP().equals(carMechanics.getNSP())){
-                carmechanicId=carMechanics.getId();
+        if (historyOfRepairEntity.getMechanic_id() == 0) {
+            for (Staff_Entity staffEntity : staffEntityList) {
+                String NSP = staffEntity.getName() +
+                        " " + staffEntity.getSurname() +
+                        " " + staffEntity.getPatronymic();
+                if (historyOfRepairEntity.getNSP().equals(NSP)) {
+                    carmechanicId = staffEntity.getId();
+                }
             }
-        }
         }
 
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-             statement = connection.createStatement();
-             resultSet = statement.executeQuery("SELECT MAX(REPAIRENO) FROM REPAIRED_BUS");
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT MAX(REPAIRENO) FROM REPAIRED_BUS");
             if (resultSet.next()) {
                 repaireNo = resultSet.getInt(1) + 1;
             }
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1,repaireNo);
-            preparedStatement.setString(2,historyOfRepairEntity.getMalfunction());
-            preparedStatement.setInt(3,historyOfRepairEntity.getCostOfRepair());
-            preparedStatement.setString(4,historyOfRepairEntity.getNote());
-            preparedStatement.setInt(5,busId);
-            preparedStatement.setInt(6,carmechanicId);
+            preparedStatement.setInt(1, repaireNo);
+            preparedStatement.setString(2, historyOfRepairEntity.getMalfunction());
+            preparedStatement.setInt(3, historyOfRepairEntity.getCostOfRepair());
+            preparedStatement.setString(4, historyOfRepairEntity.getNote());
+            preparedStatement.setInt(5, busId);
+            preparedStatement.setInt(6, carmechanicId);
             preparedStatement.execute();
 
-        }catch (SQLException e){
-            logger.error("SQLException in createHistory block:"+e);
+        } catch (SQLException e) {
+            logger.error("SQLException in createHistory block:" + e);
 
-        }finally {
+        } finally {
             try {
                 if (statement != null) {
                     statement.close();
                 }
             } catch (SQLException e) {
-                logger.error("SQLException in createHistory block(close statement):"+e);
+                logger.error("SQLException in createHistory block(close statement):" + e);
 
             }
 
@@ -147,7 +151,7 @@ public class HistoryOfRepairCRUD {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                logger.error("SQLException in createHistory block(close resultSet):"+e);
+                logger.error("SQLException in createHistory block(close resultSet):" + e);
 
             }
         }
@@ -155,23 +159,22 @@ public class HistoryOfRepairCRUD {
     }
 
 
-
-    public void deleteHistory(int id){
-        String sql= "DELETE FROM REPAIRED_BUS WHERE REPAIRENO="+id;
+    public void deleteHistory(int id) {
+        String sql = "DELETE FROM REPAIRED_BUS WHERE REPAIRENO=" + id;
         PreparedStatement preparedStatement = null;
         try {
-             preparedStatement = connection.prepareStatement(sql);
+            preparedStatement = connection.prepareStatement(sql);
             preparedStatement.execute();
-        }catch (SQLException e){
-            logger.error("SQLException in deleteHistory block:"+e);
+        } catch (SQLException e) {
+            logger.error("SQLException in deleteHistory block:" + e);
 
-        }finally {
+        } finally {
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                logger.error("SQLException in deleteHistory block(close preparedStatement):"+e);
+                logger.error("SQLException in deleteHistory block(close preparedStatement):" + e);
 
             }
 
@@ -179,4 +182,7 @@ public class HistoryOfRepairCRUD {
 
     }
 
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
 }

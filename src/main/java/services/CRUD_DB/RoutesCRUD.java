@@ -27,7 +27,6 @@ public class RoutesCRUD {
                 routeEntity.setId(resultSet.getInt("ID"));
                 routeEntity.setRoute(resultSet.getString("ROUTE"));
                 routeEntity.setAvarageFuelConsuption(resultSet.getInt("AVARAGE_FUEL_CONSUPTION"));
-                //todo alter this column to varchar
                 routeEntity.setAvarageProfit(resultSet.getInt("AVARAGE_PROFIT"));
                 routeEntity.setCountOfBuses(resultSet.getInt("countOfDriver"));
                 routeEntityList.add(routeEntity);
@@ -120,5 +119,8 @@ public class RoutesCRUD {
     }
 
 
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
 }
 
