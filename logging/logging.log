@@ -1,2 +1,18 @@
-[INFO] DATE:2020-07-12 22:22:30,196 doPost - Access to web is denied
-[INFO] DATE:2020-07-12 22:22:41,368 doPost - Access to web is denied
+[INFO] DATE:2020-07-14 19:49:07,436 doPost - 
+ Access to web is successful. User_id=0
+[INFO] DATE:2020-07-14 19:49:07,473 doGet - User open department page.User_id=0
+[INFO] DATE:2020-07-14 19:49:12,228 doGet - User open staff page.User_id=0
+[INFO] DATE:2020-07-14 19:49:15,410 doGet - User want to add a new person to database.User_id=0
+[INFO] DATE:2020-07-14 19:49:26,795 doPost - User added a new person:
+ Name:sdf
+ Surname=sdf
+ Patronymic=sdf
+ Age=23
+ Department=Медперсонал.User_id=0
+[INFO] DATE:2020-07-14 19:49:26,818 doGet - User open staff page.User_id=0
+[INFO] DATE:2020-07-14 19:49:32,199 doGet - User open department page.User_id=0
+[INFO] DATE:2020-07-14 19:49:45,976 doGet - User open checkUp page on 2020-07-08 .User_id=0
+[INFO] DATE:2020-07-14 19:49:53,193 doPost - Log out from web is cancelling. User_id=0
+[INFO] DATE:2020-07-14 19:49:53,209 doGet - User open department page.User_id=0
+[INFO] DATE:2020-07-14 19:49:54,045 doGet - User open department page.User_id=0
+[INFO] DATE:2020-07-14 19:50:09,997 doPost - Log out from web. User=0
