@@ -133,9 +133,15 @@ public class BusParkCRUD {
              preparedStatement = connection.prepareStatement(sql);
             preparedStatement.execute();
 
+            sql = "delete from REPAIRED_BUS where bus_id=" + id;
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.execute();
+
             sql = "delete from BUS_PARK where bus_id=" + id;
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.execute();
+
+
 
         } catch (SQLException e) {
             logger.error("SQLException in deleteBus block:"+e);

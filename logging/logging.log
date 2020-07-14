@@ -16,3 +16,154 @@
 [INFO] DATE:2020-07-14 19:49:53,209 doGet - User open department page.User_id=0
 [INFO] DATE:2020-07-14 19:49:54,045 doGet - User open department page.User_id=0
 [INFO] DATE:2020-07-14 19:50:09,997 doPost - Log out from web. User=0
+[INFO] DATE:2020-07-14 20:58:23,573 doPost - User uploaded new scanned driver license of person(person_id=11).User_id=-1
+[INFO] DATE:2020-07-14 20:59:16,831 doGet - User open routes page.User_id=-1
+[INFO] DATE:2020-07-14 21:00:55,574 doPost - 
+ Access to web is successful. User_id=0
+[INFO] DATE:2020-07-14 21:00:55,586 doGet - User open department page.User_id=0
+[INFO] DATE:2020-07-14 21:01:03,308 doGet - User want to edit work hours.User_id=0
+[INFO] DATE:2020-07-14 21:01:07,658 doGet - User chose a work hours(workHours_id=4) in order to edit it.User_id=0
+[INFO] DATE:2020-07-14 21:01:09,508 doPost - User deleted work hours(WorkHours_id=4). User_id=0
+[INFO] DATE:2020-07-14 21:01:09,522 doGet - User open department page.User_id=0
+[INFO] DATE:2020-07-14 21:01:15,138 doGet - User opened ListOfUser page.User_id=0
+[INFO] DATE:2020-07-14 21:01:34,870 doGet - User open staff page.User_id=0
+[INFO] DATE:2020-07-14 21:01:39,139 doGet - User want to add a new person to database.User_id=0
+[INFO] DATE:2020-07-14 21:01:44,570 doGet - User open staff page.User_id=0
+[INFO] DATE:2020-07-14 21:01:46,759 doGet - User want to delete a person from database.User_id=0
+[INFO] DATE:2020-07-14 21:01:54,059 doGet - User chose a person(person_id=9) in order to delete him from database.User_id=0
+[INFO] DATE:2020-07-14 21:01:56,857 doPost - User deleted person(person_id=9). User_id=0
+[ERROR] DATE:2020-07-14 21:01:56,865 deletePerson - SQLException in deletePerson block:org.h2.jdbc.JdbcSQLException: Referential integrity constraint violation: "CONSTRAINT_9F7C: PUBLIC.REPAIRED_BUS FOREIGN KEY(MECHANIC_ID) REFERENCES PUBLIC.CAR_MECHANICS(ID) (9)"; SQL statement:
+DELETE FROM CAR_MECHANICS WHERE ID=9;DELETE FROM STAFF WHERE ID=9;UPDATE REPAIRED_BUS SET Mechanic_ID=null where Mechanic_ID=9 [23503-184]
+[INFO] DATE:2020-07-14 21:01:56,880 doGet - User open staff page.User_id=0
+[INFO] DATE:2020-07-14 21:02:00,027 doGet - User want to delete a person from database.User_id=0
+[INFO] DATE:2020-07-14 21:02:00,685 doGet - User chose a person(person_id=10) in order to delete him from database.User_id=0
+[INFO] DATE:2020-07-14 21:02:01,875 doPost - User deleted person(person_id=10). User_id=0
+[ERROR] DATE:2020-07-14 21:02:01,880 deletePerson - SQLException in deletePerson block:org.h2.jdbc.JdbcSQLException: Referential integrity constraint violation: "CONSTRAINT_9F7C: PUBLIC.REPAIRED_BUS FOREIGN KEY(MECHANIC_ID) REFERENCES PUBLIC.CAR_MECHANICS(ID) (10)"; SQL statement:
+DELETE FROM CAR_MECHANICS WHERE ID=10;DELETE FROM STAFF WHERE ID=10;UPDATE REPAIRED_BUS SET Mechanic_ID=null where Mechanic_ID=10 [23503-184]
+[INFO] DATE:2020-07-14 21:02:01,892 doGet - User open staff page.User_id=0
+[INFO] DATE:2020-07-14 21:02:03,973 doGet - User want to delete a person from database.User_id=0
+[INFO] DATE:2020-07-14 21:02:05,143 doGet - User chose a person(person_id=9) in order to delete him from database.User_id=0
+[INFO] DATE:2020-07-14 21:02:06,106 doPost - User deleted person(person_id=9). User_id=0
+[ERROR] DATE:2020-07-14 21:02:06,110 deletePerson - SQLException in deletePerson block:org.h2.jdbc.JdbcSQLException: Referential integrity constraint violation: "CONSTRAINT_9F7C: PUBLIC.REPAIRED_BUS FOREIGN KEY(MECHANIC_ID) REFERENCES PUBLIC.CAR_MECHANICS(ID) (9)"; SQL statement:
+DELETE FROM CAR_MECHANICS WHERE ID=9;DELETE FROM STAFF WHERE ID=9;UPDATE REPAIRED_BUS SET Mechanic_ID=null where Mechanic_ID=9 [23503-184]
+[INFO] DATE:2020-07-14 21:02:06,120 doGet - User open staff page.User_id=0
+[INFO] DATE:2020-07-14 21:02:10,877 doGet - User want to add a new person to database.User_id=0
+[INFO] DATE:2020-07-14 21:02:13,797 doGet - User open staff page.User_id=0
+[INFO] DATE:2020-07-14 21:02:15,140 doGet - User want to delete a person from database.User_id=0
+[INFO] DATE:2020-07-14 21:02:15,823 doGet - User chose a person(person_id=9) in order to delete him from database.User_id=0
+[INFO] DATE:2020-07-14 21:02:17,501 doPost - User deleted person(person_id=9). User_id=0
+[ERROR] DATE:2020-07-14 21:02:17,505 deletePerson - SQLException in deletePerson block:org.h2.jdbc.JdbcSQLException: Referential integrity constraint violation: "CONSTRAINT_9F7C: PUBLIC.REPAIRED_BUS FOREIGN KEY(MECHANIC_ID) REFERENCES PUBLIC.CAR_MECHANICS(ID) (9)"; SQL statement:
+DELETE FROM CAR_MECHANICS WHERE ID=9;DELETE FROM STAFF WHERE ID=9;UPDATE REPAIRED_BUS SET Mechanic_ID=null where Mechanic_ID=9 [23503-184]
+[INFO] DATE:2020-07-14 21:02:17,516 doGet - User open staff page.User_id=0
+[INFO] DATE:2020-07-14 21:03:29,962 doPost - 
+ Access to web is successful. User_id=0
+[INFO] DATE:2020-07-14 21:03:29,978 doGet - User open department page.User_id=0
+[INFO] DATE:2020-07-14 21:03:31,574 doGet - User open staff page.User_id=0
+[INFO] DATE:2020-07-14 21:03:33,647 doGet - User want to delete a person from database.User_id=0
+[INFO] DATE:2020-07-14 21:03:35,606 doGet - User chose a person(person_id=1) in order to delete him from database.User_id=0
+[INFO] DATE:2020-07-14 21:03:36,707 doPost - User deleted person(person_id=1). User_id=0
+[INFO] DATE:2020-07-14 21:03:36,736 doGet - User open staff page.User_id=0
+[INFO] DATE:2020-07-14 21:03:42,264 doGet - User want to delete a person from database.User_id=0
+[INFO] DATE:2020-07-14 21:03:47,536 doGet - User chose a person(person_id=11) in order to delete him from database.User_id=0
+[INFO] DATE:2020-07-14 21:03:48,531 doPost - User deleted person(person_id=11). User_id=0
+[INFO] DATE:2020-07-14 21:03:48,552 doGet - User open staff page.User_id=0
+[INFO] DATE:2020-07-14 21:03:50,640 doGet - User want to delete a person from database.User_id=0
+[INFO] DATE:2020-07-14 21:03:51,520 doGet - User chose a person(person_id=9) in order to delete him from database.User_id=0
+[INFO] DATE:2020-07-14 21:03:52,429 doPost - User deleted person(person_id=9). User_id=0
+[ERROR] DATE:2020-07-14 21:03:52,437 deletePerson - SQLException in deletePerson block:org.h2.jdbc.JdbcSQLException: Referential integrity constraint violation:
+ "CONSTRAINT_9F7C: PUBLIC.REPAIRED_BUS FOREIGN KEY(MECHANIC_ID) REFERENCES PUBLIC.CAR_MECHANICS(ID) (9)"; SQL statement:
+DELETE FROM CAR_MECHANICS WHERE ID=9;DELETE FROM STAFF WHERE ID=9;UPDATE REPAIRED_BUS SET Mechanic_ID=null where Mechanic_ID=9 [23503-184]
+[INFO] DATE:2020-07-14 21:03:52,446 doGet - User open staff page.User_id=0
+[INFO] DATE:2020-07-14 21:03:57,567 doGet - User open department page.User_id=0
+[ERROR] DATE:2020-07-14 21:03:57,569 getForDepartmentPage - ArithmeticException in getForDepartmentPage block:java.lang.ArithmeticException: / by zero
+[ERROR] DATE:2020-07-14 21:04:02,675 getForDepartmentPage - ArithmeticException in getForDepartmentPage block:java.lang.ArithmeticException: / by zero
+[INFO] DATE:2020-07-14 21:04:03,813 doGet - User open department page.User_id=0
+[ERROR] DATE:2020-07-14 21:04:03,814 getForDepartmentPage - ArithmeticException in getForDepartmentPage block:java.lang.ArithmeticException: / by zero
+[INFO] DATE:2020-07-14 21:04:05,982 doGet - User want to edit position.User_id=0
+[ERROR] DATE:2020-07-14 21:04:05,985 getForDepartmentPage - ArithmeticException in getForDepartmentPage block:java.lang.ArithmeticException: / by zero
+[INFO] DATE:2020-07-14 21:04:19,507 doGet - User open staff page.User_id=0
+[INFO] DATE:2020-07-14 21:04:21,474 doGet - User open person page(person_id=12).User_id=0
+[INFO] DATE:2020-07-14 21:04:23,738 doGet - User want to UpdateInfoAboutPers(person_id=12).User_id=0
+[INFO] DATE:2020-07-14 21:04:27,322 doPost - User updated information about person(person_id=12):
+ New name:dsf
+ New surname:fsd
+ New patronymic:sdf
+ New age:23
+ New department:Водії
+ New position:asd.User_id=0
+[INFO] DATE:2020-07-14 21:04:27,341 doGet - User open person page(person_id=12).User_id=0
+[INFO] DATE:2020-07-14 21:04:30,576 doGet - User want to UpdateInfoOther(person_id=12).User_id=0
+[INFO] DATE:2020-07-14 21:04:34,563 doGet - User open person page(person_id=12).User_id=0
+[INFO] DATE:2020-07-14 21:04:35,470 doGet - User open department page.User_id=0
+[INFO] DATE:2020-07-14 21:04:38,408 doGet - User open department page.User_id=0
+[INFO] DATE:2020-07-14 21:04:40,239 doGet - User want to edit work hours.User_id=0
+[INFO] DATE:2020-07-14 21:04:47,868 doGet - User open staff page.User_id=0
+[INFO] DATE:2020-07-14 21:16:14,460 doPost - 
+ Access to web is successful. User_id=0
+[INFO] DATE:2020-07-14 21:16:14,478 doGet - User open department page.User_id=0
+[INFO] DATE:2020-07-14 21:16:16,299 doGet - User open staff page.User_id=0
+[INFO] DATE:2020-07-14 21:16:17,034 doGet - User open department page.User_id=0
+[INFO] DATE:2020-07-14 21:16:21,513 doGet - User opened history of repair page.User_id=0
+[INFO] DATE:2020-07-14 21:16:30,168 doGet - User open staff page.User_id=0
+[INFO] DATE:2020-07-14 21:16:34,508 doGet - User want to delete a person from database.User_id=0
+[INFO] DATE:2020-07-14 21:16:35,587 doGet - User chose a person(person_id=9) in order to delete him from database.User_id=0
+[INFO] DATE:2020-07-14 21:16:36,784 doPost - User deleted person(person_id=9). User_id=0
+[ERROR] DATE:2020-07-14 21:16:36,822 deletePerson - SQLException in deletePerson block:org.h2.jdbc.JdbcSQLException: Column "ID" not found; SQL statement:
+UPDATE REPAIRED_BUS SET MECHANIC_ID=NULL WHERE ID=9;DELETE FROM CAR_MECHANICS WHERE ID=9;DELETE FROM STAFF WHERE ID=9;UPDATE REPAIRED_BUS SET Mechanic_ID=null where Mechanic_ID=9 [42122-184]
+[INFO] DATE:2020-07-14 21:16:36,836 doGet - User open staff page.User_id=0
+[INFO] DATE:2020-07-14 21:17:57,685 doPost - 
+ Access to web is successful. User_id=0
+[INFO] DATE:2020-07-14 21:17:57,713 doGet - User open department page.User_id=0
+[INFO] DATE:2020-07-14 21:17:59,524 doGet - User open staff page.User_id=0
+[INFO] DATE:2020-07-14 21:18:02,249 doGet - User want to delete a person from database.User_id=0
+[INFO] DATE:2020-07-14 21:18:02,976 doGet - User chose a person(person_id=9) in order to delete him from database.User_id=0
+[INFO] DATE:2020-07-14 21:18:04,188 doPost - User deleted person(person_id=9). User_id=0
+[INFO] DATE:2020-07-14 21:18:04,213 doGet - User open staff page.User_id=0
+[INFO] DATE:2020-07-14 21:18:07,529 doGet - User open department page.User_id=0
+[INFO] DATE:2020-07-14 21:18:09,534 doGet - User opened history of repair page.User_id=0
+[INFO] DATE:2020-07-14 21:18:58,115 doGet - User want to delete a bus from database.User_id=-1
+[INFO] DATE:2020-07-14 21:18:59,442 doGet - User chose a bus(bus_id=3) in order to delete it from database.User_id=-1
+[INFO] DATE:2020-07-14 21:19:00,656 doPost - User deleted bus(bus=3). User_id=-1
+[ERROR] DATE:2020-07-14 21:19:00,662 deleteBus - SQLException in deleteBus block:org.h2.jdbc.JdbcSQLException: Referential integrity constraint violation: "CONSTRAINT_9F7: PUBLIC.REPAIRED_BUS FOREIGN KEY(BUS_ID) REFERENCES PUBLIC.BUS_PARK(BUS_ID) (3)"; SQL statement:
+delete from BUS_PARK where bus_id=3 [23503-184]
+[INFO] DATE:2020-07-14 21:19:24,240 doGet - User want to delete a bus from database.User_id=-1
+[INFO] DATE:2020-07-14 21:19:25,001 doGet - User chose a bus(bus_id=4) in order to delete it from database.User_id=-1
+[INFO] DATE:2020-07-14 21:19:25,891 doPost - User deleted bus(bus=4). User_id=-1
+[INFO] DATE:2020-07-14 21:28:38,093 doPost - 
+ Access to web is successful. User_id=0
+[INFO] DATE:2020-07-14 21:28:38,108 doGet - User open department page.User_id=0
+[INFO] DATE:2020-07-14 21:28:52,818 doGet - User opened history of repair page.User_id=0
+[INFO] DATE:2020-07-14 21:29:07,823 doGet - User want to delete a bus from database.User_id=-1
+[INFO] DATE:2020-07-14 21:29:08,767 doGet - User chose a bus(bus_id=3) in order to delete it from database.User_id=-1
+[INFO] DATE:2020-07-14 21:29:09,842 doPost - User deleted bus(bus=3). User_id=-1
+[ERROR] DATE:2020-07-14 21:29:09,854 deleteBus - SQLException in deleteBus block:org.h2.jdbc.JdbcSQLException: Referential integrity constraint violation: "CONSTRAINT_9F7: PUBLIC.REPAIRED_BUS FOREIGN KEY(BUS_ID) REFERENCES PUBLIC.BUS_PARK(BUS_ID) (3)"; SQL statement:
+delete from BUS_PARK where bus_id=3 [23503-184]
+[INFO] DATE:2020-07-14 21:29:29,342 doGet - User open department page.User_id=0
+[INFO] DATE:2020-07-14 21:29:32,177 doGet - User opened history of repair page.User_id=0
+[INFO] DATE:2020-07-14 21:41:06,470 doPost - 
+ Access to web is successful. User_id=0
+[INFO] DATE:2020-07-14 21:41:06,491 doGet - User open department page.User_id=0
+[INFO] DATE:2020-07-14 21:41:13,207 doGet - User want to delete a bus from database.User_id=-1
+[INFO] DATE:2020-07-14 21:41:14,473 doGet - User chose a bus(bus_id=3) in order to delete it from database.User_id=-1
+[INFO] DATE:2020-07-14 21:41:15,888 doPost - User deleted bus(bus=3). User_id=-1
+[INFO] DATE:2020-07-14 21:41:20,989 doGet - User open department page.User_id=0
+[INFO] DATE:2020-07-14 21:41:24,485 doGet - User opened history of repair page.User_id=0
+[INFO] DATE:2020-07-14 21:41:28,866 doGet - User open bus page(bus_id=5).User_id=0
+[INFO] DATE:2020-07-14 21:41:31,974 doGet - User opened history of repair page.Target=bus.Target_id=5User_id=0
+[INFO] DATE:2020-07-14 21:41:34,062 doGet - User want to add a new history of repair to database.User_id=0
+[INFO] DATE:2020-07-14 21:41:39,253 doPost - User added a new history of repair:
+ Bus_id=5
+ NSP=fd fwe fsd
+ Cost of repair:32
+ Note=sfdsdf
+ Malfunction=xzc.User_id=0
+[INFO] DATE:2020-07-14 21:41:39,260 doGet - User opened history of repair page.Target=bus.Target_id=5User_id=0
+[INFO] DATE:2020-07-14 21:41:53,910 doGet - User open staff page.User_id=0
+[INFO] DATE:2020-07-14 21:41:57,232 doGet - User want to delete a person from database.User_id=0
+[INFO] DATE:2020-07-14 21:41:58,240 doGet - User chose a person(person_id=10) in order to delete him from database.User_id=0
+[INFO] DATE:2020-07-14 21:41:59,995 doPost - User deleted person(person_id=10). User_id=0
+[INFO] DATE:2020-07-14 21:42:00,028 doGet - User open staff page.User_id=0
+[INFO] services.servlets.Login DATE:2020-07-14 21:45:41,787 doPost - 
+ Access to web is successful. User_id=0
+[INFO] services.servlets.Department DATE:2020-07-14 21:45:41,804 doGet - User open department page.User_id=0
+[ERROR] services.CRUD_DB.DepartmentCRUD DATE:2020-07-14 21:45:41,816 getForDepartmentPage - ArithmeticException in getForDepartmentPage block:java.lang.ArithmeticException: / by zero

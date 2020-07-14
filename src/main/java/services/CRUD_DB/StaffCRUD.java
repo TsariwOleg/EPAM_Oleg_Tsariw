@@ -148,6 +148,7 @@ public class StaffCRUD {
                 "DELETE FROM DOCTORS WHERE ID=" + id + ";" +
                 "DELETE FROM BUS_DRIVERS WHERE ID=" + id + ";" +
                 "DELETE FROM ACCESS_TO_WEB WHERE ID=" + id + ";" +
+                "UPDATE REPAIRED_BUS SET MECHANIC_ID=NULL WHERE MECHANIC_ID=" + id + ";" +
                 "DELETE FROM CAR_MECHANICS WHERE ID=" + id + ";" +
                 "DELETE FROM STAFF WHERE ID=" + id + ";" +
                 "UPDATE REPAIRED_BUS SET Mechanic_ID=null where Mechanic_ID=" + id;

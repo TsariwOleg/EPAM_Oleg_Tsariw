@@ -30,7 +30,7 @@ public class HistoryOfRepairCRUD {
         }
         if (("all").equals(target)) {
             sql = "SELECT * FROM REPAIRED_BUS rb inner join BUS_PARK bp ON (rb.BUS_ID = bp.BUS_ID)" +
-                    " inner join STAFF s ON (s.ID = rb.MECHANIC_ID )";
+                    " left join STAFF s ON (s.ID = rb.MECHANIC_ID )";
         }
 
         Statement statement = null;
@@ -55,6 +55,9 @@ public class HistoryOfRepairCRUD {
                         resultSet.getString("SURNAME") + " " +
                         resultSet.getString("patronymic"));
 
+                if (historyOfRepairEntity.getNSP().equals("null null null")){
+                    historyOfRepairEntity.setNSP("Пусто");
+                }
 
                 historyOfRepairList.add(historyOfRepairEntity);
             }

@@ -94,6 +94,8 @@ public class HistoryOfRepair extends HttpServlet {
         }
 
         req.setAttribute("history", historyOfRepairEntityList);
+
+
         req.getRequestDispatcher("/HistoryOfRepair.jsp").forward(req, resp);
     }
 
